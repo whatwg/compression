@@ -1,62 +1,23 @@
 <pre class="metadata">
-Title: WebTransport
-Shortname: webtransport
+Title: Compression Streams
+Shortname: compression
 Level: none
-Status: w3c/CG-DRAFT
+Status: draft
 Group: wicg
-ED: https://wicg.github.io/web-transport/
-Editor: Peter Thatcher, Google
-Editor: Bernard Aboba, Microsoft Corporation
-Editor: Robin Raymond, Optical Tone Ltd.
+ED: https://wicg.github.io/compression-streams/
+Editor: Canon Mukai, Google
+Editor: Adam Rice, Google
 Abstract:
+  TODO: Replace this text.
   This document defines a set of ECMAScript APIs in WebIDL to allow data to be
   sent and received between a browser and server, implementing pluggable
   protocols underneath with common APIs on top. APIs specific to QUIC are also
   provided. This specification is being developed in conjunction with a
   protocol specification developed by the IETF QUIC Working Group.
-Repository: wicg/web-transport
+Repository: ricea/compression-streams
 Indent: 2
 Markup Shorthands: markdown yes
 Boilerplate: omit conformance
-</pre>
-<pre class="biblio">
-{
-  "quic-transport": {
-    "authors": ["Jana Iyengar", "Martin Thomson"],
-    "href": "https://quicwg.org/base-drafts/draft-ietf-quic-transport.html",
-    "title": "QUIC: A UDP-Based Multiplexed and Secure Transport",
-    "status": "Internet-Draft",
-    "publisher": "IETF"
-  },
-  "quic-datagram": {
-    "authors": ["Tommy Pauly", "Eric Kinnear", "David Schinazi"],
-    "href": "https://tools.ietf.org/html/draft-pauly-quic-datagram",
-    "title": "An Unreliable Datagram Extension to QUIC",
-    "status": "Internet-Draft",
-    "publisher": "IETF"
-  },
-  "web-transport-overview": {
-    "authors": ["Victor Vasiliev"],
-    "href": "https://tools.ietf.org/html/draft-vvv-webtransport-overview",
-    "title": "WebTransport Protocol Framework",
-    "status": "Internet-Draft",
-    "publisher": "IETF"
-  },
-  "web-transport-quic": {
-    "authors": ["Victor Vasiliev"],
-    "href": "https://tools.ietf.org/html/draft-vvv-webtransport-quic",
-    "title": "WebTransport over QUIC",
-    "status": "Internet-Draft",
-    "publisher": "IETF"
-  },
-  "web-transport-http3": {
-    "authors": ["Victor Vasiliev"],
-    "href": "https://tools.ietf.org/html/draft-vvv-webtransport-http3",
-    "title": "WebTransport over HTTP/3",
-    "status": "Internet-Draft",
-    "publisher": "IETF"
-  }
-}
 </pre>
 <pre class="link-defaults">
 spec:streams; type:interface; text:ReadableStream
@@ -74,6 +35,8 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 </pre>
 
 # Introduction #    {#introduction}
+
+TODO: Change this and all following text
 
 *This section is non-normative.*
 

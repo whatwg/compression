@@ -1461,7 +1461,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2019-09-24">24 September 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2019-09-25">25 September 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1480,9 +1480,9 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This document defines a set of JavaScript APIs to compress and decompress a
+   <p>This document defines a set of JavaScript APIs to compress and decompress
 
-  stream. The APIs makes it easier to handle streams of Uint8Array for developpers.</p>
+  a stream.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
@@ -1507,16 +1507,8 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
      <ol class="toc">
       <li><a href="#outgoing-stream-attributes"><span class="secno">4.1</span> <span class="content">Attributes</span></a>
      </ol>
-    <li>
-     <a href="#compression-stream"><span class="secno">5</span> <span class="content">Interface <code>CompressionStream</code></span></a>
-     <ol class="toc">
-      <li><a href="#compression-stream-attributes"><span class="secno">5.1</span> <span class="content">Attributes</span></a>
-     </ol>
-    <li>
-     <a href="#decompression-stream"><span class="secno">6</span> <span class="content">Interface <code>DecompressionStream</code></span></a>
-     <ol class="toc">
-      <li><a href="#decompression-stream-attributes"><span class="secno">6.1</span> <span class="content">Attributes</span></a>
-     </ol>
+    <li><a href="#compression-stream"><span class="secno">5</span> <span class="content">Interface <code>CompressionStream</code></span></a>
+    <li><a href="#decompression-stream"><span class="secno">6</span> <span class="content">Interface <code>DecompressionStream</code></span></a>
     <li><a href="#privacy-security"><span class="secno">7</span> <span class="content">Privacy and Security Considerations</span></a>
     <li>
      <a href="#examples"><span class="secno">8</span> <span class="content">Examples</span></a>
@@ -1543,7 +1535,7 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
    <p><em>This section is non-normative.</em></p>
-   <p>This specificatin is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are standards among web developpers. If there is a wish to use other algorithm, it is possible to add it to the API.</p>
+   <p>The APIs specified in this specification is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are widely used in web developpers.</p>
    <h2 class="heading settled" data-level="2" id="conformance"><span class="secno">2. </span><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
    <p>As well as sections marked as non-normative, all authoring guidelines,
 diagrams, examples, and notes in this specification are non-normative.
@@ -1560,9 +1552,9 @@ specification MUST implement them in a manner consistent with the ECMAScript
 Bindings defined in the Web IDL specification <a data-link-type="biblio" href="#biblio-webidl-1">[WEBIDL-1]</a>, as this
 specification uses that specification and terminology.</p>
    <h2 class="heading settled" data-level="3" id="terminology"><span class="secno">3. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
-   <p>A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the data is Uint8Array.</p>
+   <p>A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the chunk type is Uint8Array.</p>
    <p>A stream represents an ordered sequence of chunks. The terms <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class">ReadableStream</a></code> and <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class">WritableStream</a></code> are defined in <a data-link-type="biblio" href="#biblio-whatwg-streams">[WHATWG-STREAMS]</a>.</p>
-   <p>Deflate is a format of compression. Gzip is a format of compression, too, and based on deflate algorithm. Both deflate and gzip are defined in zlib.</p>
+   <p>Deflate is a compression format. Gzip is another compressoin format, also based on the deflate algorithm. Both deflate and gzip are defined in zlib.</p>
    <h2 class="heading settled" data-level="4" id="generic-transform-stream"><span class="secno">4. </span><span class="content">Interface Mixin <code>GenericTransformStream</code></span><a class="self-link" href="#generic-transform-stream"></a></h2>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="generictransformstream"><code>GenericTransformStream</code></dfn> interface mixin represents the comcept of a transform stream in IDL. It is not a TransformStream, though it has the same interface and it delegates to one.</p>
 <pre class="idl highlight def"><c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="#generictransformstream" id="ref-for-generictransformstream"><c- g>GenericTransformStream</c-></a> {
@@ -1582,183 +1574,93 @@ specification uses that specification and terminology.</p>
    </dl>
    <h2 class="heading settled" data-level="5" id="compression-stream"><span class="secno">5. </span><span class="content">Interface <code>CompressionStream</code></span><a class="self-link" href="#compression-stream"></a></h2>
    <p>A collection of common attributes and methods of all streams.</p>
-<pre class="idl highlight def">[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->),
-  <dfn class="idl-code" data-dfn-for="CompressionStream" data-dfn-type="constructor" data-export data-lt="CompressionStream(format)" id="dom-compressionstream-compressionstream"><code><c- g>Constructor</c-></code><a class="self-link" href="#dom-compressionstream-compressionstream"></a></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CompressionStream/CompressionStream(format)" data-dfn-type="argument" data-export id="dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-compressionstream-compressionstream-format-format"></a></dfn>),
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>ConstructorCallWith</c-></a>=<a class="n" data-link-type="idl-name"><c- n>ScriptState</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RaisesException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>Constructor</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RuntimeException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>CompressionStreams</c-></a> ]
-<c- b>interface</c-> <dfn class="idl-code" data-dfn-type="interface" data-export id="compressionstream"><code><c- g>CompressionStream</c-></code><a class="self-link" href="#compressionstream"></a></dfn> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class③"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-compressionstream-readable" id="ref-for-dom-compressionstream-readable"><c- g>readable</c-></a>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class③"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-compressionstream-writable" id="ref-for-dom-compressionstream-writable"><c- g>writable</c-></a>;
+<pre class="idl highlight def">[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="compressionstream"><code><c- g>CompressionStream</c-></code></dfn> {
+  
 };
+<a class="n" data-link-type="idl-name" href="#compressionstream" id="ref-for-compressionstream"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a class="n" data-link-type="idl-name" href="#generictransformstream" id="ref-for-generictransformstream①"><c- n>GenericTransformStream</c-></a>;
 </pre>
-   <h3 class="heading settled" data-level="5.1" id="compression-stream-attributes"><span class="secno">5.1. </span><span class="content">Attributes</span><a class="self-link" href="#compression-stream-attributes"></a></h3>
-   <dl>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CompressionStream" data-dfn-type="attribute" data-export id="dom-compressionstream-readable"><code>readable</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class④">ReadableStream</a>, readonly</span>
-    <dd data-md>
-     <p>The <code>readable</code> attribute’s getter, when invoked, must return this object’s transform <code class="idl"><a data-link-type="idl">[[readable]]</a></code>.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CompressionStream" data-dfn-type="attribute" data-export id="dom-compressionstream-writable"><code>writable</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class④">WritableStream</a>, readonly</span>
-    <dd data-md>
-     <p>The <code>writable</code> attribute’s getter, when invoked, must return this object’s transform <code class="idl"><a data-link-type="idl">[[writable]]</a></code>.</p>
-   </dl>
    <p>The <dfn class="idl-code" data-dfn-type="interface" data-export id="compressionstream-format"><code>CompressionStream(format)</code><a class="self-link" href="#compressionstream-format"></a></dfn> constructor, when invoked, must run these steps:</p>
    <ol>
     <li data-md>
-     <p>Let <em>format</em> be the result of the input <dfn data-dfn-type="dfn" data-noexport id="format">format<a class="self-link" href="#format"></a></dfn>.</p>
-    <li data-md>
-     <p>If <em>format</em> is unsupported in CompressionStream, then throw throw a TypeError.</p>
+     <p>If <dfn data-dfn-type="dfn" data-noexport id="format"><em>format</em><a class="self-link" href="#format"></a></dfn> is unsupported in CompressionStream, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>cs</em> be a new CompressionStream object.</p>
     <li data-md>
-     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the compress and enqueue a chunk algorithm with <em>cs</em> and <em>chunk</em>.</p>
+     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <dfn data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk">compress and enqueue a chunk<a class="self-link" href="#compress-and-enqueue-a-chunk"></a></dfn> algorithm with <em>cs</em> and <em>chunk</em>.</p>
     <li data-md>
      <p>If <em>chunk</em> is not of supported type, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the flush and enqueue algorithm with <em>cs</em>.</p>
+    <li data-md>
+     <p>Construct TransformStream.</p>
    </ol>
-   <p>The compress and enqueue a chunk algorithm, given a CompressionStream object <em>cs</em> and a <em>chunk</em>, rus these steps:</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk①">compress and enqueue a chunk<a class="self-link" href="#compress-and-enqueue-a-chunk①"></a></dfn> algorithm, given a CompressionStream object <em>cs</em> and a <em>chunk</em>, rus these steps:</p>
    <ol>
     <li data-md>
-     <p>Let outBuffer be the result of compressing <em>chunk</em>. If this throws an exception, then return a promise rejected with that exception.</p>
+     <p>Let <em>buffer</em> be the result of compressing <em>chunk</em>. If this throws an exception, then return a promise rejected with that exception.</p>
     <li data-md>
-     <p>Push a copy of outBuffer to <em>cs</em>'s stream. If this throws an exception, then return a promise rejected with that exception.</p>
+     <p>Let <em>controller</em> be <em>cs</em>'s TransformStreamController.</p>
     <li data-md>
-     <p>Let <em>controller</em> be <em>cs</em>'s transform.</p>
-    <li data-md>
-     <p>Let <em>output</em> be a new stream.</p>
-    <li data-md>
-     <p>While true, run these steps:</p>
-     <ol>
-      <li data-md>
-       <p>Let <em>token</em> be the result of reading from <em>cs</em>'s stream.</p>
-      <li data-md>
-       <p>If <em>token</em> is end-of-stream, run these steps:</p>
-      <li data-md>
-       <p>Let <em>outputChunk</em> be <em>output</em>.</p>
-     </ol>
-    <li data-md>
-     <p>If <em>outputChunk</em> is non-empty, call Enqueue.</p>
+     <p>If <em>buffer</em> is non-empty, call Enqueue.</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
-     <ol>
-      <li data-md>
-       <p>Let <em>result</em> be the result of processing <em>token</em> for <em>cs</em>'s comppresser, <em>cs</em>'s stream, <em>output</em>, and <em>cs</em>'s error mode.</p>
-      <li data-md>
-       <p>If <em>result</em> is error, then return a new promise rejected with a TypeError exception.</p>
-     </ol>
    </ol>
-   <p>The flush and enqueue algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object <em>cs</em>, runs these steps:</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport id="flush-and-enqueue">flush and enqueue<a class="self-link" href="#flush-and-enqueue"></a></dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object <em>cs</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>Let <em>output</em> be a new stream.</p>
+     <p>Let <em>buffer</em> be the result of compressing an empty input with the finish flag.</p>
     <li data-md>
-     <p>Let <em>result</em> be the result of processing <em>token</em> for <em>cs</em>'s decomppresser, <em>cs</em>'s stream, <em>output</em>, and <em>cs</em>'s error mode.</p>
+     <p>If <em>buffer</em> is non-empty, call Enqueue.</p>
     <li data-md>
-     <p>If <em>result</em> is finished, run these steps:</p>
-     <ol>
-      <li data-md>
-       <p>Let <em>outputChunk</em> be <em>output</em>.</p>
-      <li data-md>
-       <p>Let <em>controller</em> be <em>cs</em>'s transform.</p>
-      <li data-md>
-       <p>If <em>outputChunk</em> is non-empty, call Enqueue.</p>
-      <li data-md>
-       <p>Return a new promise resolved with undefined.</p>
-     </ol>
-    <li data-md>
-     <p>Otherwise, return a new promise rejected with a TypeError exception.</p>
+     <p>Return a new promise resolved with undefined.</p>
    </ol>
    <h2 class="heading settled" data-level="6" id="decompression-stream"><span class="secno">6. </span><span class="content">Interface <code>DecompressionStream</code></span><a class="self-link" href="#decompression-stream"></a></h2>
    <p>A collection of common attributes and methods of all streams.</p>
-<pre class="idl highlight def">[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->),
-  <dfn class="idl-code" data-dfn-for="DecompressionStream" data-dfn-type="constructor" data-export data-lt="DecompressionStream(format)" id="dom-decompressionstream-decompressionstream"><code><c- g>Constructor</c-></code><a class="self-link" href="#dom-decompressionstream-decompressionstream"></a></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="DecompressionStream/DecompressionStream(format)" data-dfn-type="argument" data-export id="dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-decompressionstream-decompressionstream-format-format"></a></dfn>),
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>ConstructorCallWith</c-></a>=<a class="n" data-link-type="idl-name"><c- n>ScriptState</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RaisesException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>Constructor</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RuntimeException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>CompressionStreams</c-></a> ]
-<c- b>interface</c-> <dfn class="idl-code" data-dfn-type="interface" data-export id="decompressionstream"><code><c- g>DecompressionStream</c-></code><a class="self-link" href="#decompressionstream"></a></dfn> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class⑤"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-decompressionstream-readable" id="ref-for-dom-decompressionstream-readable"><c- g>readable</c-></a>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class⑤"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-decompressionstream-writable" id="ref-for-dom-decompressionstream-writable"><c- g>writable</c-></a>;
+<pre class="idl highlight def">[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="decompressionstream"><code><c- g>DecompressionStream</c-></code></dfn> {
+  
 };
+<a class="n" data-link-type="idl-name" href="#decompressionstream" id="ref-for-decompressionstream"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a class="n" data-link-type="idl-name" href="#generictransformstream" id="ref-for-generictransformstream②"><c- n>GenericTransformStream</c-></a>;
 </pre>
-   <h3 class="heading settled" data-level="6.1" id="decompression-stream-attributes"><span class="secno">6.1. </span><span class="content">Attributes</span><a class="self-link" href="#decompression-stream-attributes"></a></h3>
-   <dl>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="DecompressionStream" data-dfn-type="attribute" data-export id="dom-decompressionstream-readable"><code>readable</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class⑥">ReadableStream</a>, readonly</span>
-    <dd data-md>
-     <p>The <code>readable</code> attribute’s getter, when invoked, must return this object’s transform <code class="idl"><a data-link-type="idl">[[readable]]</a></code>.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="DecompressionStream" data-dfn-type="attribute" data-export id="dom-decompressionstream-writable"><code>writable</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class⑥">WritableStream</a>, readonly</span>
-    <dd data-md>
-     <p>The <code>writable</code> attribute’s getter, when invoked, must return this object’s transform <code class="idl"><a data-link-type="idl">[[writable]]</a></code>.</p>
-   </dl>
    <p>The <dfn class="idl-code" data-dfn-type="interface" data-export id="decompressionstream-format"><code>DecompressionStream(format)</code><a class="self-link" href="#decompressionstream-format"></a></dfn> constructor, when invoked, must run these steps:</p>
    <ol>
     <li data-md>
-     <p>Let <em>format</em> be the result of the input <dfn data-dfn-type="dfn" data-noexport id="format①">format<a class="self-link" href="#format①"></a></dfn>.</p>
-    <li data-md>
-     <p>If <em>format</em> is unsupported in DecompressionStream, then throw throw a TypeError.</p>
+     <p>If <dfn data-dfn-type="dfn" data-noexport id="format①"><em>format</em><a class="self-link" href="#format①"></a></dfn> is unsupported in DecompressionStream, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>ds</em> be a new DecompressionStream object.</p>
     <li data-md>
-     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the decompress and enqueue a chunk algorithm with <em>ds</em> and <em>chunk</em>.</p>
+     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <dfn data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk">decompress and enqueue a chunk<a class="self-link" href="#decompress-and-enqueue-a-chunk"></a></dfn> algorithm with <em>ds</em> and <em>chunk</em>.</p>
     <li data-md>
-     <p>If <em>chunk</em> is data which is not compressed by <em>format</em> algorithm, then throw a TypeError.</p>
+     <p>If <em>chunk</em> is not of supported type, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the flush and enqueue algorithm with <em>ds</em>.</p>
+    <li data-md>
+     <p>Construct TransformStream.</p>
    </ol>
-   <p>The decompress and enqueue a chunk algorithm, given a DecompressionStream object <em>ds</em> and a <em>chunk</em>, rus these steps:</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk①">decompress and enqueue a chunk<a class="self-link" href="#decompress-and-enqueue-a-chunk①"></a></dfn> algorithm, given a DecompressionStream object <em>ds</em> and a <em>chunk</em>, rus these steps:</p>
    <ol>
     <li data-md>
-     <p>Let outBuffer be the result of decompressing <em>chunk</em>. If this throws an exception, then return a promise rejected with that exception.</p>
+     <p>Let <em>buffer</em> be the result of decompressing <em>chunk</em>. If this throws an exception, then return a promise rejected with that exception.</p>
     <li data-md>
-     <p>Push a copy of outBuffer to <em>ds</em>'s stream. If this throws an exception, then return a promise rejected with that exception.</p>
+     <p>Let <em>controller</em> be <em>ds</em>'s TransformStreamController.</p>
     <li data-md>
-     <p>Let <em>controller</em> be <em>ds</em>'s transform.</p>
-    <li data-md>
-     <p>Let <em>output</em> be a new stream.</p>
-    <li data-md>
-     <p>While true, run these steps:</p>
-     <ol>
-      <li data-md>
-       <p>Let <em>token</em> be the result of reading from <em>ds</em>'s stream.</p>
-      <li data-md>
-       <p>If <em>token</em> is end-of-stream, run these steps:</p>
-      <li data-md>
-       <p>Let <em>outputChunk</em> be <em>output</em>.</p>
-     </ol>
-    <li data-md>
-     <p>If <em>outputChunk</em> is non-empty, call Enqueue.</p>
+     <p>If <em>buffer</em> is non-empty, call Enqueue.</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
-     <ol>
-      <li data-md>
-       <p>Let <em>result</em> be the result of processing <em>token</em> for <em>ds</em>'s decomppresser, <em>ds</em>'s stream, <em>output</em>, and <em>ds</em>'s error mode.</p>
-      <li data-md>
-       <p>If <em>result</em> is error, then return a new promise rejected with a TypeError exception.</p>
-     </ol>
    </ol>
-   <p>The flush and enqueue algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object <em>ds</em>, runs these steps:</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport id="flush-and-enqueue①">flush and enqueue<a class="self-link" href="#flush-and-enqueue①"></a></dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object <em>ds</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>Let <em>output</em> be a new stream.</p>
+     <p>Let <em>buffer</em> be the result of decompressing an empty input with the finish flag.</p>
     <li data-md>
-     <p>Let <em>result</em> be the result of processing <em>token</em> for <em>ds</em>'s decomppresser, <em>ds</em>'s stream, <em>output</em>, and <em>ds</em>'s error mode.</p>
+     <p>If <em>buffer</em> is non-empty, call Enqueue.</p>
     <li data-md>
-     <p>If <em>result</em> is finished, run these steps:</p>
-     <ol>
-      <li data-md>
-       <p>Let <em>outputChunk</em> be <em>output</em>.</p>
-      <li data-md>
-       <p>Let <em>controller</em> be <em>ds</em>'s transform.</p>
-      <li data-md>
-       <p>If <em>outputChunk</em> is non-empty, call Enqueue.</p>
-      <li data-md>
-       <p>Return a new promise resolved with undefined.</p>
-     </ol>
-    <li data-md>
-     <p>Otherwise, return a new promise rejected with a TypeError exception.</p>
+     <p>Return a new promise resolved with undefined.</p>
    </ol>
    <h2 class="heading settled" data-level="7" id="privacy-security"><span class="secno">7. </span><span class="content">Privacy and Security Considerations</span><a class="self-link" href="#privacy-security"></a></h2>
    <p>The API doesn’t add any new privileges to the web platform.</p>
-   <p>However, web developpers have to pay attention to the situation when attackers get the length of the data. If so, they may be able to guess the contents of the data.</p>
+   <p>However, web developpers have to pay attention to the situation when attackers can get the length of the data. If so, they may be able to guess the contents of the data.</p>
    <h2 class="heading settled" data-level="8" id="examples"><span class="secno">8. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
    <h3 class="heading settled" data-level="8.1" id="example-gzip-compress-stream"><span class="secno">8.1. </span><span class="content">Gzip-compress a stream</span><a class="self-link" href="#example-gzip-compress-stream"></a></h3>
 <pre class="example highlight" id="example-d197a642"><a class="self-link" href="#example-d197a642"></a><c- kr>const</c-> compressiedReadableStream
@@ -1797,9 +1699,7 @@ specification uses that specification and terminology.</p>
 <c- p>}</c->
 </pre>
    <h2 class="heading settled" data-level="9" id="acknowledgements"><span class="secno">9. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acknowledgements"></a></h2>
-    The editors wish to thank the Working Group chairs and Team Contact, Harald
-Alvestrand, Stefan Håkansson, Bernard Aboba and Dominique
-Hazaël-Massieux, for their support. Contributions to this specification
+    The editors wish to thank Domenic Denicola and Yutaka Hirano, for their support. Contributions to this specification
 were provided by Robin Raymond. 
    <p>The <code class="idl"><a data-link-type="idl">QuicTransport</a></code> and <code>QuicStream</code> objects were initially described in the <a href="https://www.w3.org/community/ortc/">W3C ORTC CG</a>, and have been adapted for
 use in this specification.</p>
@@ -1936,25 +1836,33 @@ use in this specification.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#compressionstream">CompressionStream</a><span>, in §5</span>
    <li>
-    CompressionStream(format)
+    compress and enqueue a chunk
     <ul>
-     <li><a href="#compressionstream-format">(interface)</a><span>, in §5.1</span>
-     <li><a href="#dom-compressionstream-compressionstream">constructor for CompressionStream</a><span>, in §5</span>
+     <li><a href="#compress-and-enqueue-a-chunk">definition of</a><span>, in §5</span>
+     <li><a href="#compress-and-enqueue-a-chunk①">definition of</a><span>, in §5</span>
+    </ul>
+   <li><a href="#compressionstream">CompressionStream</a><span>, in §5</span>
+   <li><a href="#compressionstream-format">CompressionStream(format)</a><span>, in §5</span>
+   <li>
+    decompress and enqueue a chunk
+    <ul>
+     <li><a href="#decompress-and-enqueue-a-chunk">definition of</a><span>, in §6</span>
+     <li><a href="#decompress-and-enqueue-a-chunk①">definition of</a><span>, in §6</span>
     </ul>
    <li><a href="#decompressionstream">DecompressionStream</a><span>, in §6</span>
+   <li><a href="#decompressionstream-format">DecompressionStream(format)</a><span>, in §6</span>
    <li>
-    DecompressionStream(format)
+    flush and enqueue
     <ul>
-     <li><a href="#decompressionstream-format">(interface)</a><span>, in §6.1</span>
-     <li><a href="#dom-decompressionstream-decompressionstream">constructor for DecompressionStream</a><span>, in §6</span>
+     <li><a href="#flush-and-enqueue">definition of</a><span>, in §5</span>
+     <li><a href="#flush-and-enqueue①">definition of</a><span>, in §6</span>
     </ul>
    <li>
     format
     <ul>
-     <li><a href="#format">definition of</a><span>, in §5.1</span>
-     <li><a href="#format①">definition of</a><span>, in §6.1</span>
+     <li><a href="#format">definition of</a><span>, in §5</span>
+     <li><a href="#format①">definition of</a><span>, in §6</span>
     </ul>
    <li>
     GenericTransformStream
@@ -1962,29 +1870,10 @@ use in this specification.</p>
      <li><a href="#generictransformstream">(interface)</a><span>, in §4</span>
      <li><a href="#generictransformstream①">(interface)</a><span>, in §4</span>
     </ul>
-   <li>
-    readable
-    <ul>
-     <li><a href="#dom-compressionstream-readable">attribute for CompressionStream</a><span>, in §5.1</span>
-     <li><a href="#dom-decompressionstream-readable">attribute for DecompressionStream</a><span>, in §6.1</span>
-     <li><a href="#dom-generictransformstream-readable">attribute for GenericTransformStream</a><span>, in §4.1</span>
-    </ul>
+   <li><a href="#dom-generictransformstream-readable">readable</a><span>, in §4.1</span>
    <li><a href="#transform">transform</a><span>, in §4</span>
-   <li>
-    writable
-    <ul>
-     <li><a href="#dom-compressionstream-writable">attribute for CompressionStream</a><span>, in §5.1</span>
-     <li><a href="#dom-decompressionstream-writable">attribute for DecompressionStream</a><span>, in §6.1</span>
-     <li><a href="#dom-generictransformstream-writable">attribute for GenericTransformStream</a><span>, in §4.1</span>
-    </ul>
+   <li><a href="#dom-generictransformstream-writable">writable</a><span>, in §4.1</span>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-idl-DOMString">
-   <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-DOMString">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-idl-DOMString①">6. Interface DecompressionStream</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-Exposed">
    <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
    <ul>
@@ -1998,10 +1887,6 @@ use in this specification.</p>
     <li><a href="#ref-for-rs-class">3. Terminology</a>
     <li><a href="#ref-for-rs-class①">4. Interface Mixin GenericTransformStream</a>
     <li><a href="#ref-for-rs-class②">4.1. Attributes</a>
-    <li><a href="#ref-for-rs-class③">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-rs-class④">5.1. Attributes</a>
-    <li><a href="#ref-for-rs-class⑤">6. Interface DecompressionStream</a>
-    <li><a href="#ref-for-rs-class⑥">6.1. Attributes</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-ws-class">
@@ -2010,10 +1895,6 @@ use in this specification.</p>
     <li><a href="#ref-for-ws-class">3. Terminology</a>
     <li><a href="#ref-for-ws-class①">4. Interface Mixin GenericTransformStream</a>
     <li><a href="#ref-for-ws-class②">4.1. Attributes</a>
-    <li><a href="#ref-for-ws-class③">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-ws-class④">5.1. Attributes</a>
-    <li><a href="#ref-for-ws-class⑤">6. Interface DecompressionStream</a>
-    <li><a href="#ref-for-ws-class⑥">6.1. Attributes</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -2021,7 +1902,6 @@ use in this specification.</p>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
      <li><span class="dfn-paneled" id="term-for-Exposed" style="color:initial">Exposed</span>
     </ul>
    <li>
@@ -2044,36 +1924,30 @@ use in this specification.</p>
    <dd>Adam Rice; Domenic Denicola; 吉野剛史 (Takeshi Yoshino). <a href="https://streams.spec.whatwg.org/">Streams Standard</a>. Living Standard. URL: <a href="https://streams.spec.whatwg.org/">https://streams.spec.whatwg.org/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def"><c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="#generictransformstream" id="ref-for-generictransformstream①"><c- g>GenericTransformStream</c-></a> {
+<pre class="idl highlight def"><c- b>interface</c-> <c- b>mixin</c-> <a class="idl-code" data-link-type="interface" href="#generictransformstream" id="ref-for-generictransformstream③"><c- g>GenericTransformStream</c-></a> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class①①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-generictransformstream-readable" id="ref-for-dom-generictransformstream-readable①"><c- g>readable</c-></a>; 
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class①①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-generictransformstream-writable" id="ref-for-dom-generictransformstream-writable①"><c- g>writable</c-></a>;
 };
 
-[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->),
-  <a href="#dom-compressionstream-compressionstream"><code><c- g>Constructor</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a> <a href="#dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code></a>),
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>ConstructorCallWith</c-></a>=<a class="n" data-link-type="idl-name"><c- n>ScriptState</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RaisesException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>Constructor</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RuntimeException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>CompressionStreams</c-></a> ]
+[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <a href="#compressionstream"><code><c- g>CompressionStream</c-></code></a> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class③①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-compressionstream-readable" id="ref-for-dom-compressionstream-readable①"><c- g>readable</c-></a>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class③①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-compressionstream-writable" id="ref-for-dom-compressionstream-writable①"><c- g>writable</c-></a>;
+  
 };
+<a class="n" data-link-type="idl-name" href="#compressionstream" id="ref-for-compressionstream①"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a class="n" data-link-type="idl-name" href="#generictransformstream" id="ref-for-generictransformstream①①"><c- n>GenericTransformStream</c-></a>;
 
-[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->),
-  <a href="#dom-decompressionstream-decompressionstream"><code><c- g>Constructor</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <a href="#dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code></a>),
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>ConstructorCallWith</c-></a>=<a class="n" data-link-type="idl-name"><c- n>ScriptState</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RaisesException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>Constructor</c-></a>,
-  <a class="idl-code" data-link-type="extended-attribute"><c- g>RuntimeException</c-></a>=<a class="n" data-link-type="idl-name"><c- n>CompressionStreams</c-></a> ]
+[ <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <a href="#decompressionstream"><code><c- g>DecompressionStream</c-></code></a> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class⑤①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-decompressionstream-readable" id="ref-for-dom-decompressionstream-readable①"><c- g>readable</c-></a>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class⑤①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-decompressionstream-writable" id="ref-for-dom-decompressionstream-writable①"><c- g>writable</c-></a>;
+  
 };
+<a class="n" data-link-type="idl-name" href="#decompressionstream" id="ref-for-decompressionstream①"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a class="n" data-link-type="idl-name" href="#generictransformstream" id="ref-for-generictransformstream②①"><c- n>GenericTransformStream</c-></a>;
 
 </pre>
   <aside class="dfn-panel" data-for="generictransformstream">
    <b><a href="#generictransformstream">#generictransformstream</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-generictransformstream">4. Interface Mixin GenericTransformStream</a>
+    <li><a href="#ref-for-generictransformstream①">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-generictransformstream②">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-generictransformstream-readable">
@@ -2088,28 +1962,16 @@ use in this specification.</p>
     <li><a href="#ref-for-dom-generictransformstream-writable">4. Interface Mixin GenericTransformStream</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-compressionstream-readable">
-   <b><a href="#dom-compressionstream-readable">#dom-compressionstream-readable</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="compressionstream">
+   <b><a href="#compressionstream">#compressionstream</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-compressionstream-readable">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-compressionstream">5. Interface CompressionStream</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-compressionstream-writable">
-   <b><a href="#dom-compressionstream-writable">#dom-compressionstream-writable</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="decompressionstream">
+   <b><a href="#decompressionstream">#decompressionstream</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-compressionstream-writable">5. Interface CompressionStream</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-decompressionstream-readable">
-   <b><a href="#dom-decompressionstream-readable">#dom-decompressionstream-readable</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-decompressionstream-readable">6. Interface DecompressionStream</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-decompressionstream-writable">
-   <b><a href="#dom-decompressionstream-writable">#dom-decompressionstream-writable</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-decompressionstream-writable">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-decompressionstream">6. Interface DecompressionStream</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

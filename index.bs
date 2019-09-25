@@ -8,8 +8,8 @@ ED: https://wicg.github.io/compression-streams/
 Editor: Canon Mukai, Google
 Editor: Adam Rice, Google
 Abstract:
-  This document defines a set of JavaScript APIs to compress and decompress a
-  stream. The APIs makes it easier to handle streams of Uint8Array for developpers. 
+  This document defines a set of JavaScript APIs to compress and decompress
+  a stream.
 Repository: ricea/compression-streams
 Indent: 2
 Markup Shorthands: markdown yes
@@ -34,7 +34,7 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 
 *This section is non-normative.*
 
-This specificatin is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are standards among web developpers. If there is a wish to use other algorithm, it is possible to add it to the API. 
+The APIs specified in this specification is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are widely used in web developpers.
 
 # Conformance #  {#conformance}
 
@@ -60,12 +60,12 @@ specification uses that specification and terminology.
 
 # Terminology #  {#terminology}
 
-A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the data is Uint8Array. 
+A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the chunk type is Uint8Array. 
 
 A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in
 [[!WHATWG-STREAMS]].
 
-Deflate is a format of compression. Gzip is a format of compression, too, and based on deflate algorithm. Both deflate and gzip are defined in zlib.
+Deflate is a compression format. Gzip is another compressoin format, also based on the deflate algorithm. Both deflate and gzip are defined in zlib.
 
 # Interface Mixin `GenericTransformStream` #  {#generic-transform-stream}
 
@@ -92,56 +92,32 @@ An object that includes <dfn interface>GenericTransformStream</dfn> has an assoc
 A collection of common attributes and methods of all streams.
 
 <pre class="idl">
-[ Exposed=(Window,Worker),
-  Constructor(DOMString format),
-  ConstructorCallWith=ScriptState,
-  RaisesException=Constructor,
-  RuntimeException=CompressionStreams ]
+[ Exposed=(Window,Worker)]
 interface CompressionStream {
-    readonly attribute ReadableStream readable;
-    readonly attribute WritableStream writable;
+  
 };
+CompressionStream includes GenericTransformStream;
 </pre>
 
-## Attributes ##  {#compression-stream-attributes}
-
-: <dfn for="CompressionStream" attribute>readable</dfn>
-:: The `readable` attribute's getter, when invoked, must return this object's transform {{[[readable]]}}.
-: <dfn for="CompressionStream" attribute>writable</dfn>
-:: The `writable` attribute's getter, when invoked, must return this object's transform {{[[writable]]}}.
-
 The <dfn interface>CompressionStream(format)</dfn> constructor, when invoked, must run these steps:
-    1. Let *format* be the result of the input <dfn>format</dfn>.
-    1. If *format* is unsupported in CompressionStream, then throw throw a TypeError.
+    1. If <dfn>*format*</dfn> is unsupported in CompressionStream, then throw a TypeError.
     1. Let *cs* be a new CompressionStream object.
-    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the compress and enqueue a chunk algorithm with *cs* and *chunk*.
+    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <dfn>compress and enqueue a chunk</dfn> algorithm with *cs* and *chunk*.
     1. If *chunk* is not of supported type, then throw a TypeError.
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the flush and enqueue algorithm with *cs*.
+    1. Construct TransformStream.
 
-The compress and enqueue a chunk algorithm, given a CompressionStream object *cs* and a *chunk*, rus these steps:
-    1. Let outBuffer be the result of compressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
-    1. Push a copy of outBuffer to *cs*'s stream. If this throws an exception, then return a promise rejected with that exception.
-    1. Let *controller* be *cs*'s transform.
-    1. Let *output* be a new stream.
-    1. While true, run these steps:
-       1. Let *token* be the result of reading from *cs*'s stream.
-       1. If *token* is end-of-stream, run these steps:
-       	  1. Let *outputChunk* be *output*.
-	  1. If *outputChunk* is non-empty, call Enqueue.
-	  1. Return a new promise resolved with undefined.
-       1. Let *result* be the result of processing *token* for *cs*'s comppresser, *cs*'s stream, *output*, and *cs*'s error mode.
-       1. If *result* is error, then return a new promise rejected with a TypeError exception.
+The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object *cs* and a *chunk*, rus these steps:
+    1. Let *buffer* be the result of compressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
+    1. Let *controller* be *cs*'s TransformStreamController.
+    1. If *buffer* is non-empty, call Enqueue.
+    1. Return a new promise resolved with undefined.
 
-The flush and enqueue algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
+The <dfn>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
-    1. Let *output* be a new stream.
-    1. Let *result* be the result of processing *token* for *cs*'s decomppresser, *cs*'s stream, *output*, and *cs*'s error mode.
-    1. If *result* is finished, run these steps:
-       1. Let *outputChunk* be *output*.
-       1. Let *controller* be *cs*'s transform.
-       1. If *outputChunk* is non-empty, call Enqueue.
-       1. Return a new promise resolved with undefined.
-    1. Otherwise, return a new promise rejected with a TypeError exception.
+    1. Let *buffer* be the result of compressing an empty input with the finish flag.
+    1. If *buffer* is non-empty, call Enqueue.
+    1. Return a new promise resolved with undefined.
     
 
 # Interface `DecompressionStream` #  {#decompression-stream}
@@ -149,63 +125,39 @@ The flush and enqueue algorithm, which handles the end of data from the input Re
 A collection of common attributes and methods of all streams.
 
 <pre class="idl">
-[ Exposed=(Window,Worker),
-  Constructor(DOMString format),
-  ConstructorCallWith=ScriptState,
-  RaisesException=Constructor,
-  RuntimeException=CompressionStreams ]
+[ Exposed=(Window,Worker)]
 interface DecompressionStream {
-    readonly attribute ReadableStream readable;
-    readonly attribute WritableStream writable;
+  
 };
+DecompressionStream includes GenericTransformStream;
 </pre>
 
-## Attributes ##  {#decompression-stream-attributes}
-
-: <dfn for="DecompressionStream" attribute>readable</dfn>
-:: The `readable` attribute's getter, when invoked, must return this object's transform {{[[readable]]}}.
-: <dfn for="DecompressionStream" attribute>writable</dfn>
-:: The `writable` attribute's getter, when invoked, must return this object's transform {{[[writable]]}}.
-
 The <dfn interface>DecompressionStream(format)</dfn> constructor, when invoked, must run these steps:
-    1. Let *format* be the result of the input <dfn>format</dfn>.
-    1. If *format* is unsupported in DecompressionStream, then throw throw a TypeError.
+    1. If <dfn>*format*</dfn> is unsupported in DecompressionStream, then throw a TypeError.
     1. Let *ds* be a new DecompressionStream object.
-    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the decompress and enqueue a chunk algorithm with *ds* and *chunk*.
-    1. If *chunk* is data which is not compressed by *format* algorithm, then throw a TypeError.
+    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <dfn>decompress and enqueue a chunk</dfn> algorithm with *ds* and *chunk*.
+    1. If *chunk* is not of supported type, then throw a TypeError.
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the flush and enqueue algorithm with *ds*.
+    1. Construct TransformStream.
 
-The decompress and enqueue a chunk algorithm, given a DecompressionStream object *ds* and a *chunk*, rus these steps:
-    1. Let outBuffer be the result of decompressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
-    1. Push a copy of outBuffer to *ds*'s stream. If this throws an exception, then return a promise rejected with that exception.
-    1. Let *controller* be *ds*'s transform.
-    1. Let *output* be a new stream.
-    1. While true, run these steps:
-       1. Let *token* be the result of reading from *ds*'s stream.
-       1. If *token* is end-of-stream, run these steps:
-       	  1. Let *outputChunk* be *output*.
-	  1. If *outputChunk* is non-empty, call Enqueue.
-	  1. Return a new promise resolved with undefined.
-       1. Let *result* be the result of processing *token* for *ds*'s decomppresser, *ds*'s stream, *output*, and *ds*'s error mode.
-       1. If *result* is error, then return a new promise rejected with a TypeError exception.
+The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, rus these steps:
+    1. Let *buffer* be the result of decompressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
+    1. Let *controller* be *ds*'s TransformStreamController.
+    1. If *buffer* is non-empty, call Enqueue.
+    1. Return a new promise resolved with undefined.
 
-The flush and enqueue algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
+The <dfn>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
 
-    1. Let *output* be a new stream.
-    1. Let *result* be the result of processing *token* for *ds*'s decomppresser, *ds*'s stream, *output*, and *ds*'s error mode.
-    1. If *result* is finished, run these steps:
-       1. Let *outputChunk* be *output*.
-       1. Let *controller* be *ds*'s transform.
-       1. If *outputChunk* is non-empty, call Enqueue.
-       1. Return a new promise resolved with undefined.
-    1. Otherwise, return a new promise rejected with a TypeError exception.
-
+    1. Let *buffer* be the result of decompressing an empty input with the finish flag.
+    1. If *buffer* is non-empty, call Enqueue.
+    1. Return a new promise resolved with undefined.
+    
 
 # Privacy and Security Considerations #  {#privacy-security}
 
 The API doesn't add any new privileges to the web platform.
 
-However, web developpers have to pay attention to the situation when attackers get the length of the data. If so, they may be able to guess the contents of the data.
+However, web developpers have to pay attention to the situation when attackers can get the length of the data. If so, they may be able to guess the contents of the data.
 
 # Examples #  {#examples}
 
@@ -255,9 +207,7 @@ async function DecompressBlob(blob) {
 </pre>
 
 # Acknowledgements #  {#acknowledgements}
-The editors wish to thank the Working Group chairs and Team Contact, Harald
-Alvestrand, Stefan H&aring;kansson, Bernard Aboba and Dominique
-Haza&euml;l-Massieux, for their support. Contributions to this specification
+The editors wish to thank Domenic Denicola and Yutaka Hirano, for their support. Contributions to this specification
 were provided by Robin Raymond.
 
 The {{QuicTransport}} and `QuicStream` objects were initially described in the

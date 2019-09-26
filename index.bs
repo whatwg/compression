@@ -9,7 +9,7 @@ Editor: Canon Mukai, Google
 Editor: Adam Rice, Google
 Abstract:
   This document defines a set of JavaScript APIs to compress and decompress
-  a stream.
+  streams of binary data.
 Repository: ricea/compression-streams
 Indent: 2
 Markup Shorthands: markdown yes
@@ -34,7 +34,7 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 
 *This section is non-normative.*
 
-The APIs specified in this specification is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are widely used in web developers.
+The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate" and "gzip" as compression algorithms. They are widely used in web developers.
 
 # Conformance #  {#conformance}
 
@@ -60,12 +60,12 @@ specification uses that specification and terminology.
 
 # Terminology #  {#terminology}
 
-A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the chunk type is Uint8Array. 
+A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accepts any {{BufferSource}} type as input.
 
 A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in
 [[!WHATWG-STREAMS]].
 
-Deflate is a compression format. Gzip is another compression format, also based on the deflate algorithm. Both deflate and gzip are defined in zlib.
+Deflate is a compression format defined in [[!RFC1950]]. It is referred to there as "ZLIB", but in this standard we call it "deflate" to match HTTP (see [[RFC7230]] section 4.2.2). Gzip is another compression format defined in [[!RFC1952]], also based on the deflate algorithm.
 
 # Interface Mixin `GenericTransformStream` #  {#generic-transform-stream}
 
@@ -89,8 +89,6 @@ An object that includes <dfn interface>GenericTransformStream</dfn> has an assoc
 
 # Interface `CompressionStream` #  {#compression-stream}
 
-A collection of common attributes and methods of all streams.
-
 <pre class="idl">
 [ Exposed=(Window,Worker)]
 interface CompressionStream {
@@ -102,18 +100,18 @@ CompressionStream includes GenericTransformStream;
 The <dfn interface>CompressionStream(format)</dfn> constructor, when invoked, must run these steps:
     1. If <dfn>*format*</dfn> is unsupported in CompressionStream, then throw a TypeError.
     1. Let *cs* be a new CompressionStream object.
-    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <dfn>compress and enqueue a chunk</dfn> algorithm with *cs* and *chunk*.
+    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a href="#compress-and-enqueue"><dfn>compress and enqueue a chunk</dfn></a> algorithm with *cs* and *chunk*.
     1. If *chunk* is not of supported type, then throw a TypeError.
-    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the flush and enqueue algorithm with *cs*.
+    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a href="#compress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm with *cs*.
     1. Construct TransformStream.
 
-The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object *cs* and a *chunk*, runs these steps:
+The <a name="compress-and-enqueue"><dfn>compress and enqueue a chunk</dfn></a> algorithm, given a CompressionStream object *cs* and a *chunk*, runs these steps:
     1. Let *buffer* be the result of compressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
-    1. Let *controller* be *cs*'s TransformStreamController.
-    1. If *buffer* is non-empty, call Enqueue.
+    1. Let *controller* be *cs*'s transform.[[TransformStreamController]].
+    1. If *buffer* is non-empty, call {{TransformStreamDefaultController}}(*controller*, *buffer*).
     1. Return a new promise resolved with undefined.
 
-The <dfn>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
+The <a name="compress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
     1. Let *buffer* be the result of compressing an empty input with the finish flag.
     1. If *buffer* is non-empty, call Enqueue.
@@ -135,23 +133,23 @@ DecompressionStream includes GenericTransformStream;
 The <dfn interface>DecompressionStream(format)</dfn> constructor, when invoked, must run these steps:
     1. If <dfn>*format*</dfn> is unsupported in DecompressionStream, then throw a TypeError.
     1. Let *ds* be a new DecompressionStream object.
-    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <dfn>decompress and enqueue a chunk</dfn> algorithm with *ds* and *chunk*.
+    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a href="#decompress-and-enqueue"><dfn>decompress and enqueue a chunk</dfn></a> algorithm with *ds* and *chunk*.
     1. If *chunk* is not of supported type, then throw a TypeError.
-    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the flush and enqueue algorithm with *ds*.
+    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a href="#decompress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm with *ds*.
     1. Construct TransformStream.
 
-The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
+The <a name="decompress-and-enqueue"><dfn>decompress and enqueue a chunk</dfn></a> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
     1. Let *buffer* be the result of decompressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
-    1. Let *controller* be *ds*'s TransformStreamController.
-    1. If *buffer* is non-empty, call Enqueue.
+    1. Let *controller* be *ds*'s transform.[[TransformStreamController]].
+    1. If *buffer* is non-empty, call {{TransformStreamDefaultController}}(*controller*, *buffer*).
     1. Return a new promise resolved with undefined.
 
-The <dfn>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
+The <a name="decompress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
 
     1. Let *buffer* be the result of decompressing an empty input with the finish flag.
     1. If *buffer* is non-empty, call Enqueue.
     1. Return a new promise resolved with undefined.
-    
+
 
 # Privacy and Security Considerations #  {#privacy-security}
 
@@ -207,9 +205,4 @@ async function DecompressBlob(blob) {
 </pre>
 
 # Acknowledgments #  {#acknowledgments}
-The editors wish to thank Domenic Denicola and Yutaka Hirano, for their support. Contributions to this specification
-were provided by Robin Raymond.
-
-The {{QuicTransport}} and `QuicStream` objects were initially described in the
-[W3C ORTC CG](https://www.w3.org/community/ortc/), and have been adapted for
-use in this specification.
+The editors wish to thank Domenic Denicola and Yutaka Hirano, for their support.

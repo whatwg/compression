@@ -1553,7 +1553,7 @@ specification MUST implement them in a manner consistent with the ECMAScript
 Bindings defined in the Web IDL specification <a data-link-type="biblio" href="#biblio-webidl-1">[WEBIDL-1]</a>, as this
 specification uses that specification and terminology.</p>
    <h2 class="heading settled" data-level="3" id="terminology"><span class="secno">3. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
-   <p>A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accepts any <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource">BufferSource</a></code> type as input.</p>
+   <p>A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accept any <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource">BufferSource</a></code> type as input.</p>
    <p>A stream represents an ordered sequence of chunks. The terms <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class">ReadableStream</a></code> and <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class">WritableStream</a></code> are defined in <a data-link-type="biblio" href="#biblio-whatwg-streams">[WHATWG-STREAMS]</a>.</p>
    <p>Deflate is a compression format defined in <a data-link-type="biblio" href="#biblio-rfc1950">[RFC1950]</a>. It is referred to there as "ZLIB", but in this standard we call it "deflate" to match HTTP (see <a data-link-type="biblio" href="#biblio-rfc7230">[RFC7230]</a> section 4.2.2). Gzip is another compression format defined in <a data-link-type="biblio" href="#biblio-rfc1952">[RFC1952]</a>, also based on the deflate algorithm.</p>
    <h2 class="heading settled" data-level="4" id="generic-transform-stream"><span class="secno">4. </span><span class="content">Interface Mixin <code>GenericTransformStream</code></span><a class="self-link" href="#generic-transform-stream"></a></h2>
@@ -1587,15 +1587,15 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>cs</em> be a new CompressionStream object.</p>
     <li data-md>
-     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <a href="#compress-and-enqueue"><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk">compress and enqueue a chunk</dfn></a> algorithm with <em>cs</em> and <em>chunk</em>.</p>
+     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <a data-link-type="dfn" href="#compress-and-enqueue-a-chunk" id="ref-for-compress-and-enqueue-a-chunk">compress and enqueue a chunk</a> algorithm with <em>cs</em> and <em>chunk</em>.</p>
     <li data-md>
      <p>If <em>chunk</em> is not of supported type, then throw a TypeError.</p>
     <li data-md>
-     <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a href="#compress-flush-and-enqueue"><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="flush-and-enqueue">flush and enqueue</dfn></a> algorithm with <em>cs</em>.</p>
+     <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a data-link-type="dfn" href="#compressionstream-flush-and-enqueue" id="ref-for-compressionstream-flush-and-enqueue">flush and enqueue</a> algorithm with <em>cs</em>.</p>
     <li data-md>
      <p>Construct TransformStream.</p>
    </ol>
-   <p>The <a data-link-type="dfn" href="#compress-and-enqueue-a-chunk" id="ref-for-compress-and-enqueue-a-chunk" name="compress-and-enqueue"><dfn data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk①">compress and enqueue a chunk<a class="self-link" href="#compress-and-enqueue-a-chunk①"></a></dfn></a> algorithm, given a CompressionStream object <em>cs</em> and a <em>chunk</em>, runs these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk">compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object <em>cs</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
     <li data-md>
      <p>Let <em>buffer</em> be the result of compressing <em>chunk</em>. If this throws an exception, then return a promise rejected with that exception.</p>
@@ -1606,7 +1606,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
-   <p>The <a data-link-type="dfn" href="#flush-and-enqueue" id="ref-for-flush-and-enqueue" name="compress-flush-and-enqueue"><dfn data-dfn-type="dfn" data-noexport id="flush-and-enqueue①">flush and enqueue<a class="self-link" href="#flush-and-enqueue①"></a></dfn></a> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object <em>cs</em>, runs these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-flush-and-enqueue">flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object <em>cs</em>, runs these steps:</p>
    <ol>
     <li data-md>
      <p>Let <em>buffer</em> be the result of compressing an empty input with the finish flag.</p>
@@ -1630,15 +1630,15 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>ds</em> be a new DecompressionStream object.</p>
     <li data-md>
-     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <a href="#decompress-and-enqueue"><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</dfn></a> algorithm with <em>ds</em> and <em>chunk</em>.</p>
+     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <a data-link-type="dfn" href="#decompress-and-enqueue-a-chunk" id="ref-for-decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</a> algorithm with <em>ds</em> and <em>chunk</em>.</p>
     <li data-md>
      <p>If <em>chunk</em> is not of supported type, then throw a TypeError.</p>
     <li data-md>
-     <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a href="#decompress-flush-and-enqueue"><dfn data-dfn-type="dfn" data-noexport id="flush-and-enqueue②">flush and enqueue<a class="self-link" href="#flush-and-enqueue②"></a></dfn></a> algorithm with <em>ds</em>.</p>
+     <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a data-link-type="dfn" href="#decompressionstream-flush-and-enqueue" id="ref-for-decompressionstream-flush-and-enqueue">flush and enqueue</a> algorithm with <em>ds</em>.</p>
     <li data-md>
      <p>Construct TransformStream.</p>
    </ol>
-   <p>The <a data-link-type="dfn" href="#decompress-and-enqueue-a-chunk" id="ref-for-decompress-and-enqueue-a-chunk" name="decompress-and-enqueue"><dfn data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk①">decompress and enqueue a chunk<a class="self-link" href="#decompress-and-enqueue-a-chunk①"></a></dfn></a> algorithm, given a DecompressionStream object <em>ds</em> and a <em>chunk</em>, runs these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object <em>ds</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
     <li data-md>
      <p>Let <em>buffer</em> be the result of decompressing <em>chunk</em>. If this throws an exception, then return a promise rejected with that exception.</p>
@@ -1649,7 +1649,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
-   <p>The <a data-link-type="dfn" href="#flush-and-enqueue" id="ref-for-flush-and-enqueue①" name="decompress-flush-and-enqueue"><dfn data-dfn-type="dfn" data-noexport id="flush-and-enqueue③">flush and enqueue<a class="self-link" href="#flush-and-enqueue③"></a></dfn></a> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object <em>ds</em>, runs these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-flush-and-enqueue">flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object <em>ds</em>, runs these steps:</p>
    <ol>
     <li data-md>
      <p>Let <em>buffer</em> be the result of decompressing an empty input with the finish flag.</p>
@@ -1833,12 +1833,7 @@ specification uses that specification and terminology.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li>
-    compress and enqueue a chunk
-    <ul>
-     <li><a href="#compress-and-enqueue-a-chunk">definition of</a><span>, in §5</span>
-     <li><a href="#compress-and-enqueue-a-chunk①">definition of</a><span>, in §5</span>
-    </ul>
+   <li><a href="#compress-and-enqueue-a-chunk">compress and enqueue a chunk</a><span>, in §5</span>
    <li><a href="#compressionstream">CompressionStream</a><span>, in §5</span>
    <li>
     CompressionStream(format)
@@ -1852,12 +1847,7 @@ specification uses that specification and terminology.</p>
      <li><a href="#dom-compressionstream-compressionstream">constructor for CompressionStream</a><span>, in §5</span>
      <li><a href="#dom-decompressionstream-decompressionstream">constructor for DecompressionStream</a><span>, in §6</span>
     </ul>
-   <li>
-    decompress and enqueue a chunk
-    <ul>
-     <li><a href="#decompress-and-enqueue-a-chunk">definition of</a><span>, in §6</span>
-     <li><a href="#decompress-and-enqueue-a-chunk①">definition of</a><span>, in §6</span>
-    </ul>
+   <li><a href="#decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</a><span>, in §6</span>
    <li><a href="#decompressionstream">DecompressionStream</a><span>, in §6</span>
    <li>
     DecompressionStream(format)
@@ -1868,10 +1858,8 @@ specification uses that specification and terminology.</p>
    <li>
     flush and enqueue
     <ul>
-     <li><a href="#flush-and-enqueue">definition of</a><span>, in §5</span>
-     <li><a href="#flush-and-enqueue①">definition of</a><span>, in §5</span>
-     <li><a href="#flush-and-enqueue②">definition of</a><span>, in §6</span>
-     <li><a href="#flush-and-enqueue③">definition of</a><span>, in §6</span>
+     <li><a href="#compressionstream-flush-and-enqueue">dfn for CompressionStream</a><span>, in §5</span>
+     <li><a href="#decompressionstream-flush-and-enqueue">dfn for DecompressionStream</a><span>, in §6</span>
     </ul>
    <li>
     format
@@ -2021,11 +2009,10 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-compress-and-enqueue-a-chunk">5. Interface CompressionStream</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="flush-and-enqueue">
-   <b><a href="#flush-and-enqueue">#flush-and-enqueue</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="compressionstream-flush-and-enqueue">
+   <b><a href="#compressionstream-flush-and-enqueue">#compressionstream-flush-and-enqueue</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-flush-and-enqueue">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-flush-and-enqueue①">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-compressionstream-flush-and-enqueue">5. Interface CompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="decompressionstream">
@@ -2038,6 +2025,12 @@ specification uses that specification and terminology.</p>
    <b><a href="#decompress-and-enqueue-a-chunk">#decompress-and-enqueue-a-chunk</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-decompress-and-enqueue-a-chunk">6. Interface DecompressionStream</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="decompressionstream-flush-and-enqueue">
+   <b><a href="#decompressionstream-flush-and-enqueue">#decompressionstream-flush-and-enqueue</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-decompressionstream-flush-and-enqueue">6. Interface DecompressionStream</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

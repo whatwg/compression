@@ -60,7 +60,7 @@ specification uses that specification and terminology.
 
 # Terminology #  {#terminology}
 
-A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accepts any {{BufferSource}} type as input.
+A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accept any {{BufferSource}} type as input.
 
 A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in
 [[!WHATWG-STREAMS]].
@@ -100,18 +100,18 @@ CompressionStream includes GenericTransformStream;
 The <dfn interface>CompressionStream(format)</dfn> constructor, when invoked, must run these steps:
     1. If <dfn>*format*</dfn> is unsupported in CompressionStream, then throw a TypeError.
     1. Let *cs* be a new CompressionStream object.
-    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a href="#compress-and-enqueue"><dfn>compress and enqueue a chunk</dfn></a> algorithm with *cs* and *chunk*.
+    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a>compress and enqueue a chunk</a> algorithm with *cs* and *chunk*.
     1. If *chunk* is not of supported type, then throw a TypeError.
-    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a href="#compress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm with *cs*.
+    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a for=CompressionStream>flush and enqueue</a> algorithm with *cs*.
     1. Construct TransformStream.
 
-The <a name="compress-and-enqueue"><dfn>compress and enqueue a chunk</dfn></a> algorithm, given a CompressionStream object *cs* and a *chunk*, runs these steps:
+The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object *cs* and a *chunk*, runs these steps:
     1. Let *buffer* be the result of compressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *cs*'s transform.[[TransformStreamController]].
     1. If *buffer* is non-empty, call {{TransformStreamDefaultController}}(*controller*, *buffer*).
     1. Return a new promise resolved with undefined.
 
-The <a name="compress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
+The <dfn for=CompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
     1. Let *buffer* be the result of compressing an empty input with the finish flag.
     1. If *buffer* is non-empty, call Enqueue.
@@ -133,18 +133,18 @@ DecompressionStream includes GenericTransformStream;
 The <dfn interface>DecompressionStream(format)</dfn> constructor, when invoked, must run these steps:
     1. If <dfn>*format*</dfn> is unsupported in DecompressionStream, then throw a TypeError.
     1. Let *ds* be a new DecompressionStream object.
-    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a href="#decompress-and-enqueue"><dfn>decompress and enqueue a chunk</dfn></a> algorithm with *ds* and *chunk*.
+    1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a>decompress and enqueue a chunk</a> algorithm with *ds* and *chunk*.
     1. If *chunk* is not of supported type, then throw a TypeError.
-    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a href="#decompress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm with *ds*.
+    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a for=DecompressionStream>flush and enqueue</a> algorithm with *ds*.
     1. Construct TransformStream.
 
-The <a name="decompress-and-enqueue"><dfn>decompress and enqueue a chunk</dfn></a> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
+The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
     1. Let *buffer* be the result of decompressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *ds*'s transform.[[TransformStreamController]].
     1. If *buffer* is non-empty, call {{TransformStreamDefaultController}}(*controller*, *buffer*).
     1. Return a new promise resolved with undefined.
 
-The <a name="decompress-flush-and-enqueue"><dfn>flush and enqueue</dfn></a> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
+The <dfn for=DecompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
 
     1. Let *buffer* be the result of decompressing an empty input with the finish flag.
     1. If *buffer* is non-empty, call Enqueue.

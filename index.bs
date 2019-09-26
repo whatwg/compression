@@ -34,7 +34,7 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 
 *This section is non-normative.*
 
-The APIs specified in this specification is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are widely used in web developpers.
+The APIs specified in this specification is used to compress and decompress streams of data. It supports "deflate" and "gzip" as compression algorithms they are widely used in web developers.
 
 # Conformance #  {#conformance}
 
@@ -65,11 +65,11 @@ A chunk is a piece of data. In the case of CompressionStream and DecompressionSt
 A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in
 [[!WHATWG-STREAMS]].
 
-Deflate is a compression format. Gzip is another compressoin format, also based on the deflate algorithm. Both deflate and gzip are defined in zlib.
+Deflate is a compression format. Gzip is another compression format, also based on the deflate algorithm. Both deflate and gzip are defined in zlib.
 
 # Interface Mixin `GenericTransformStream` #  {#generic-transform-stream}
 
-The <dfn interface>GenericTransformStream</dfn> interface mixin represents the comcept of a transform stream in IDL. It is not a TransformStream, though it has the same interface and it delegates to one.
+The <dfn interface>GenericTransformStream</dfn> interface mixin represents the concept of a transform stream in IDL. It is not a TransformStream, though it has the same interface and it delegates to one.
 
 <pre class="idl">
 interface mixin GenericTransformStream {
@@ -107,7 +107,7 @@ The <dfn interface>CompressionStream(format)</dfn> constructor, when invoked, mu
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the flush and enqueue algorithm with *cs*.
     1. Construct TransformStream.
 
-The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object *cs* and a *chunk*, rus these steps:
+The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object *cs* and a *chunk*, runs these steps:
     1. Let *buffer* be the result of compressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *cs*'s TransformStreamController.
     1. If *buffer* is non-empty, call Enqueue.
@@ -140,7 +140,7 @@ The <dfn interface>DecompressionStream(format)</dfn> constructor, when invoked, 
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the flush and enqueue algorithm with *ds*.
     1. Construct TransformStream.
 
-The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, rus these steps:
+The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
     1. Let *buffer* be the result of decompressing *chunk*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *ds*'s TransformStreamController.
     1. If *buffer* is non-empty, call Enqueue.
@@ -157,14 +157,14 @@ The <dfn>flush and enqueue</dfn> algorithm, which handles the end of data from t
 
 The API doesn't add any new privileges to the web platform.
 
-However, web developpers have to pay attention to the situation when attackers can get the length of the data. If so, they may be able to guess the contents of the data.
+However, web developers have to pay attention to the situation when attackers can get the length of the data. If so, they may be able to guess the contents of the data.
 
 # Examples #  {#examples}
 
 ## Gzip-compress a stream ##  {#example-gzip-compress-stream}
 
 <pre class="example" highlight="js">
-const compressiedReadableStream
+const compressedReadableStream
     = inputReadableStream.pipeThrough(new CompressionStream('gzip'));
 </pre>
 
@@ -206,7 +206,7 @@ async function DecompressBlob(blob) {
 }
 </pre>
 
-# Acknowledgements #  {#acknowledgements}
+# Acknowledgments #  {#acknowledgments}
 The editors wish to thank Domenic Denicola and Yutaka Hirano, for their support. Contributions to this specification
 were provided by Robin Raymond.
 

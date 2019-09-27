@@ -1587,7 +1587,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>cs</em> be a new CompressionStream object.</p>
     <li data-md>
-     <p>let <em>cs</em>'s <em>format</em> to <a data-link-type="dfn" href="#compressionstream-format" id="ref-for-compressionstream-format">format</a>.</p>
+     <p>Set <em>cs</em>'s <em>format</em> to <a data-link-type="dfn" href="#compressionstream-format" id="ref-for-compressionstream-format">format</a>.</p>
     <li data-md>
      <p>Let <em>startAlgorithm</em> be an algorithm that takes no arguments and returns nothing.</p>
     <li data-md>
@@ -1604,17 +1604,15 @@ specification uses that specification and terminology.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk">compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object <em>cs</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>If <em>chunk</em> is not of supported type, then throw a TypeError.</p>
+     <p>If <em>chunk</em> is not a <code class="idl"><a data-link-type="idl">BufferSize</a></code> type, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>buffer</em> be the result of compressing <em>chunk</em> with <em>cs</em>'s <em>format</em>. If this throws an exception, then return a promise rejected with that exception.</p>
     <li data-md>
      <p>Let <em>controller</em> be <em>cs</em>'s transform.<span>[TransformStreamController]</span>.</p>
-     <ol>
-      <li data-md>
-       <p>If <em>buffer</em> is empty, no enqueue.</p>
-      <li data-md>
-       <p>Else, call <a abstractop data-link-type="dfn">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
-     </ol>
+    <li data-md>
+     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+    <li data-md>
+     <p>Else, call <a abstractop data-link-type="dfn">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
@@ -1622,12 +1620,10 @@ specification uses that specification and terminology.</p>
    <ol>
     <li data-md>
      <p>Let <em>buffer</em> be the result of compressing an empty input with the finish flag.</p>
-     <ol>
-      <li data-md>
-       <p>If <em>buffer</em> is empty, no enqueue.</p>
-      <li data-md>
-       <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
-     </ol>
+    <li data-md>
+     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+    <li data-md>
+     <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
@@ -1662,17 +1658,15 @@ specification uses that specification and terminology.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object <em>ds</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>If <em>chunk</em> is not of supported type, then throw a TypeError.</p>
+     <p>If <em>chunk</em> is not a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource①">BufferSource</a></code> type, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>buffer</em> be the result of decompressing <em>chunk</em> with <em>ds</em>'s <em>format</em>. If this throws an exception, then return a promise rejected with that exception.</p>
     <li data-md>
      <p>Let <em>controller</em> be <em>ds</em>'s transform.<span>[TransformStreamController]</span>.</p>
-     <ol>
-      <li data-md>
-       <p>If <em>buffer</em> is empty, no enqueue.</p>
-      <li data-md>
-       <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue①">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
-     </ol>
+    <li data-md>
+     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+    <li data-md>
+     <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue①">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
@@ -1680,12 +1674,10 @@ specification uses that specification and terminology.</p>
    <ol>
     <li data-md>
      <p>Let <em>buffer</em> be the result of decompressing an empty input with the finish flag.</p>
-     <ol>
-      <li data-md>
-       <p>If <em>buffer</em> is empty, no enqueue.</p>
-      <li data-md>
-       <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue②">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
-     </ol>
+    <li data-md>
+     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+    <li data-md>
+     <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue②">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
@@ -1897,6 +1889,7 @@ specification uses that specification and terminology.</p>
    <a href="https://heycam.github.io/webidl/#BufferSource">https://heycam.github.io/webidl/#BufferSource</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-BufferSource">3. Terminology</a>
+    <li><a href="#ref-for-BufferSource①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">

@@ -2,7 +2,7 @@
 Title: Compression Streams
 Shortname: compression
 Level: none
-Status: draft
+Status: w3c/CG-DRAFT
 Group: wicg
 ED: https://wicg.github.io/compression-streams/
 Editor: Canon Mukai, Google
@@ -27,7 +27,7 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
     text: pending; url: sec-promise-objects
     text: resolved; url: sec-promise-objects
     text: settled; url: sec-promise-objects
-    
+
 </pre>
 
 # Introduction #    {#introduction}
@@ -72,7 +72,7 @@ The {{GenericTransformStream}} interface mixin represents the concept of a trans
 
 <pre class="idl">
 interface mixin GenericTransformStream {
-  readonly attribute ReadableStream readable; 
+  readonly attribute ReadableStream readable;
   readonly attribute WritableStream writable;
 };
 </pre>
@@ -123,7 +123,7 @@ The <dfn for=CompressionStream>flush and enqueue</dfn> algorithm, which handles 
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
     1. Return a new promise resolved with undefined.
-    
+
 
 # Interface `DecompressionStream` #  {#decompression-stream}
 
@@ -144,7 +144,7 @@ The {{DecompressionStream}}(format) constructor, when invoked, must run these st
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a for=DecompressionStream>flush and enqueue</a> algorithm with *ds*.
     1. Let *transform* be the result of calling <a abstract-op>CreateTransformStream</a>(*startAlgorithm*, *transformAlgorithm*, *flushAlgorithm*).
     1. Set *ds*'s <a>transform</a> to *transform*.
-    1. Return *ds*. 
+    1. Return *ds*.
 
 The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
     1. If *chunk* is not a {{BufferSource}} type, then throw a TypeError.

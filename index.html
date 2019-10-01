@@ -1212,9 +1212,10 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-draft" rel="stylesheet">
-  <meta content="Bikeshed version c80088ef848c5e5446a2eaced80623027d194593" name="generator">
+  <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
+  <meta content="Bikeshed version e86d5b1b47a216fa66165c234892adc259212183" name="generator">
   <link href="https://wicg.github.io/compression-streams/" rel="canonical">
+  <meta content="02a8b101b05965546135ce6aed5648daa22d7850" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1461,7 +1462,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2019-10-01">1 October 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-10-01">1 October 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1559,7 +1560,7 @@ specification uses that specification and terminology.</p>
    <h2 class="heading settled" data-level="4" id="generic-transform-stream"><span class="secno">4. </span><span class="content">Interface Mixin <code>GenericTransformStream</code></span><a class="self-link" href="#generic-transform-stream"></a></h2>
    <p>The <code class="idl"><a data-link-type="idl" href="#generictransformstream" id="ref-for-generictransformstream">GenericTransformStream</a></code> interface mixin represents the concept of a transform stream in IDL. It is not a TransformStream, though it has the same interface and it delegates to one.</p>
 <pre class="idl highlight def"><c- b>interface</c-> <c- b>mixin</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="generictransformstream"><code><c- g>GenericTransformStream</c-></code></dfn> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-generictransformstream-readable" id="ref-for-dom-generictransformstream-readable"><c- g>readable</c-></a>; 
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-generictransformstream-readable" id="ref-for-dom-generictransformstream-readable"><c- g>readable</c-></a>;
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-generictransformstream-writable" id="ref-for-dom-generictransformstream-writable"><c- g>writable</c-></a>;
 };
 </pre>
@@ -1986,7 +1987,7 @@ specification uses that specification and terminology.</p>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>interface</c-> <c- b>mixin</c-> <a href="#generictransformstream"><code><c- g>GenericTransformStream</c-></code></a> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class①①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-generictransformstream-readable" id="ref-for-dom-generictransformstream-readable①"><c- g>readable</c-></a>; 
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class①①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-generictransformstream-readable" id="ref-for-dom-generictransformstream-readable①"><c- g>readable</c-></a>;
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class①①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-generictransformstream-writable" id="ref-for-dom-generictransformstream-writable①"><c- g>writable</c-></a>;
 };
 

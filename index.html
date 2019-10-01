@@ -1461,7 +1461,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2019-09-30">30 September 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2019-10-01">1 October 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1568,10 +1568,10 @@ specification uses that specification and terminology.</p>
    <dl>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="GenericTransformStream" data-dfn-type="attribute" data-export id="dom-generictransformstream-readable"><code>readable</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class②">ReadableStream</a>, readonly</span>
     <dd data-md>
-     <p>The <code>readable</code> attribute’s getter, when invoked, must return this object’s transform <code class="idl"><a data-link-type="idl">[[readable]]</a></code>.</p>
+     <p>The <code>readable</code> attribute’s getter, when invoked, must return this object’s transform [[readable]].</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="GenericTransformStream" data-dfn-type="attribute" data-export id="dom-generictransformstream-writable"><code>writable</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class②">WritableStream</a>, readonly</span>
     <dd data-md>
-     <p>The <code>writable</code> attribute’s getter, when invoked, must return this object’s transform <code class="idl"><a data-link-type="idl">[[writable]]</a></code>.</p>
+     <p>The <code>writable</code> attribute’s getter, when invoked, must return this object’s transform [[writable]].</p>
    </dl>
    <h2 class="heading settled" data-level="5" id="compression-stream"><span class="secno">5. </span><span class="content">Interface <code>CompressionStream</code></span><a class="self-link" href="#compression-stream"></a></h2>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
@@ -1597,18 +1597,18 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>transform</em> be the result of calling <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#create-transform-stream" id="ref-for-create-transform-stream">CreateTransformStream</a>(<em>startAlgorithm</em>, <em>transformAlgorithm</em>, <em>flushAlgorithm</em>).</p>
     <li data-md>
-     <p>Set <em>cs</em>'s <a data-link-type="dfn">transform</a> to <em>transform</em>.</p>
+     <p>Set <em>cs</em>'s <a data-link-type="dfn" href="#transform" id="ref-for-transform">transform</a> to <em>transform</em>.</p>
     <li data-md>
      <p>Return <em>cs</em>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk">compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object <em>cs</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>If <em>chunk</em> is not a <code class="idl"><a data-link-type="idl">BufferSize</a></code> type, then throw a TypeError.</p>
+     <p>If <em>chunk</em> is not a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource①">BufferSource</a></code> type, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>buffer</em> be the result of compressing <em>chunk</em> with <em>cs</em>'s <em>format</em>. If this throws an exception, then return a promise rejected with that exception.</p>
     <li data-md>
-     <p>Let <em>controller</em> be <em>cs</em>'s transform.<span>[TransformStreamController]</span>.</p>
+     <p>Let <em>controller</em> be <em>cs</em>'s transform.[[TransformStreamController]].</p>
     <li data-md>
      <p>If <em>buffer</em> is empty, return a new promise resolved with undefined.</p>
     <li data-md>
@@ -1655,18 +1655,18 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>transform</em> be the result of calling <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#create-transform-stream" id="ref-for-create-transform-stream①">CreateTransformStream</a>(<em>startAlgorithm</em>, <em>transformAlgorithm</em>, <em>flushAlgorithm</em>).</p>
     <li data-md>
-     <p>Set <em>ds</em>'s <a data-link-type="dfn" href="#transform" id="ref-for-transform">transform</a> to <em>transform</em>.</p>
+     <p>Set <em>ds</em>'s <a data-link-type="dfn" href="#transform" id="ref-for-transform①">transform</a> to <em>transform</em>.</p>
     <li data-md>
      <p>Return <em>ds</em>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object <em>ds</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>If <em>chunk</em> is not a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource①">BufferSource</a></code> type, then throw a TypeError.</p>
+     <p>If <em>chunk</em> is not a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource②">BufferSource</a></code> type, then throw a TypeError.</p>
     <li data-md>
      <p>Let <em>buffer</em> be the result of decompressing <em>chunk</em> with <em>ds</em>'s <em>format</em>. If this throws an exception, then return a promise rejected with that exception.</p>
     <li data-md>
-     <p>Let <em>controller</em> be <em>ds</em>'s transform.<span>[TransformStreamController]</span>.</p>
+     <p>Let <em>controller</em> be <em>ds</em>'s transform.[[TransformStreamController]].</p>
     <li data-md>
      <p>If <em>buffer</em> is empty, return a new promise resolved with undefined.</p>
     <li data-md>
@@ -1897,7 +1897,8 @@ specification uses that specification and terminology.</p>
    <a href="https://heycam.github.io/webidl/#BufferSource">https://heycam.github.io/webidl/#BufferSource</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-BufferSource">3. Terminology</a>
-    <li><a href="#ref-for-BufferSource①">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-BufferSource①">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-BufferSource②">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
@@ -2013,7 +2014,8 @@ specification uses that specification and terminology.</p>
   <aside class="dfn-panel" data-for="transform">
    <b><a href="#transform">#transform</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-transform">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-transform">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-transform①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-generictransformstream-readable">

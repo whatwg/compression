@@ -112,14 +112,17 @@ The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream
     1. Let *buffer* be the result of compressing *chunk* with *cs*'s *format*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *cs*'s transform.[[TransformStreamController]].
     1. If *buffer* is empty, do not enqueue anything.
-    1. Else, call <a abstractop>TransformStreamDefaultControllerEnqueue</a>(*controller*, *buffer*).
+    1. Else, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *buffer*).
     1. Return a new promise resolved with undefined.
 
 The <dfn for=CompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
     1. Let *buffer* be the result of compressing an empty input with the finish flag.
-    1. If *buffer* is empty, do not enqueue anything.
-    1. Else, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *buffer*).
+    1. Split a *buffer* into one or more peices and convert them into Uint8Arrays.
+    1. For each Uint8Array:
+       1. Let it be *array*.
+       1. If *array* is empty, do not enqueue anything.
+       1. Else, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *buffer*).
     1. Return a new promise resolved with undefined.
     
 

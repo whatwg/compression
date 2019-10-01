@@ -118,7 +118,7 @@ The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream
 
 The <dfn for=CompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
-    1. Let *buffer* be the result of compressing an empty input with the finish flag.
+    1. Let *buffer* be the result of compressing an empty input with *cs*'s *format*, with the finish flag.
     1. If *buffer* is empty, return a new promise resolved with undefined.
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
@@ -157,7 +157,7 @@ The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionSt
 
 The <dfn for=DecompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
 
-    1. Let *buffer* be the result of decompressing an empty input with the finish flag.
+    1. Let *buffer* be the result of decompressing an empty input with *ds*'s *format*, with the finish flag.
     1. If *buffer* is empty, return a new promise resolved with undefined.
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).

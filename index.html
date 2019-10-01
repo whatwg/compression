@@ -1619,19 +1619,13 @@ specification uses that specification and terminology.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-flush-and-enqueue">flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object <em>cs</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>Let <em>buffer</em> be the result of compressing an empty input with the finish flag.</p>
+     <p>If <em>buffer</em> is empty, return a new promise resolved with undefined.</p>
     <li data-md>
-     <p>Split a <em>buffer</em> into one or more peices and convert them into Uint8Arrays.</p>
+     <p>Else, let <em>buffer</em> be the result of compressing an empty input with the finish flag.</p>
     <li data-md>
-     <p>For each Uint8Array:</p>
-     <ol>
-      <li data-md>
-       <p>Let it be <em>array</em>.</p>
-      <li data-md>
-       <p>If <em>array</em> is empty, do not enqueue anything.</p>
-      <li data-md>
-       <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue①">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
-     </ol>
+     <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into Uint8Arrays.</p>
+    <li data-md>
+     <p>For each Uint8Array <em>array</em>, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue①">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>array</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
@@ -1681,11 +1675,13 @@ specification uses that specification and terminology.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-flush-and-enqueue">flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object <em>ds</em>, runs these steps:</p>
    <ol>
     <li data-md>
-     <p>Let <em>buffer</em> be the result of decompressing an empty input with the finish flag.</p>
+     <p>If <em>buffer</em> is empty, return a new promise resolved with undefined.</p>
     <li data-md>
-     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+     <p>Else, let <em>buffer</em> be the result of decompressing an empty input with the finish flag.</p>
     <li data-md>
-     <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue③">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
+     <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into Uint8Arrays.</p>
+    <li data-md>
+     <p>For each Uint8Array <em>array</em>, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue③">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>array</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>

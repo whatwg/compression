@@ -111,8 +111,9 @@ The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream
     1. If *chunk* is not a {{BufferSize}} type, then throw a TypeError.
     1. Let *buffer* be the result of compressing *chunk* with *cs*'s *format*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *cs*'s transform.[[TransformStreamController]].
-    1. If *buffer* is empty, do not enqueue anything.
-    1. Else, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *buffer*).
+    1. If *buffer* is empty, return a new promise resolved with undefined.
+    1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
+    1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
     1. Return a new promise resolved with undefined.
 
 The <dfn for=CompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
@@ -149,8 +150,9 @@ The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionSt
     1. If *chunk* is not a {{BufferSource}} type, then throw a TypeError.
     1. Let *buffer* be the result of decompressing *chunk* with *ds*'s *format*. If this throws an exception, then return a promise rejected with that exception.
     1. Let *controller* be *ds*'s transform.[[TransformStreamController]].
-    1. If *buffer* is empty, do not enqueue anything.
-    1. Else, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *buffer*).
+    1. If *buffer* is empty, return a new promise resolved with undefined.
+    1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
+    1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
     1. Return a new promise resolved with undefined.
 
 The <dfn for=DecompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:

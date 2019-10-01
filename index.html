@@ -1610,9 +1610,11 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>controller</em> be <em>cs</em>'s transform.<span>[TransformStreamController]</span>.</p>
     <li data-md>
-     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+     <p>If <em>buffer</em> is empty, return a new promise resolved with undefined.</p>
     <li data-md>
-     <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
+     <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into Uint8Arrays.</p>
+    <li data-md>
+     <p>For each Uint8Array <em>array</em>, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>array</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>
@@ -1666,9 +1668,11 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>controller</em> be <em>ds</em>'s transform.<span>[TransformStreamController]</span>.</p>
     <li data-md>
-     <p>If <em>buffer</em> is empty, do not enqueue anything.</p>
+     <p>If <em>buffer</em> is empty, return a new promise resolved with undefined.</p>
     <li data-md>
-     <p>Else, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue②">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>buffer</em>).</p>
+     <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into Uint8Arrays.</p>
+    <li data-md>
+     <p>For each Uint8Array <em>array</em>, call <a data-link-type="abstract-op" href="https://streams.spec.whatwg.org/#transform-stream-default-controller-enqueue" id="ref-for-transform-stream-default-controller-enqueue②">TransformStreamDefaultControllerEnqueue</a>(<em>controller</em>, <em>array</em>).</p>
     <li data-md>
      <p>Return a new promise resolved with undefined.</p>
    </ol>

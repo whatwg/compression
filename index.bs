@@ -102,7 +102,7 @@ The {{CompressionStream}}(format) constructor, when invoked, must run these step
     1. Set *cs*'s *format* to <a for=CompressionStream>format</a>.
     1. Let *startAlgorithm* be an algorithm that takes no arguments and returns nothing.
     1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a>compress and enqueue a chunk</a> algorithm with *cs* and *chunk*.
-    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a for=CompressionStream>flush and enqueue</a> algorithm with *cs*.
+    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a>compress flush and enqueue</a> algorithm with *cs*.
     1. Let *transform* be the result of calling <a abstract-op>CreateTransformStream</a>(*startAlgorithm*, *transformAlgorithm*, *flushAlgorithm*).
     1. Set *cs*'s <a>transform</a> to *transform*.
     1. Return *cs*.
@@ -116,7 +116,7 @@ The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
     1. Return a new promise resolved with undefined.
 
-The <dfn for=CompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
+The <dfn>compress flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
     1. Let *buffer* be the result of compressing an empty input with *cs*'s *format*, with the finish flag.
     1. If *buffer* is empty, return a new promise resolved with undefined.
@@ -141,7 +141,7 @@ The {{DecompressionStream}}(format) constructor, when invoked, must run these st
     1. Set *ds*'s *format* to <a for=DecompressionStream>format</a>.
     1. Let *startAlgorithm* be an algorithm that takes no arguments and returns nothing.
     1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a>decompress and enqueue a chunk</a> algorithm with *ds* and *chunk*.
-    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a for=DecompressionStream>flush and enqueue</a> algorithm with *ds*.
+    1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a>decompress flush and enqueue</a> algorithm with *ds*.
     1. Let *transform* be the result of calling <a abstract-op>CreateTransformStream</a>(*startAlgorithm*, *transformAlgorithm*, *flushAlgorithm*).
     1. Set *ds*'s <a>transform</a> to *transform*.
     1. Return *ds*.
@@ -155,7 +155,7 @@ The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionSt
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
     1. Return a new promise resolved with undefined.
 
-The <dfn for=DecompressionStream>flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
+The <dfn>decompress flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
 
     1. Let *buffer* be the result of decompressing an empty input with *ds*'s *format*, with the finish flag.
     1. If *buffer* is empty, return a new promise resolved with undefined.

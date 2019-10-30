@@ -55,7 +55,7 @@ easy to follow, and not intended to be performant.)
 
 Implementations that use ECMAScript to implement the APIs defined in this
 specification MUST implement them in a manner consistent with the ECMAScript
-Bindings defined in the Web IDL specification [[!WEBIDL-1]], as this
+Bindings defined in the Web IDL specification [[!WebIDL]], as this
 specification uses that specification and terminology.
 
 # Terminology #  {#terminology}

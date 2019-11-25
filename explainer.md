@@ -9,10 +9,10 @@ web platform, but up until now have not been exposed to JavaScript. Since
 compression is naturally a streaming process, it is a good match for the
 [WHATWG Streams](https://streams.spec.whatwg.org/) API.
 
-CompressionStream is used to compress a stream. It accepts ArrayBuffer or
+`CompressionStream` is used to compress a stream. It accepts ArrayBuffer or
 ArrayBufferView chunks, and outputs Uint8Array.
 
-DecompressionStream is used to decompress a stream. It accepts
+`DecompressionStream` is used to decompress a stream. It accepts
 ArrayBuffer or ArrayBufferView chunks, and outputs Uint8Array.
 
 Both APIs satisfy the concept of a [transform
@@ -37,18 +37,21 @@ in the "gzip" ([RFC1952](https://tools.ietf.org/html/rfc1952)) or "deflate"
 ## Motivation
 
 Existing libraries can be used to perform compression in the browser, however
-there are a number of benefits to a built-in capability.
+there are a number of benefits to a built-in capability:
 
-*   A built-in API does not need to be downloaded. This is particularly relevant
-    when compression is being used with the goal of reducing bandwidth usage.
+*   A built-in API does not need to be downloaded. This is particularly
+    relevant when compression is being used with the goal of reducing bandwidth
+    usage.
 *   Native compression libraries are faster and use less power than JavaScript
-    or WASM libraries.
+    or WASM libraries. Benchmarks performed at Facebook found that the native
+    implementation was 20x faster than JavaScript and 10% faster than WASM.
 *   Ergonomics is improved by having a standard, web-like API. By using streams
     composability with other web platforms is improved.
 *   The web platform is unusual in not having native support for compression.
-    This API fills that gap.
+    Android, iOS, .NET, Java, Node.js, Python, and many other platforms come
+    with compression support out-of-the-box. This API fills that gap.
 
-Why support "gzip" and "deflate" rather than more modern compression formats?
+### Why support "gzip" and "deflate" rather than more modern compression formats?
 
 *   An implementation of these formats is already built into all
     standards-compliant browsers. This makes the incremental cost of exposing
@@ -145,16 +148,18 @@ bandwidth.
 
 ## Considered alternatives
 
-*   Why not simply wrap the zlib API?
+*   Why not simply wrap the [zlib](https://www.zlib.net/) API?
 
     Not all platforms use zlib. Moreover, it is not a web-like API and
-    it’s hard to use. Implementing CompressionStream for zlib helps us
+    it’s hard to use. Implementing `CompressionStream` for zlib helps us
     use it more easily.
 
 *   Why not support synchronous compression?
 
-    We want to be able to offload the work to another thread, which
-    cannot be done with a synchronous API.
+    With a synchronous API, compressing a large buffer would block the main
+    thread for potentially a significant amount of time, leading to jank and a
+    bad user experience for users. An asynchronous API allows implementations
+    to avoid this by chunking work and/or offloading it to another thread.
 
 *   Why not a non-streaming API?
 
@@ -164,14 +169,6 @@ bandwidth.
     to implement an efficient streaming API. However, a stream-based
     API can be used to compress a single buffer, so it is more
     flexible.
-
-*   Why not support other formats in the first version?
-
-    Gzip and Deflate are ubiquitous and already shipping in every browser.
-    This means the incremental cost of exposing them is very low. They are
-    used so extensively in the web platform that there is almost zero
-    chance of them ever being removed, so committing to supporting them
-    long-term is safe.
 
 
 ## Future work

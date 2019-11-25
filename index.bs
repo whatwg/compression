@@ -64,7 +64,30 @@ A chunk is a piece of data. In the case of CompressionStream and DecompressionSt
 
 A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in [[!WHATWG-STREAMS]].
 
-Deflate is a compression format defined in [[!RFC1950]]. It is referred to there as "ZLIB", but in this standard we call it "deflate" to match HTTP (see [[RFC7230]] section 4.2.2). Gzip is another compression format defined in [[!RFC1952]], also based on the deflate algorithm.
+# Supported formats # {#supported-formats}
+
+: `deflate`
+:: "ZLIB Compressed Data Format" [[!RFC1950]]
+
+   * This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See [[RFC7230]] section 4.2.2.
+   * Implementations must be "compliant" as described in [[!RFC1950]] section 2.3.
+   * Field values described as invalid in [[!RFC1950]] must not be created by CompressionStream, and are errors for DecompressionStream.
+   * The only valid value of the `CM` (Compression method) field is 8.
+   * The `FDICT` flag is not supported by these APIs, and will error the stream if set.
+   * The `FLEVEL` flag is ignored by DecompressionStream.
+   * It is an error for DecompressionStream if the `ADLER32` checksum is not correct.
+
+: `gzip`
+:: "GZIP file format" [[!RFC1952]]
+
+   * Implementations must be "compliant" as described in [[!RFC1952]] section 2.3.1.2.
+   * Field values described as invalid in [[!RFC1952]] must not be created by CompressionStream, and are errors for DecompressionStream.
+   * The only valid value of the `CM` (Compression Method) field is 8.
+   * The `FTEXT` flag must be ignored by DecompressionStream.
+   * If the `FHCRC` field is present, it is an error for it to be incorrect.
+   * The contents of any `FEXTRA`, `FNAME` and `FCOMMENT` fields must be ignored by DecompressionStream, except to verify that they are terminated correctly.
+   * The contents of the `MTIME`, `XFL` and `OS` fields must be ignored by DecompressionStream.
+   * It is an error if `CRC32` or `ISIZE` do not match the decompressed data.
 
 # Interface Mixin `GenericTransformStream` #  {#generic-transform-stream}
 
@@ -108,21 +131,21 @@ The {{CompressionStream}}(format) constructor, when invoked, must run these step
     1. Return *cs*.
 
 The <dfn>compress and enqueue a chunk</dfn> algorithm, given a CompressionStream object *cs* and a *chunk*, runs these steps:
-    1. If *chunk* is not a {{BufferSource}} type, then throw a TypeError.
-    1. Let *buffer* be the result of compressing *chunk* with *cs*'s *format*. If this throws an exception, then return a promise rejected with that exception.
+    1. If *chunk* is not a {{BufferSource}} type, then return <a>a promise rejected with</a> a TypeError.
+    1. Let *buffer* be the result of compressing *chunk* with *cs*'s *format*.
     1. Let *controller* be *cs*'s transform.\[[TransformStreamController]].
-    1. If *buffer* is empty, return a new promise resolved with undefined.
+    1. If *buffer* is empty, return <a>a promise resolved with</a> undefined.
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
-    1. Return a new promise resolved with undefined.
+    1. Return <a>a promise resolved with</a> undefined.
 
 The <dfn>compress flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a CompressionStream object *cs*, runs these steps:
 
     1. Let *buffer* be the result of compressing an empty input with *cs*'s *format*, with the finish flag.
-    1. If *buffer* is empty, return a new promise resolved with undefined.
+    1. If *buffer* is empty, return <a>a promise resolved with</a> undefined.
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
-    1. Return a new promise resolved with undefined.
+    1. Return <a>a promise resolved with</a> undefined.
 
 
 # Interface `DecompressionStream` #  {#decompression-stream}
@@ -147,21 +170,21 @@ The {{DecompressionStream}}(format) constructor, when invoked, must run these st
     1. Return *ds*.
 
 The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a DecompressionStream object *ds* and a *chunk*, runs these steps:
-    1. If *chunk* is not a {{BufferSource}} type, then throw a TypeError.
-    1. Let *buffer* be the result of decompressing *chunk* with *ds*'s *format*. If this throws an exception, then return a promise rejected with that exception.
+    1. If *chunk* is not a {{BufferSource}} type, then return <a>a promise rejected with</a> a TypeError.
+    1. Let *buffer* be the result of decompressing *chunk* with *ds*'s *format*. If this results in an error, then return <a>a promise rejected with</a> a TypeError.
     1. Let *controller* be *ds*'s transform.\[[TransformStreamController]].
-    1. If *buffer* is empty, return a new promise resolved with undefined.
+    1. If *buffer* is empty, return <a>a promise resolved with</a> undefined.
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
-    1. Return a new promise resolved with undefined.
+    1. Return <a>a promise resolved with</a> undefined.
 
 The <dfn>decompress flush and enqueue</dfn> algorithm, which handles the end of data from the input ReadableStream object, given a DecompressionStream object *ds*, runs these steps:
 
     1. Let *buffer* be the result of decompressing an empty input with *ds*'s *format*, with the finish flag.
-    1. If *buffer* is empty, return a new promise resolved with undefined.
+    1. If *buffer* is empty, return <a>a promise resolved with</a> undefined.
     1. Split *buffer* into one or more non-empty pieces and convert them into Uint8Arrays.
     1. For each Uint8Array *array*, call <a abstract-op>TransformStreamDefaultControllerEnqueue</a>(*controller*, *array*).
-    1. Return a new promise resolved with undefined.
+    1. Return <a>a promise resolved with</a> undefined.
 
 
 # Privacy and Security Considerations #  {#privacy-security}

@@ -72,7 +72,7 @@ A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} 
    * This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See [[RFC7230]] section 4.2.2.
    * Implementations must be "compliant" as described in [[!RFC1950]] section 2.3.
    * Field values described as invalid in [[!RFC1950]] must not be created by CompressionStream, and are errors for DecompressionStream.
-   * The only valid value of the `CM` (Compression method) field is 8.
+   * The only valid value of the `CM` (Compression method) part of the `CMF` field is 8.
    * The `FDICT` flag is not supported by these APIs, and will error the stream if set.
    * The `FLEVEL` flag is ignored by DecompressionStream.
    * It is an error for DecompressionStream if the `ADLER32` checksum is not correct.

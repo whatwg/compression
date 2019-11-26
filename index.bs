@@ -64,7 +64,7 @@ A chunk is a piece of data. In the case of CompressionStream and DecompressionSt
 
 A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in [[!WHATWG-STREAMS]].
 
-A <dfn>compression context</dfn> is the internal state maintained by a compression or decompression algorithm. A <a>compression context</a> is initially in a start state such that it anticipates the first byte of input.
+A <dfn>compression context</dfn> is the internal state maintained by a compression or decompression algorithm. The contents of a <a>compression context</a> depend on the format, algorithm and implementation in use. From the point of view of this specification, it is an opaque object. A <a>compression context</a> is initially in a start state such that it anticipates the first byte of input.
 
 # Supported formats # {#supported-formats}
 

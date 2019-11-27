@@ -1215,7 +1215,7 @@ Possible extra rowspan handling
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
   <meta content="Bikeshed version e86d5b1b47a216fa66165c234892adc259212183" name="generator">
   <link href="https://ricea.github.io/compression/" rel="canonical">
-  <meta content="34fa42dc7560c42bc01fb0ae6d4aa3b07cdd5853" name="document-revision">
+  <meta content="a69075cf33884d94c9aeb828123c0638136f3ed7" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1462,7 +1462,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-11-26">26 November 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-11-27">27 November 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1557,7 +1557,7 @@ specification uses that specification and terminology.</p>
    <h2 class="heading settled" data-level="3" id="terminology"><span class="secno">3. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <p>A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accept any <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource">BufferSource</a></code> type as input.</p>
    <p>A stream represents an ordered sequence of chunks. The terms <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#rs-class" id="ref-for-rs-class">ReadableStream</a></code> and <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#ws-class" id="ref-for-ws-class">WritableStream</a></code> are defined in <a data-link-type="biblio" href="#biblio-whatwg-streams">[WHATWG-STREAMS]</a>.</p>
-   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compression-context">compression context</dfn> is the internal state maintained by a compression or decompression algorithm. A <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context">compression context</a> is initially in a start state such that it anticipates the first byte of input.</p>
+   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compression-context">compression context</dfn> is the internal state maintained by a compression or decompression algorithm. The contents of a <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context">compression context</a> depend on the format, algorithm and implementation in use. From the point of view of this specification, it is an opaque object. A <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context①">compression context</a> is initially in a start state such that it anticipates the first byte of input.</p>
    <h2 class="heading settled" data-level="4" id="supported-formats"><span class="secno">4. </span><span class="content">Supported formats</span><a class="self-link" href="#supported-formats"></a></h2>
    <dl>
     <dt data-md><code>deflate</code>
@@ -1631,7 +1631,7 @@ specification uses that specification and terminology.</p>
 };
 <a class="n" data-link-type="idl-name" href="#compressionstream" id="ref-for-compressionstream"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a class="n" data-link-type="idl-name" href="#generictransformstream" id="ref-for-generictransformstream②"><c- n>GenericTransformStream</c-></a>;
 </pre>
-   <p>A <code class="idl"><a data-link-type="idl" href="#compressionstream" id="ref-for-compressionstream①">CompressionStream</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-format">format</dfn> and <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context①">compression context</a> <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-context">context</dfn>.</p>
+   <p>A <code class="idl"><a data-link-type="idl" href="#compressionstream" id="ref-for-compressionstream①">CompressionStream</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-format">format</dfn> and <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context②">compression context</a> <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-context">context</dfn>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#compressionstream" id="ref-for-compressionstream②">CompressionStream</a></code>(<em>format</em>) constructor, when invoked, must run these steps:</p>
    <ol>
     <li data-md>
@@ -1690,7 +1690,7 @@ specification uses that specification and terminology.</p>
 };
 <a class="n" data-link-type="idl-name" href="#decompressionstream" id="ref-for-decompressionstream"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a class="n" data-link-type="idl-name" href="#generictransformstream" id="ref-for-generictransformstream③"><c- n>GenericTransformStream</c-></a>;
 </pre>
-   <p>A <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream①">DecompressionStream</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-format">format</dfn> and <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context②">compression context</a> <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-context">context</dfn>.</p>
+   <p>A <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream①">DecompressionStream</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-format">format</dfn> and <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context③">compression context</a> <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-context">context</dfn>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream②">DecompressionStream</a></code>(<em>format</em>) constructor, when invoked, must run these steps:</p>
    <ol>
     <li data-md>
@@ -2078,9 +2078,9 @@ specification uses that specification and terminology.</p>
   <aside class="dfn-panel" data-for="compression-context">
    <b><a href="#compression-context">#compression-context</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-compression-context">3. Terminology</a>
-    <li><a href="#ref-for-compression-context①">6. Interface CompressionStream</a>
-    <li><a href="#ref-for-compression-context②">7. Interface DecompressionStream</a>
+    <li><a href="#ref-for-compression-context">3. Terminology</a> <a href="#ref-for-compression-context①">(2)</a>
+    <li><a href="#ref-for-compression-context②">6. Interface CompressionStream</a>
+    <li><a href="#ref-for-compression-context③">7. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="generictransformstream">

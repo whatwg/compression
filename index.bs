@@ -4,20 +4,19 @@ Shortname: compression
 Level: none
 Status: w3c/CG-DRAFT
 Group: wicg
-ED: https://ricea.github.io/compression/
+ED: https://wicg.github.io/compression/
 Editor: Canon Mukai, Google
 Editor: Adam Rice, Google
 Abstract:
   This document defines a set of JavaScript APIs to compress and decompress
   streams of binary data.
-Repository: ricea/compression-streams
+Repository: wicg/compression
 Indent: 2
 Markup Shorthands: markdown yes
 Boilerplate: omit conformance
 </pre>
 <pre class="link-defaults">
 spec:streams; type:interface; text:ReadableStream
-spec:html; type:dfn; for:/; text:origin
 </pre>
 <pre class="anchors">
 urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMASCRIPT-6.0
@@ -27,7 +26,6 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
     text: pending; url: sec-promise-objects
     text: resolved; url: sec-promise-objects
     text: settled; url: sec-promise-objects
-
 </pre>
 
 # Introduction #    {#introduction}

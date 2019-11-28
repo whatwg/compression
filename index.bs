@@ -2,7 +2,7 @@
 Title: Compression Streams
 Shortname: compression
 Level: none
-Status: w3c/CG-DRAFT
+Status: CG-DRAFT
 Group: wicg
 ED: https://wicg.github.io/compression/
 Editor: Canon Mukai, Google

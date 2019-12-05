@@ -1213,9 +1213,8 @@ Possible extra rowspan handling
 	}
 </style>
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version e86d5b1b47a216fa66165c234892adc259212183" name="generator">
+  <meta content="Bikeshed version e1a165f1c2fb1cc2aceb87e110984a42830c36fa" name="generator">
   <link href="https://wicg.github.io/compression/" rel="canonical">
-  <meta content="0b0ed2deb2d409d14760c5578d9cf5258b6b9899" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1462,7 +1461,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-11-28">28 November 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2019-12-05">5 December 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1778,10 +1777,10 @@ specification uses that specification and terminology.</p>
 <c- p>}</c->
 </pre>
    <h3 class="heading settled" data-level="9.3" id="example-gzip-decompress"><span class="secno">9.3. </span><span class="content">Gzip-decompress a Blob to Blob</span><a class="self-link" href="#example-gzip-decompress"></a></h3>
-<pre class="example highlight" id="example-f625faf3"><a class="self-link" href="#example-f625faf3"></a>async <c- a>function</c-> DecompressBlob<c- p>(</c->blob<c- p>)</c-> <c- p>{</c->
+<pre class="example highlight" id="example-4d353c2c"><a class="self-link" href="#example-4d353c2c"></a><c- a>function</c-> decompressBlob<c- p>(</c->blob<c- p>)</c-> <c- p>{</c->
   <c- kr>const</c-> ds <c- o>=</c-> <c- k>new</c-> DecompressionStream<c- p>(</c-><c- t>'gzip'</c-><c- p>);</c->
   <c- kr>const</c-> decompressionStream <c- o>=</c-> blob<c- p>.</c->stream<c- p>().</c->pipeThrough<c- p>(</c->ds<c- p>);</c->
-  <c- k>return</c-> await <c- k>new</c-> Response<c- p>(</c->decompressedStream<c- p>).</c->blob<c- p>();</c->
+  <c- k>return</c-> <c- k>new</c-> Response<c- p>(</c->decompressedStream<c- p>).</c->blob<c- p>();</c->
 <c- p>}</c->
 </pre>
    <h2 class="heading settled" data-level="10" id="acknowledgments"><span class="secno">10. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>

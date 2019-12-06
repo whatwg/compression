@@ -241,10 +241,10 @@ async function compressArrayBuffer(in) {
 ## Gzip-decompress a Blob to Blob ##  {#example-gzip-decompress}
 
 <pre class="example" highlight="js">
-async function DecompressBlob(blob) {
+function decompressBlob(blob) {
   const ds = new DecompressionStream('gzip');
   const decompressionStream = blob.stream().pipeThrough(ds);
-  return await new Response(decompressedStream).blob();
+  return new Response(decompressedStream).blob();
 }
 </pre>
 

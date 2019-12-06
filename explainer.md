@@ -127,10 +127,10 @@ This treats the input as a gzip file regardless of the mime-type. The output
 Blob has an empty mime-type.
 
 ```javascript
-async function DecompressBlob(blob) {
+function decompressBlob(blob) {
   const ds = new DecompressionStream('gzip');
   const decompressedStream = blob.stream().pipeThrough(ds);
-  return await new Response(decompressedStream).blob();
+  return new Response(decompressedStream).blob();
 }
 ```
 

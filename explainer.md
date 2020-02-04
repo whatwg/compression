@@ -189,4 +189,4 @@ utility of the API:
 ## References & acknowledgements
 
 Original text by Canon Mukai with contributions from Adam Rice, Domenic
-Denicola, Takeshi Yoshino and Yutaka Hirano.
+Denicola, Jake Archibald, Takeshi Yoshino and Yutaka Hirano.

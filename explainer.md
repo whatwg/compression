@@ -96,10 +96,10 @@ const compressedReadableStream = inputReadableStream.pipeThrough(new Compression
 ### Deflate-compress an ArrayBuffer to a Uint8Array
 
 ```javascript
-async function compressArrayBuffer(in) {
+async function compressArrayBuffer(data) {
   const cs = new CompressionStream('deflate');
   const writer = cs.writable.getWriter();
-  writer.write(in);
+  writer.write(data);
   writer.close();
   const out = [];
   const reader = cs.readable.getReader();

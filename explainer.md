@@ -97,7 +97,7 @@ const compressedReadableStream = inputReadableStream.pipeThrough(new Compression
 
 ```javascript
 function compressArrayBuffer(input) {
-  const stream = new Blob(input)
+  const stream = new Blob([input])
     .stream()
     .pipeThrough(new CompressionStream('deflate'));
   return new Response(stream).arrayBuffer();

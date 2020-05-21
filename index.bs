@@ -32,7 +32,7 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 
 *This section is non-normative.*
 
-The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate" and "gzip" as compression algorithms. They are widely used in web developers.
+The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate" and "gzip" as compression algorithms. They are widely used by web developers.
 
 # Conformance #  {#conformance}
 

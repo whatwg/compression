@@ -109,7 +109,7 @@ The <dfn constructor for=CompressionStream lt="CompressionStream(format)"><code>
     1. Set [=this=]'s <a for=CompressionStream>format</a> to *format*.
     1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a>compress and enqueue a chunk</a> algorithm with [=this=] and *chunk*.
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a>compress flush and enqueue</a> algorithm with [=this=].
-    1. Set [=this=]'s [=GenericCompressionStream/transform=] to the result of [=TransformStream/creating=] a {{TransformStream}} with <a for=TransformStream/create><var ignore>transformAlgorithm</var></a> set to *transformAlgorithm* and <a for=TransformStream/create><var ignore>flushAlgorithm</var></a> set to *flushAlgorithm*.
+    1. Set [=this=]'s [=GenericTransformStream/transform=] to the result of [=TransformStream/creating=] a {{TransformStream}} with <a for=TransformStream/create><var ignore>transformAlgorithm</var></a> set to *transformAlgorithm* and <a for=TransformStream/create><var ignore>flushAlgorithm</var></a> set to *flushAlgorithm*.
 
 The <dfn>compress and enqueue a chunk</dfn> algorithm, given a {{CompressionStream}} object *cs* and a *chunk*, runs these steps:
     1. If *chunk* is not a {{BufferSource}} type, then throw a {{TypeError}}.
@@ -143,7 +143,7 @@ The <dfn constructor for=DecompressionStream lt="DecompressionStream(format)"><c
     1. Set [=this=]'s <a for=DecompressionStream>format</a> to *format*.
     1. Let *transformAlgorithm* be an algorithm which takes a *chunk* argument and runs the <a>decompress and enqueue a chunk</a> algorithm with *ds* and *chunk*.
     1. Let *flushAlgorithm* be an algorithm which takes no argument and runs the <a>decompress flush and enqueue</a> algorithm with *ds*.
-    1. Set [=this=]'s [=GenericCompressionStream/transform=] to the result of [=TransformStream/creating=] a {{TransformStream}} with <a for=TransformStream/create><var ignore>transformAlgorithm</var></a> set to *transformAlgorithm* and <a for=TransformStream/create><var ignore>flushAlgorithm</var></a> set to *flushAlgorithm*.
+    1. Set [=this=]'s [=GenericTransformStream/transform=] to the result of [=TransformStream/creating=] a {{TransformStream}} with <a for=TransformStream/create><var ignore>transformAlgorithm</var></a> set to *transformAlgorithm* and <a for=TransformStream/create><var ignore>flushAlgorithm</var></a> set to *flushAlgorithm*.
 
 The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a {{DecompressionStream}} object *ds* and a *chunk*, runs these steps:
     1. If *chunk* is not a {{BufferSource}} type, then throw a {{TypeError}}.

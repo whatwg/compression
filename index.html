@@ -4,9 +4,8 @@
   <title>Compression Streams</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version b9f8371cc, updated Fri Mar 5 18:35:23 2021 -0800" name="generator">
+  <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://wicg.github.io/compression/" rel="canonical">
-  <meta content="1f0b64be290e09570b1f986c2b515c9a2a234482" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -567,7 +566,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-03-08">8 March 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-03-31">31 March 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -726,7 +725,9 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a data-link-type="dfn" href="#compress-flush-and-enqueue" id="ref-for-compress-flush-and-enqueue">compress flush and enqueue</a> algorithm with <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②">this</a>.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this③">this</a>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform">transform</a> to the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create" id="ref-for-transformstream-create">creating</a> a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm" id="ref-for-transformstream-create-transformalgorithm"><var>transformAlgorithm</var></a> set to <em>transformAlgorithm</em> and <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create-flushalgorithm" id="ref-for-transformstream-create-flushalgorithm"><var>flushAlgorithm</var></a> set to <em>flushAlgorithm</em>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this③">this</a>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform">transform</a> to a <a data-link-type="dfn" href="https://heycam.github.io/webidl/#new" id="ref-for-new">new</a> <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code>.</p>
+    <li data-md>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up" id="ref-for-transformstream-set-up">Set up</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this④">this</a>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform①">transform</a> with <i><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a></i> set to <em>transformAlgorithm</em> and <i><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm" id="ref-for-transformstream-set-up-flushalgorithm">flushAlgorithm</a></i> set to <em>flushAlgorithm</em>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compress-and-enqueue-a-chunk">compress and enqueue a chunk</dfn> algorithm, given a <code class="idl"><a data-link-type="idl" href="#compressionstream" id="ref-for-compressionstream③">CompressionStream</a></code> object <em>cs</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
@@ -739,7 +740,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array">Uint8Array</a></code>s.</p>
     <li data-md>
-     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array①">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue">enqueue</a> <em>array</em> in <em>cs</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform①">transform</a>.</p>
+     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array①">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue">enqueue</a> <em>array</em> in <em>cs</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform②">transform</a>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compress-flush-and-enqueue">compress flush and enqueue</dfn> algorithm, which handles the end of data from the input <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①">ReadableStream</a></code> object, given a <code class="idl"><a data-link-type="idl" href="#compressionstream" id="ref-for-compressionstream④">CompressionStream</a></code> object <em>cs</em>, runs these steps:</p>
    <ol>
@@ -750,7 +751,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array②">Uint8Array</a></code>s.</p>
     <li data-md>
-     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array③">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue①">enqueue</a> <em>array</em> in <em>cs</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform②">transform</a>.</p>
+     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array③">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue①">enqueue</a> <em>array</em> in <em>cs</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform③">transform</a>.</p>
    </ol>
    <h2 class="heading settled" data-level="6" id="decompression-stream"><span class="secno">6. </span><span class="content">Interface <code>DecompressionStream</code></span><a class="self-link" href="#decompression-stream"></a></h2>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
@@ -765,13 +766,15 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>If <em>format</em> is unsupported in <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream②">DecompressionStream</a></code>, then throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror②">TypeError</a></code>.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this④">this</a>'s <a data-link-type="dfn" href="#decompressionstream-format" id="ref-for-decompressionstream-format">format</a> to <em>format</em>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑤">this</a>'s <a data-link-type="dfn" href="#decompressionstream-format" id="ref-for-decompressionstream-format">format</a> to <em>format</em>.</p>
     <li data-md>
-     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <a data-link-type="dfn" href="#decompress-and-enqueue-a-chunk" id="ref-for-decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</a> algorithm with <em>ds</em> and <em>chunk</em>.</p>
+     <p>Let <em>transformAlgorithm</em> be an algorithm which takes a <em>chunk</em> argument and runs the <a data-link-type="dfn" href="#decompress-and-enqueue-a-chunk" id="ref-for-decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</a> algorithm with <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑥">this</a> and <em>chunk</em>.</p>
     <li data-md>
-     <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a data-link-type="dfn" href="#decompress-flush-and-enqueue" id="ref-for-decompress-flush-and-enqueue">decompress flush and enqueue</a> algorithm with <em>ds</em>.</p>
+     <p>Let <em>flushAlgorithm</em> be an algorithm which takes no argument and runs the <a data-link-type="dfn" href="#decompress-flush-and-enqueue" id="ref-for-decompress-flush-and-enqueue">decompress flush and enqueue</a> algorithm with <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑦">this</a>.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑤">this</a>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform③">transform</a> to the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create" id="ref-for-transformstream-create①">creating</a> a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream①">TransformStream</a></code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm" id="ref-for-transformstream-create-transformalgorithm①"><var>transformAlgorithm</var></a> set to <em>transformAlgorithm</em> and <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create-flushalgorithm" id="ref-for-transformstream-create-flushalgorithm①"><var>flushAlgorithm</var></a> set to <em>flushAlgorithm</em>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑧">this</a>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform④">transform</a> to a <a data-link-type="dfn" href="https://heycam.github.io/webidl/#new" id="ref-for-new①">new</a> <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream①">TransformStream</a></code>.</p>
+    <li data-md>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up" id="ref-for-transformstream-set-up①">Set up</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑨">this</a>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform⑤">transform</a> with <i><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm①">transformAlgorithm</a></i> set to <em>transformAlgorithm</em> and <i><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm" id="ref-for-transformstream-set-up-flushalgorithm①">flushAlgorithm</a></i> set to <em>flushAlgorithm</em>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="decompress-and-enqueue-a-chunk">decompress and enqueue a chunk</dfn> algorithm, given a <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream③">DecompressionStream</a></code> object <em>ds</em> and a <em>chunk</em>, runs these steps:</p>
    <ol>
@@ -784,7 +787,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array④">Uint8Array</a></code>s.</p>
     <li data-md>
-     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array⑤">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue②">enqueue</a> <em>array</em> in <em>ds</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform④">transform</a>.</p>
+     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array⑤">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue②">enqueue</a> <em>array</em> in <em>ds</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform⑥">transform</a>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="decompress-flush-and-enqueue">decompress flush and enqueue</dfn> algorithm, which handles the end of data from the input <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream②">ReadableStream</a></code> object, given a <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream④">DecompressionStream</a></code> object <em>ds</em>, runs these steps:</p>
    <ol>
@@ -797,7 +800,7 @@ specification uses that specification and terminology.</p>
     <li data-md>
      <p>Split <em>buffer</em> into one or more non-empty pieces and convert them into <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array⑥">Uint8Array</a></code>s.</p>
     <li data-md>
-     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array⑦">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue③">enqueue</a> <em>array</em> in <em>ds</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform⑤">transform</a>.</p>
+     <p>For each <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-Uint8Array" id="ref-for-idl-Uint8Array⑦">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue③">enqueue</a> <em>array</em> in <em>ds</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform⑦">transform</a>.</p>
    </ol>
    <h2 class="heading settled" data-level="7" id="privacy-security"><span class="secno">7. </span><span class="content">Privacy and Security Considerations</span><a class="self-link" href="#privacy-security"></a></h2>
    <p>The API doesn’t add any new privileges to the web platform.</p>
@@ -910,11 +913,18 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-idl-Uint8Array④">6. Interface DecompressionStream</a> <a href="#ref-for-idl-Uint8Array⑤">(2)</a> <a href="#ref-for-idl-Uint8Array⑥">(3)</a> <a href="#ref-for-idl-Uint8Array⑦">(4)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-new">
+   <a href="https://heycam.github.io/webidl/#new">https://heycam.github.io/webidl/#new</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-new">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-new①">6. Interface DecompressionStream</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-this">
    <a href="https://heycam.github.io/webidl/#this">https://heycam.github.io/webidl/#this</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-this">5. Interface CompressionStream</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a>
-    <li><a href="#ref-for-this④">6. Interface DecompressionStream</a> <a href="#ref-for-this⑤">(2)</a>
+    <li><a href="#ref-for-this">5. Interface CompressionStream</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a>
+    <li><a href="#ref-for-this⑤">6. Interface DecompressionStream</a> <a href="#ref-for-this⑥">(2)</a> <a href="#ref-for-this⑦">(3)</a> <a href="#ref-for-this⑧">(4)</a> <a href="#ref-for-this⑨">(5)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-generictransformstream">
@@ -945,13 +955,6 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-writablestream">3. Terminology</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-transformstream-create">
-   <a href="https://streams.spec.whatwg.org/#transformstream-create">https://streams.spec.whatwg.org/#transformstream-create</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-transformstream-create">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-transformstream-create①">6. Interface DecompressionStream</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-transformstream-enqueue">
    <a href="https://streams.spec.whatwg.org/#transformstream-enqueue">https://streams.spec.whatwg.org/#transformstream-enqueue</a><b>Referenced in:</b>
    <ul>
@@ -959,25 +962,32 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-transformstream-enqueue②">6. Interface DecompressionStream</a> <a href="#ref-for-transformstream-enqueue③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-transformstream-create-flushalgorithm">
-   <a href="https://streams.spec.whatwg.org/#transformstream-create-flushalgorithm">https://streams.spec.whatwg.org/#transformstream-create-flushalgorithm</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-transformstream-set-up-flushalgorithm">
+   <a href="https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-transformstream-create-flushalgorithm">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-transformstream-create-flushalgorithm①">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-transformstream-set-up-flushalgorithm">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-transformstream-set-up-flushalgorithm①">6. Interface DecompressionStream</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-transformstream-set-up">
+   <a href="https://streams.spec.whatwg.org/#transformstream-set-up">https://streams.spec.whatwg.org/#transformstream-set-up</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-transformstream-set-up">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-transformstream-set-up①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-generictransformstream-transform">
    <a href="https://streams.spec.whatwg.org/#generictransformstream-transform">https://streams.spec.whatwg.org/#generictransformstream-transform</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-generictransformstream-transform">5. Interface CompressionStream</a> <a href="#ref-for-generictransformstream-transform①">(2)</a> <a href="#ref-for-generictransformstream-transform②">(3)</a>
-    <li><a href="#ref-for-generictransformstream-transform③">6. Interface DecompressionStream</a> <a href="#ref-for-generictransformstream-transform④">(2)</a> <a href="#ref-for-generictransformstream-transform⑤">(3)</a>
+    <li><a href="#ref-for-generictransformstream-transform">5. Interface CompressionStream</a> <a href="#ref-for-generictransformstream-transform①">(2)</a> <a href="#ref-for-generictransformstream-transform②">(3)</a> <a href="#ref-for-generictransformstream-transform③">(4)</a>
+    <li><a href="#ref-for-generictransformstream-transform④">6. Interface DecompressionStream</a> <a href="#ref-for-generictransformstream-transform⑤">(2)</a> <a href="#ref-for-generictransformstream-transform⑥">(3)</a> <a href="#ref-for-generictransformstream-transform⑦">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-transformstream-create-transformalgorithm">
-   <a href="https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-transformstream-set-up-transformalgorithm">
+   <a href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-transformstream-create-transformalgorithm">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-transformstream-create-transformalgorithm①">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-transformstream-set-up-transformalgorithm">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-transformstream-set-up-transformalgorithm①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -990,6 +1000,7 @@ specification uses that specification and terminology.</p>
      <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
      <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
      <li><span class="dfn-paneled" id="term-for-idl-Uint8Array">Uint8Array</span>
+     <li><span class="dfn-paneled" id="term-for-new">new</span>
      <li><span class="dfn-paneled" id="term-for-this">this</span>
     </ul>
    <li>
@@ -999,20 +1010,20 @@ specification uses that specification and terminology.</p>
      <li><span class="dfn-paneled" id="term-for-readablestream">ReadableStream</span>
      <li><span class="dfn-paneled" id="term-for-transformstream">TransformStream</span>
      <li><span class="dfn-paneled" id="term-for-writablestream">WritableStream</span>
-     <li><span class="dfn-paneled" id="term-for-transformstream-create">creating</span>
      <li><span class="dfn-paneled" id="term-for-transformstream-enqueue">enqueue</span>
-     <li><span class="dfn-paneled" id="term-for-transformstream-create-flushalgorithm">flushalgorithm</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-set-up-flushalgorithm">flushalgorithm</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-set-up">set up</span>
      <li><span class="dfn-paneled" id="term-for-generictransformstream-transform">transform</span>
-     <li><span class="dfn-paneled" id="term-for-transformstream-create-transformalgorithm">transformalgorithm</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-set-up-transformalgorithm">transformalgorithm</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-rfc1950">[RFC1950]
-   <dd>P. Deutsch; J-L. Gailly. <a href="https://tools.ietf.org/html/rfc1950">ZLIB Compressed Data Format Specification version 3.3</a>. May 1996. Informational. URL: <a href="https://tools.ietf.org/html/rfc1950">https://tools.ietf.org/html/rfc1950</a>
+   <dd>P. Deutsch; J-L. Gailly. <a href="https://datatracker.ietf.org/doc/html/rfc1950">ZLIB Compressed Data Format Specification version 3.3</a>. May 1996. Informational. URL: <a href="https://datatracker.ietf.org/doc/html/rfc1950">https://datatracker.ietf.org/doc/html/rfc1950</a>
    <dt id="biblio-rfc1952">[RFC1952]
-   <dd>P. Deutsch. <a href="https://tools.ietf.org/html/rfc1952">GZIP file format specification version 4.3</a>. May 1996. Informational. URL: <a href="https://tools.ietf.org/html/rfc1952">https://tools.ietf.org/html/rfc1952</a>
+   <dd>P. Deutsch. <a href="https://datatracker.ietf.org/doc/html/rfc1952">GZIP file format specification version 4.3</a>. May 1996. Informational. URL: <a href="https://datatracker.ietf.org/doc/html/rfc1952">https://datatracker.ietf.org/doc/html/rfc1952</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-webidl">[WebIDL]

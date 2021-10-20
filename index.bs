@@ -96,7 +96,7 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 # Interface `CompressionStream` #  {#compression-stream}
 
 <pre class="idl">
-[Exposed=(Window,Worker)]
+[Exposed=*]
 interface CompressionStream {
   constructor(DOMString format);
 };
@@ -131,7 +131,7 @@ The <dfn>compress flush and enqueue</dfn> algorithm, which handles the end of da
 # Interface `DecompressionStream` #  {#decompression-stream}
 
 <pre class="idl">
-[Exposed=(Window,Worker)]
+[Exposed=*]
 interface DecompressionStream {
   constructor(DOMString format);
 };

@@ -32,7 +32,7 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 
 *This section is non-normative.*
 
-The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate" and "gzip" as compression algorithms. They are widely used by web developers.
+The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate", "deflate-raw" and "gzip" as compression algorithms. They are widely used by web developers.
 
 # Conformance #  {#conformance}
 
@@ -78,6 +78,12 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
    * The `FLEVEL` flag is ignored by DecompressionStream.
    * It is an error for DecompressionStream if the `ADLER32` checksum is not correct.
    * It is an error if there is additional input data after the `ADLER32` checksum.
+
+: `deflate-raw`
+:: "The DEFLATE algorithm" [[!RFC1951]]
+
+   * Implementations must be "compliant" as described in [[!RFC1951]] section 1.4.
+   * Field values described as invalid in [[!RFC1951]] must not be created by CompressionStream, and are errors for DecompressionStream.
 
 : `gzip`
 :: "GZIP file format" [[!RFC1952]]

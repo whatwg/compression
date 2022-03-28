@@ -83,7 +83,7 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 :: "The DEFLATE algorithm" [[!RFC1951]]
 
    * Implementations must be "compliant" as described in [[!RFC1951]] section 1.4.
-   * Field values described as invalid in [[!RFC1951]] must not be created by CompressionStream, and are errors for DecompressionStream.
+   * Non-[[!RFC1951]]-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.
 
 : `gzip`
 :: "GZIP file format" [[!RFC1952]]

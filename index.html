@@ -4,9 +4,8 @@
   <title>Compression Streams</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 15125077e, updated Fri Jan 14 14:49:38 2022 -0800" name="generator">
+  <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://wicg.github.io/compression/" rel="canonical">
-  <meta content="03341243b006ef0244f4c687b60eccdb37329e5c" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -633,7 +632,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-01-18">18 January 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-03-28">28 March 2022</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -704,7 +703,7 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
    <p><em>This section is non-normative.</em></p>
-   <p>The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate" and "gzip" as compression algorithms. They are widely used by web developers.</p>
+   <p>The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate", "deflate-raw" and "gzip" as compression algorithms. They are widely used by web developers.</p>
    <h2 class="heading settled" data-level="2" id="conformance"><span class="secno">2. </span><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
    <p>As well as sections marked as non-normative, all authoring guidelines,
 diagrams, examples, and notes in this specification are non-normative.
@@ -745,6 +744,15 @@ specification uses that specification and terminology.</p>
        <p>It is an error for DecompressionStream if the <code>ADLER32</code> checksum is not correct.</p>
       <li data-md>
        <p>It is an error if there is additional input data after the <code>ADLER32</code> checksum.</p>
+     </ul>
+    <dt data-md><code>deflate-raw</code>
+    <dd data-md>
+     <p>"The DEFLATE algorithm" <a data-link-type="biblio" href="#biblio-rfc1951">[RFC1951]</a></p>
+     <ul>
+      <li data-md>
+       <p>Implementations must be "compliant" as described in <a data-link-type="biblio" href="#biblio-rfc1951">[RFC1951]</a> section 1.4.</p>
+      <li data-md>
+       <p>Non-<a data-link-type="biblio" href="#biblio-rfc1951">[RFC1951]</a>-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.</p>
      </ul>
     <dt data-md><code>gzip</code>
     <dd data-md>
@@ -942,11 +950,11 @@ specification uses that specification and terminology.</p>
    <h2 class="heading settled" data-level="8" id="examples"><span class="secno">8. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
    <h3 class="heading settled" data-level="8.1" id="example-gzip-compress-stream"><span class="secno">8.1. </span><span class="content">Gzip-compress a stream</span><a class="self-link" href="#example-gzip-compress-stream"></a></h3>
 <pre class="example highlight" id="example-470647ba"><a class="self-link" href="#example-470647ba"></a><c- a>const</c-> compressedReadableStream
-    <c- o>=</c-> inputReadableStream<c- p>.</c->pipeThrough<c- p>(</c-><c- k>new</c-> CompressionStream<c- p>(</c-><c- t>'gzip'</c-><c- p>));</c->
+    <c- o>=</c-> inputReadableStream<c- p>.</c->pipeThrough<c- p>(</c-><c- ow>new</c-> CompressionStream<c- p>(</c-><c- t>'gzip'</c-><c- p>));</c->
 </pre>
    <h3 class="heading settled" data-level="8.2" id="example-deflate-compress"><span class="secno">8.2. </span><span class="content">Deflate-compress an ArrayBuffer to a Uint8Array</span><a class="self-link" href="#example-deflate-compress"></a></h3>
 <pre class="example highlight" id="example-09e4ae49"><a class="self-link" href="#example-09e4ae49"></a><c- k>async</c-> <c- a>function</c-> compressArrayBuffer<c- p>(</c->input<c- p>)</c-> <c- p>{</c->
-  <c- a>const</c-> cs <c- o>=</c-> <c- k>new</c-> CompressionStream<c- p>(</c-><c- t>'deflate'</c-><c- p>);</c->
+  <c- a>const</c-> cs <c- o>=</c-> <c- ow>new</c-> CompressionStream<c- p>(</c-><c- t>'deflate'</c-><c- p>);</c->
   <c- a>const</c-> writer <c- o>=</c-> cs<c- p>.</c->writable<c- p>.</c->getWriter<c- p>();</c->
   writer<c- p>.</c->write<c- p>(</c->input<c- p>);</c->
   writer<c- p>.</c->close<c- p>();</c->
@@ -960,7 +968,7 @@ specification uses that specification and terminology.</p>
     output<c- p>.</c->push<c- p>(</c->value<c- p>);</c->
     totalSize <c- o>+=</c-> value<c- p>.</c->byteLength<c- p>;</c->
   <c- p>}</c->
-  <c- a>const</c-> concatenated <c- o>=</c-> <c- k>new</c-> Uint8Array<c- p>(</c->totalSize<c- p>);</c->
+  <c- a>const</c-> concatenated <c- o>=</c-> <c- ow>new</c-> Uint8Array<c- p>(</c->totalSize<c- p>);</c->
   <c- a>let</c-> offset <c- o>=</c-> <c- mf>0</c-><c- p>;</c->
   <c- k>for</c-> <c- p>(</c-><c- a>const</c-> array <c- k>of</c-> output<c- p>)</c-> <c- p>{</c->
     concatenated<c- p>.</c->set<c- p>(</c->array<c- p>,</c-> offset<c- p>);</c->
@@ -971,9 +979,9 @@ specification uses that specification and terminology.</p>
 </pre>
    <h3 class="heading settled" data-level="8.3" id="example-gzip-decompress"><span class="secno">8.3. </span><span class="content">Gzip-decompress a Blob to Blob</span><a class="self-link" href="#example-gzip-decompress"></a></h3>
 <pre class="example highlight" id="example-4d353c2c"><a class="self-link" href="#example-4d353c2c"></a><c- a>function</c-> decompressBlob<c- p>(</c->blob<c- p>)</c-> <c- p>{</c->
-  <c- a>const</c-> ds <c- o>=</c-> <c- k>new</c-> DecompressionStream<c- p>(</c-><c- t>'gzip'</c-><c- p>);</c->
+  <c- a>const</c-> ds <c- o>=</c-> <c- ow>new</c-> DecompressionStream<c- p>(</c-><c- t>'gzip'</c-><c- p>);</c->
   <c- a>const</c-> decompressionStream <c- o>=</c-> blob<c- p>.</c->stream<c- p>().</c->pipeThrough<c- p>(</c->ds<c- p>);</c->
-  <c- k>return</c-> <c- k>new</c-> Response<c- p>(</c->decompressedStream<c- p>).</c->blob<c- p>();</c->
+  <c- k>return</c-> <c- ow>new</c-> Response<c- p>(</c->decompressedStream<c- p>).</c->blob<c- p>();</c->
 <c- p>}</c->
 </pre>
    <h2 class="heading settled" data-level="9" id="acknowledgments"><span class="secno">9. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
@@ -1148,6 +1156,8 @@ specification uses that specification and terminology.</p>
   <dl>
    <dt id="biblio-rfc1950">[RFC1950]
    <dd>P. Deutsch; J-L. Gailly. <a href="https://www.rfc-editor.org/rfc/rfc1950"><cite>ZLIB Compressed Data Format Specification version 3.3</cite></a>. May 1996. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc1950">https://www.rfc-editor.org/rfc/rfc1950</a>
+   <dt id="biblio-rfc1951">[RFC1951]
+   <dd>P. Deutsch. <a href="https://www.rfc-editor.org/rfc/rfc1951"><cite>DEFLATE Compressed Data Format Specification version 1.3</cite></a>. May 1996. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc1951">https://www.rfc-editor.org/rfc/rfc1951</a>
    <dt id="biblio-rfc1952">[RFC1952]
    <dd>P. Deutsch. <a href="https://www.rfc-editor.org/rfc/rfc1952"><cite>GZIP file format specification version 4.3</cite></a>. May 1996. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc1952">https://www.rfc-editor.org/rfc/rfc1952</a>
    <dt id="biblio-rfc2119">[RFC2119]

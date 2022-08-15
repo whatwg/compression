@@ -69,7 +69,7 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 : `deflate`
 :: "ZLIB Compressed Data Format" [[!RFC1950]]
 
-   Note: This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See [[RFC7230]] section 4.2.2.
+   Note: This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See [[RFC7230 obsolete]] section 4.2.2.
 
    * Implementations must be "compliant" as described in [[!RFC1950]] section 2.3.
    * Field values described as invalid in [[!RFC1950]] must not be created by CompressionStream, and are errors for DecompressionStream.
@@ -219,7 +219,7 @@ async function compressArrayBuffer(input) {
 function decompressBlob(blob) {
   const ds = new DecompressionStream('gzip');
   const decompressionStream = blob.stream().pipeThrough(ds);
-  return new Response(decompressedStream).blob();
+  return new Response(decompressionStream).blob();
 }
 </pre>
 

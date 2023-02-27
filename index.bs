@@ -84,6 +84,7 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 
    * Implementations must be "compliant" as described in [[!RFC1951]] section 1.4.
    * Non-[[!RFC1951]]-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.
+   * It is an error for DecompressionStream if there is additional input data after the final block as indicated by the `BFINAL` flag.
 
 : `gzip`
 :: "GZIP file format" [[!RFC1952]]

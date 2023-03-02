@@ -926,6 +926,8 @@ specification uses that specification and terminology.</p>
        <p>Implementations must be "compliant" as described in <a data-link-type="biblio" href="#biblio-rfc1951" title="DEFLATE Compressed Data Format Specification version 1.3">[RFC1951]</a> section 1.4.</p>
       <li data-md>
        <p>Non-<a data-link-type="biblio" href="#biblio-rfc1951" title="DEFLATE Compressed Data Format Specification version 1.3">[RFC1951]</a>-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.</p>
+      <li data-md>
+       <p>It is an error if there is additional input data after the final block indicated by the <code>BFINAL</code> flag.</p>
      </ul>
     <dt data-md><code>gzip</code>
     <dd data-md>

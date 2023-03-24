@@ -4,7 +4,7 @@
   <title>Compression Streams</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 79b02508e, updated Tue Feb 28 10:48:19 2023 -0800" name="generator">
+  <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
   <link href="https://wicg.github.io/compression/" rel="canonical">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -805,7 +805,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-02">2 March 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-24">24 March 2023</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -898,7 +898,7 @@ specification uses that specification and terminology.</p>
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compression-context">compression context</dfn> is the internal state maintained by a compression or decompression algorithm. The contents of a <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context">compression context</a> depend on the format, algorithm and implementation in use. From the point of view of this specification, it is an opaque object. A <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context①">compression context</a> is initially in a start state such that it anticipates the first byte of input.</p>
    <h2 class="heading settled" data-level="4" id="supported-formats"><span class="secno">4. </span><span class="content">Supported formats</span><a class="self-link" href="#supported-formats"></a></h2>
    <dl>
-    <dt data-md><code>deflate</code>
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-compressionformat-deflate" id="ref-for-dom-compressionformat-deflate">deflate</a></code>
     <dd data-md>
      <p>"ZLIB Compressed Data Format" <a data-link-type="biblio" href="#biblio-rfc1950" title="ZLIB Compressed Data Format Specification version 3.3">[RFC1950]</a></p>
      <p class="note" role="note"><span class="marker">Note:</span> This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See <a data-biblio-obsolete data-link-type="biblio" href="#biblio-rfc7230" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</a> section 4.2.2.</p>
@@ -918,7 +918,7 @@ specification uses that specification and terminology.</p>
       <li data-md>
        <p>It is an error if there is additional input data after the <code>ADLER32</code> checksum.</p>
      </ul>
-    <dt data-md><code>deflate-raw</code>
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-compressionformat-deflate-raw" id="ref-for-dom-compressionformat-deflate-raw">deflate-raw</a></code>
     <dd data-md>
      <p>"The DEFLATE algorithm" <a data-link-type="biblio" href="#biblio-rfc1951" title="DEFLATE Compressed Data Format Specification version 1.3">[RFC1951]</a></p>
      <ul>
@@ -929,7 +929,7 @@ specification uses that specification and terminology.</p>
       <li data-md>
        <p>It is an error if there is additional input data after the final block indicated by the <code>BFINAL</code> flag.</p>
      </ul>
-    <dt data-md><code>gzip</code>
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-compressionformat-gzip" id="ref-for-dom-compressionformat-gzip">gzip</a></code>
     <dd data-md>
      <p>"GZIP file format" <a data-link-type="biblio" href="#biblio-rfc1952" title="GZIP file format specification version 4.3">[RFC1952]</a></p>
      <ul>
@@ -956,9 +956,15 @@ specification uses that specification and terminology.</p>
      </ul>
    </dl>
    <h2 class="heading settled" data-level="5" id="compression-stream"><span class="secno">5. </span><span class="content">Interface <code>CompressionStream</code></span><a class="self-link" href="#compression-stream"></a></h2>
-<pre class="idl highlight def">[Exposed=*]
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-compressionformat"><code><c- g>CompressionFormat</c-></code></dfn> {
+  <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionFormat" data-dfn-type="enum-value" data-export id="dom-compressionformat-deflate"><code><c- s>"deflate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionFormat" data-dfn-type="enum-value" data-export id="dom-compressionformat-deflate-raw"><code><c- s>"deflate-raw"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionFormat" data-dfn-type="enum-value" data-export id="dom-compressionformat-gzip"><code><c- s>"gzip"</c-></code></dfn>,
+};
+
+[Exposed=*]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="compressionstream"><code><c- g>CompressionStream</c-></code></dfn> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream" id="ref-for-dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CompressionStream/CompressionStream(format), CompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-compressionstream-compressionstream-format-format"></a></dfn>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream" id="ref-for-dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#enumdef-compressionformat" id="ref-for-enumdef-compressionformat"><c- n>CompressionFormat</c-></a> <dfn class="idl-code" data-dfn-for="CompressionStream/CompressionStream(format), CompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-compressionstream-compressionstream-format-format"></a></dfn>);
 };
 <a data-link-type="idl-name" href="#compressionstream" id="ref-for-compressionstream"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream"><c- n>GenericTransformStream</c-></a>;
 </pre>
@@ -1005,7 +1011,7 @@ specification uses that specification and terminology.</p>
    <h2 class="heading settled" data-level="6" id="decompression-stream"><span class="secno">6. </span><span class="content">Interface <code>DecompressionStream</code></span><a class="self-link" href="#decompression-stream"></a></h2>
 <pre class="idl highlight def">[Exposed=*]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="decompressionstream"><code><c- g>DecompressionStream</c-></code></dfn> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-decompressionstream-decompressionstream" id="ref-for-dom-decompressionstream-decompressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="DecompressionStream/DecompressionStream(format), DecompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-decompressionstream-decompressionstream-format-format"></a></dfn>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-decompressionstream-decompressionstream" id="ref-for-dom-decompressionstream-decompressionstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#enumdef-compressionformat" id="ref-for-enumdef-compressionformat①"><c- n>CompressionFormat</c-></a> <dfn class="idl-code" data-dfn-for="DecompressionStream/DecompressionStream(format), DecompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-decompressionstream-decompressionstream-format-format"></a></dfn>);
 };
 <a data-link-type="idl-name" href="#decompressionstream" id="ref-for-decompressionstream"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream①"><c- n>GenericTransformStream</c-></a>;
 </pre>
@@ -1101,6 +1107,7 @@ specification uses that specification and terminology.</p>
    <li><a href="#compress-and-enqueue-a-chunk">compress and enqueue a chunk</a><span>, in § 5</span>
    <li><a href="#compress-flush-and-enqueue">compress flush and enqueue</a><span>, in § 5</span>
    <li><a href="#compression-context">compression context</a><span>, in § 3</span>
+   <li><a href="#enumdef-compressionformat">CompressionFormat</a><span>, in § 5</span>
    <li><a href="#compressionstream">CompressionStream</a><span>, in § 5</span>
    <li><a href="#dom-compressionstream-compressionstream">CompressionStream(format)</a><span>, in § 5</span>
    <li>
@@ -1119,12 +1126,15 @@ specification uses that specification and terminology.</p>
    <li><a href="#decompress-flush-and-enqueue">decompress flush and enqueue</a><span>, in § 6</span>
    <li><a href="#decompressionstream">DecompressionStream</a><span>, in § 6</span>
    <li><a href="#dom-decompressionstream-decompressionstream">DecompressionStream(format)</a><span>, in § 6</span>
+   <li><a href="#dom-compressionformat-deflate">"deflate"</a><span>, in § 5</span>
+   <li><a href="#dom-compressionformat-deflate-raw">"deflate-raw"</a><span>, in § 5</span>
    <li>
     format
     <ul>
      <li><a href="#compressionstream-format">dfn for CompressionStream</a><span>, in § 5</span>
      <li><a href="#decompressionstream-format">dfn for DecompressionStream</a><span>, in § 6</span>
     </ul>
+   <li><a href="#dom-compressionformat-gzip">"gzip"</a><span>, in § 5</span>
   </ul>
   <aside aria-labelledby="infopaneltitle-for-1fcbdca3bebbc8c92cea6e7184b4ea45" class="dfn-panel" data-for="1fcbdca3bebbc8c92cea6e7184b4ea45" id="infopanel-for-1fcbdca3bebbc8c92cea6e7184b4ea45">
    <span id="infopaneltitle-for-1fcbdca3bebbc8c92cea6e7184b4ea45" style="display:none">Info about the 'BufferSource' external reference.</span><a href="https://webidl.spec.whatwg.org/#BufferSource">https://webidl.spec.whatwg.org/#BufferSource</a><b>Referenced in:</b>
@@ -1132,13 +1142,6 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-BufferSource">3. Terminology</a>
     <li><a href="#ref-for-BufferSource①">5. Interface CompressionStream</a>
     <li><a href="#ref-for-BufferSource②">6. Interface DecompressionStream</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" class="dfn-panel" data-for="d0f238a61de9310f1738a214749fab18" id="infopanel-for-d0f238a61de9310f1738a214749fab18">
-   <span id="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" style="display:none">Info about the 'DOMString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-DOMString">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-idl-DOMString①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" class="dfn-panel" data-for="3f9c3eac015894a734faa8068fd8c2a1" id="infopanel-for-3f9c3eac015894a734faa8068fd8c2a1">
@@ -1238,7 +1241,6 @@ specification uses that specification and terminology.</p>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="1fcbdca3bebbc8c92cea6e7184b4ea45">BufferSource</span>
-     <li><span class="dfn-paneled" id="d0f238a61de9310f1738a214749fab18">DOMString</span>
      <li><span class="dfn-paneled" id="3f9c3eac015894a734faa8068fd8c2a1">TypeError</span>
      <li><span class="dfn-paneled" id="ccda42c95c9e3f041c554266b17ce350">Uint8Array</span>
      <li><span class="dfn-paneled" id="953fabe02580bd1bf2075c6b86152166">new</span>
@@ -1280,15 +1282,21 @@ specification uses that specification and terminology.</p>
    <dd>R. Fielding, Ed.; J. Reschke, Ed.. <a href="https://httpwg.org/specs/rfc7230.html"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. June 2014. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc7230.html">https://httpwg.org/specs/rfc7230.html</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def">[Exposed=*]
+<pre class="idl highlight def"><c- b>enum</c-> <a href="#enumdef-compressionformat"><code><c- g>CompressionFormat</c-></code></a> {
+  <a href="#dom-compressionformat-deflate"><code><c- s>"deflate"</c-></code></a>,
+  <a href="#dom-compressionformat-deflate-raw"><code><c- s>"deflate-raw"</c-></code></a>,
+  <a href="#dom-compressionformat-gzip"><code><c- s>"gzip"</c-></code></a>,
+};
+
+[Exposed=*]
 <c- b>interface</c-> <a href="#compressionstream"><code><c- g>CompressionStream</c-></code></a> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code></a>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#enumdef-compressionformat"><c- n>CompressionFormat</c-></a> <a href="#dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#compressionstream"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
 [Exposed=*]
 <c- b>interface</c-> <a href="#decompressionstream"><code><c- g>DecompressionStream</c-></code></a> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-decompressionstream-decompressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code></a>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-decompressionstream-decompressionstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#enumdef-compressionformat"><c- n>CompressionFormat</c-></a> <a href="#dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#decompressionstream"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
@@ -1299,6 +1307,31 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-compression-context">3. Terminology</a> <a href="#ref-for-compression-context①">(2)</a>
     <li><a href="#ref-for-compression-context②">5. Interface CompressionStream</a>
     <li><a href="#ref-for-compression-context③">6. Interface DecompressionStream</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-enumdef-compressionformat" class="dfn-panel" data-for="enumdef-compressionformat" id="infopanel-for-enumdef-compressionformat">
+   <span id="infopaneltitle-for-enumdef-compressionformat" style="display:none">Info about the 'CompressionFormat' definition.</span><b><a href="#enumdef-compressionformat">#enumdef-compressionformat</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-compressionformat">5. Interface CompressionStream</a>
+    <li><a href="#ref-for-enumdef-compressionformat①">6. Interface DecompressionStream</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionformat-deflate" class="dfn-panel" data-for="dom-compressionformat-deflate" id="infopanel-for-dom-compressionformat-deflate">
+   <span id="infopaneltitle-for-dom-compressionformat-deflate" style="display:none">Info about the '"deflate"' definition.</span><b><a href="#dom-compressionformat-deflate">#dom-compressionformat-deflate</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-compressionformat-deflate">4. Supported formats</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionformat-deflate-raw" class="dfn-panel" data-for="dom-compressionformat-deflate-raw" id="infopanel-for-dom-compressionformat-deflate-raw">
+   <span id="infopaneltitle-for-dom-compressionformat-deflate-raw" style="display:none">Info about the '"deflate-raw"' definition.</span><b><a href="#dom-compressionformat-deflate-raw">#dom-compressionformat-deflate-raw</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-compressionformat-deflate-raw">4. Supported formats</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionformat-gzip" class="dfn-panel" data-for="dom-compressionformat-gzip" id="infopanel-for-dom-compressionformat-gzip">
+   <span id="infopaneltitle-for-dom-compressionformat-gzip" style="display:none">Info about the '"gzip"' definition.</span><b><a href="#dom-compressionformat-gzip">#dom-compressionformat-gzip</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-compressionformat-gzip">4. Supported formats</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-compressionstream" class="dfn-panel" data-for="compressionstream" id="infopanel-for-compressionstream">

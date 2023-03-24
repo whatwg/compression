@@ -66,7 +66,7 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 
 # Supported formats # {#supported-formats}
 
-: `deflate`
+: {{CompressionFormat/deflate}}
 :: "ZLIB Compressed Data Format" [[!RFC1950]]
 
    Note: This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See [[RFC7230 obsolete]] section 4.2.2.
@@ -79,14 +79,14 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
    * It is an error for DecompressionStream if the `ADLER32` checksum is not correct.
    * It is an error if there is additional input data after the `ADLER32` checksum.
 
-: `deflate-raw`
+: {{CompressionFormat/deflate-raw}}
 :: "The DEFLATE algorithm" [[!RFC1951]]
 
    * Implementations must be "compliant" as described in [[!RFC1951]] section 1.4.
    * Non-[[!RFC1951]]-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.
    * It is an error if there is additional input data after the final block indicated by the `BFINAL` flag.
 
-: `gzip`
+: {{CompressionFormat/gzip}}
 :: "GZIP file format" [[!RFC1952]]
 
    * Implementations must be "compliant" as described in [[!RFC1952]] section 2.3.1.2.
@@ -103,9 +103,15 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 # Interface `CompressionStream` #  {#compression-stream}
 
 <pre class="idl">
+enum CompressionFormat {
+  "deflate",
+  "deflate-raw",
+  "gzip",
+};
+
 [Exposed=*]
 interface CompressionStream {
-  constructor(DOMString format);
+  constructor(CompressionFormat format);
 };
 CompressionStream includes GenericTransformStream;
 </pre>
@@ -140,7 +146,7 @@ The <dfn>compress flush and enqueue</dfn> algorithm, which handles the end of da
 <pre class="idl">
 [Exposed=*]
 interface DecompressionStream {
-  constructor(DOMString format);
+  constructor(CompressionFormat format);
 };
 DecompressionStream includes GenericTransformStream;
 </pre>

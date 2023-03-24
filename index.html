@@ -4,9 +4,11 @@
   <title>Compression Streams</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 79b02508e, updated Tue Feb 28 10:48:19 2023 -0800" name="generator">
+  <meta content="Bikeshed version 42a48c451, updated Tue Feb 14 14:52:15 2023 -0800" name="generator">
   <link href="https://wicg.github.io/compression/" rel="canonical">
+  <meta content="10a3b577b819578fb7af873980b57d90c6306d77" name="document-revision">
 <style>/* style-autolinks */
+
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -66,8 +68,7 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}
-</style>
+}</style>
 <style>/* style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
@@ -176,9 +177,9 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}
-</style>
+}</style>
 <style>/* style-counters */
+
 body {
     counter-reset: example figure issue;
 }
@@ -205,9 +206,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}
-</style>
+}</style>
 <style>/* style-dfn-panel */
+
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -215,10 +216,10 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
-    width: 20em;
-    min-width: min-content;
-    max-width: 300px;
     height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -226,7 +227,6 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
-    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -249,6 +249,7 @@ figcaption:not(.no-marker)::before {
 .dfn-paneled { cursor: pointer; }
 </style>
 <style>/* style-issues */
+
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -258,6 +259,7 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
+
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -265,62 +267,69 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}
-</style>
+}</style>
 <style>/* style-mdn-anno */
+@media (max-width: 767px) {
+	.mdn-anno {
+		opacity: .1;
+	}
+}
 :root {
 	--mdn-bg: #EEE;
 	--mdn-shadow: #999;
 	--mdn-nosupport-text: #ccc;
 }
 .mdn-anno {
-	background: var(--mdn-bg, #EEE);
-	border-radius: .25em;
-	box-shadow: 0 0 3px var(--mdn-shadow, #999);
-	color: var(--text, black);
 	font: 1em sans-serif;
-	hyphens: none;
-	max-width: min-content;
-	overflow: hidden;
-	padding: 0.2em;
+	padding: 0.3em;
 	position: absolute;
+	z-index: 8;
 	right: 0.3em;
-	top: auto;
+	background: var(--mdn-bg, #EEE);
+	color: var(--text, black);
+	box-shadow: 0 0 3px var(--mdn-shadow, #999);
+	overflow: hidden;
+	border-collapse: initial;
+	border-spacing: initial;
+	min-width: 9em;
+	max-width: min-content;
 	white-space: nowrap;
 	word-wrap: normal;
-	z-index: 8;
+	hyphens: none;
+	border-radius: .25em;
 }
-.mdn-anno.unpositioned {
-	display: none;
-}
-.mdn-anno.overlapping-main {
-	opacity: .2;
-	transition: opacity .1s;
-}
-.mdn-anno[open] {
+.mdn-anno:not(.wrapped) {
 	opacity: 1;
 	z-index: 9;
-	min-width: 9em;
+}
+.mdn-anno.wrapped {
+	min-width: 0;
+}
+.mdn-anno.wrapped > :not(button) {
+	display: none;
 }
 .mdn-anno:hover {
-	opacity: 1;
 	outline: var(--text, black) 1px solid;
 }
-.mdn-anno > summary {
-	font-weight: normal;
-	text-align: right;
+.mdn-anno > .mdn-anno-btn {
 	cursor: pointer;
-	display: block;
+	border: none;
+	color: #000;
+	background: transparent;
+	margin: -8px;
+	float: right;
+	padding: 10px 8px 8px 8px;
+	outline: none;
 }
-.mdn-anno > summary > .less-than-two-engines-flag {
+.mdn-anno > .mdn-anno-btn > .less-than-two-engines-flag {
 	color: red;
 	padding-right: 2px;
 }
-.mdn-anno > summary > .all-engines-flag {
+.mdn-anno > .mdn-anno-btn > .all-engines-flag {
 	color: green;
 	padding-right: 2px;
 }
-.mdn-anno > summary > span {
+.mdn-anno > .mdn-anno-btn > span {
 	color: #fff;
 	background-color: #000;
 	font-weight: normal;
@@ -716,7 +725,6 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
-
 @media (prefers-color-scheme: dark) {
     :root {
         --selflink-text: black;
@@ -730,8 +738,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
     }
-}
-@media (prefers-color-scheme: dark) {
+}@media (prefers-color-scheme: dark) {
 	:root {
 		--mdn-bg: #222;
 		--mdn-shadow: #444;
@@ -805,7 +812,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Compression Streams</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-02">2 March 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-24">24 March 2023</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -898,7 +905,7 @@ specification uses that specification and terminology.</p>
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="compression-context">compression context</dfn> is the internal state maintained by a compression or decompression algorithm. The contents of a <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context">compression context</a> depend on the format, algorithm and implementation in use. From the point of view of this specification, it is an opaque object. A <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context①">compression context</a> is initially in a start state such that it anticipates the first byte of input.</p>
    <h2 class="heading settled" data-level="4" id="supported-formats"><span class="secno">4. </span><span class="content">Supported formats</span><a class="self-link" href="#supported-formats"></a></h2>
    <dl>
-    <dt data-md><code>deflate</code>
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-compressionformat-deflate" id="ref-for-dom-compressionformat-deflate">deflate</a></code>
     <dd data-md>
      <p>"ZLIB Compressed Data Format" <a data-link-type="biblio" href="#biblio-rfc1950" title="ZLIB Compressed Data Format Specification version 3.3">[RFC1950]</a></p>
      <p class="note" role="note"><span class="marker">Note:</span> This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See <a data-biblio-obsolete data-link-type="biblio" href="#biblio-rfc7230" title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</a> section 4.2.2.</p>
@@ -918,7 +925,7 @@ specification uses that specification and terminology.</p>
       <li data-md>
        <p>It is an error if there is additional input data after the <code>ADLER32</code> checksum.</p>
      </ul>
-    <dt data-md><code>deflate-raw</code>
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-compressionformat-deflate-raw" id="ref-for-dom-compressionformat-deflate-raw">deflate-raw</a></code>
     <dd data-md>
      <p>"The DEFLATE algorithm" <a data-link-type="biblio" href="#biblio-rfc1951" title="DEFLATE Compressed Data Format Specification version 1.3">[RFC1951]</a></p>
      <ul>
@@ -929,7 +936,7 @@ specification uses that specification and terminology.</p>
       <li data-md>
        <p>It is an error if there is additional input data after the final block indicated by the <code>BFINAL</code> flag.</p>
      </ul>
-    <dt data-md><code>gzip</code>
+    <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-compressionformat-gzip" id="ref-for-dom-compressionformat-gzip">gzip</a></code>
     <dd data-md>
      <p>"GZIP file format" <a data-link-type="biblio" href="#biblio-rfc1952" title="GZIP file format specification version 4.3">[RFC1952]</a></p>
      <ul>
@@ -956,13 +963,55 @@ specification uses that specification and terminology.</p>
      </ul>
    </dl>
    <h2 class="heading settled" data-level="5" id="compression-stream"><span class="secno">5. </span><span class="content">Interface <code>CompressionStream</code></span><a class="self-link" href="#compression-stream"></a></h2>
-<pre class="idl highlight def">[Exposed=*]
+   <div class="mdn-anno wrapped after">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream" title="The CompressionStream interface of the Compression Streams API is an API for compressing a stream of data.">CompressionStream</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
+      <hr>
+      <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
+      <hr>
+      <span class="nodejs yes"><span>Node.js</span><span>18.0.0+</span></span>
+     </div>
+    </div>
+   </div>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-compressionformat"><code><c- g>CompressionFormat</c-></code></dfn> {
+  <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionFormat" data-dfn-type="enum-value" data-export id="dom-compressionformat-deflate"><code><c- s>"deflate"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionFormat" data-dfn-type="enum-value" data-export id="dom-compressionformat-deflate-raw"><code><c- s>"deflate-raw"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionFormat" data-dfn-type="enum-value" data-export id="dom-compressionformat-gzip"><code><c- s>"gzip"</c-></code></dfn>,
+};
+
+[Exposed=*]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="compressionstream"><code><c- g>CompressionStream</c-></code></dfn> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream" id="ref-for-dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="CompressionStream/CompressionStream(format), CompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-compressionstream-compressionstream-format-format"></a></dfn>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream" id="ref-for-dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#enumdef-compressionformat" id="ref-for-enumdef-compressionformat"><c- n>CompressionFormat</c-></a> <dfn class="idl-code" data-dfn-for="CompressionStream/CompressionStream(format), CompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-compressionstream-compressionstream-format-format"></a></dfn>);
 };
 <a data-link-type="idl-name" href="#compressionstream" id="ref-for-compressionstream"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream"><c- n>GenericTransformStream</c-></a>;
 </pre>
    <p>A <code class="idl"><a data-link-type="idl" href="#compressionstream" id="ref-for-compressionstream①">CompressionStream</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-format">format</dfn> and <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context②">compression context</a> <dfn class="dfn-paneled" data-dfn-for="CompressionStream" data-dfn-type="dfn" data-noexport id="compressionstream-context">context</dfn>.</p>
+   <div class="mdn-anno wrapped">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream/CompressionStream" title="The CompressionStream() constructor creates a new CompressionStream object which compresses a stream of data.">CompressionStream/CompressionStream</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
+      <hr>
+      <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
+      <hr>
+      <span class="nodejs yes"><span>Node.js</span><span>17.0.0+</span></span>
+     </div>
+    </div>
+   </div>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="CompressionStream" data-dfn-type="constructor" data-export data-lt="CompressionStream(format)|constructor(format)" id="dom-compressionstream-compressionstream"><code>new CompressionStream(<var>format</var>)</code></dfn> steps are:</p>
    <ol>
     <li data-md>
@@ -1003,13 +1052,49 @@ specification uses that specification and terminology.</p>
      <p>For each <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-Uint8Array" id="ref-for-idl-Uint8Array③">Uint8Array</a></code> <em>array</em>, <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-enqueue" id="ref-for-transformstream-enqueue①">enqueue</a> <em>array</em> in <em>cs</em>'s <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#generictransformstream-transform" id="ref-for-generictransformstream-transform③">transform</a>.</p>
    </ol>
    <h2 class="heading settled" data-level="6" id="decompression-stream"><span class="secno">6. </span><span class="content">Interface <code>DecompressionStream</code></span><a class="self-link" href="#decompression-stream"></a></h2>
+   <div class="mdn-anno wrapped after">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream" title="The DecompressionStream interface of the Compression Streams API is an API for decompressing a stream of data.">DecompressionStream</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
+      <hr>
+      <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
+      <hr>
+      <span class="nodejs yes"><span>Node.js</span><span>18.0.0+</span></span>
+     </div>
+    </div>
+   </div>
 <pre class="idl highlight def">[Exposed=*]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="decompressionstream"><code><c- g>DecompressionStream</c-></code></dfn> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-decompressionstream-decompressionstream" id="ref-for-dom-decompressionstream-decompressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="DecompressionStream/DecompressionStream(format), DecompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-decompressionstream-decompressionstream-format-format"></a></dfn>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-decompressionstream-decompressionstream" id="ref-for-dom-decompressionstream-decompressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="DecompressionStream/DecompressionStream(format), DecompressionStream/constructor(format)" data-dfn-type="argument" data-export id="dom-decompressionstream-decompressionstream-format-format"><code><c- g>format</c-></code><a class="self-link" href="#dom-decompressionstream-decompressionstream-format-format"></a></dfn>);
 };
 <a data-link-type="idl-name" href="#decompressionstream" id="ref-for-decompressionstream"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream①"><c- n>GenericTransformStream</c-></a>;
 </pre>
    <p>A <code class="idl"><a data-link-type="idl" href="#decompressionstream" id="ref-for-decompressionstream①">DecompressionStream</a></code> has an associated <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-format">format</dfn> and <a data-link-type="dfn" href="#compression-context" id="ref-for-compression-context③">compression context</a> <dfn class="dfn-paneled" data-dfn-for="DecompressionStream" data-dfn-type="dfn" data-noexport id="decompressionstream-context">context</dfn>.</p>
+   <div class="mdn-anno wrapped">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream/DecompressionStream" title="The DecompressionStream() constructor creates a new DecompressionStream object which decompresses a stream of data.">DecompressionStream/DecompressionStream</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
+      <hr>
+      <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
+      <hr>
+      <span class="nodejs yes"><span>Node.js</span><span>17.0.0+</span></span>
+     </div>
+    </div>
+   </div>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="DecompressionStream" data-dfn-type="constructor" data-export data-lt="DecompressionStream(format)|constructor(format)" id="dom-decompressionstream-decompressionstream"><code>new DecompressionStream(<var>format</var>)</code></dfn> steps are:</p>
    <ol>
     <li data-md>
@@ -1101,6 +1186,7 @@ specification uses that specification and terminology.</p>
    <li><a href="#compress-and-enqueue-a-chunk">compress and enqueue a chunk</a><span>, in § 5</span>
    <li><a href="#compress-flush-and-enqueue">compress flush and enqueue</a><span>, in § 5</span>
    <li><a href="#compression-context">compression context</a><span>, in § 3</span>
+   <li><a href="#enumdef-compressionformat">CompressionFormat</a><span>, in § 5</span>
    <li><a href="#compressionstream">CompressionStream</a><span>, in § 5</span>
    <li><a href="#dom-compressionstream-compressionstream">CompressionStream(format)</a><span>, in § 5</span>
    <li>
@@ -1119,114 +1205,116 @@ specification uses that specification and terminology.</p>
    <li><a href="#decompress-flush-and-enqueue">decompress flush and enqueue</a><span>, in § 6</span>
    <li><a href="#decompressionstream">DecompressionStream</a><span>, in § 6</span>
    <li><a href="#dom-decompressionstream-decompressionstream">DecompressionStream(format)</a><span>, in § 6</span>
+   <li><a href="#dom-compressionformat-deflate">"deflate"</a><span>, in § 5</span>
+   <li><a href="#dom-compressionformat-deflate-raw">"deflate-raw"</a><span>, in § 5</span>
    <li>
     format
     <ul>
      <li><a href="#compressionstream-format">dfn for CompressionStream</a><span>, in § 5</span>
      <li><a href="#decompressionstream-format">dfn for DecompressionStream</a><span>, in § 6</span>
     </ul>
+   <li><a href="#dom-compressionformat-gzip">"gzip"</a><span>, in § 5</span>
   </ul>
-  <aside aria-labelledby="infopaneltitle-for-1fcbdca3bebbc8c92cea6e7184b4ea45" class="dfn-panel" data-for="1fcbdca3bebbc8c92cea6e7184b4ea45" id="infopanel-for-1fcbdca3bebbc8c92cea6e7184b4ea45">
-   <span id="infopaneltitle-for-1fcbdca3bebbc8c92cea6e7184b4ea45" style="display:none">Info about the 'BufferSource' external reference.</span><a href="https://webidl.spec.whatwg.org/#BufferSource">https://webidl.spec.whatwg.org/#BufferSource</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-BufferSource" class="dfn-panel" data-for="term-for-BufferSource" id="infopanel-for-term-for-BufferSource" role="menu">
+   <span id="infopaneltitle-for-term-for-BufferSource" style="display:none">Info about the 'BufferSource' external reference.</span><a href="https://webidl.spec.whatwg.org/#BufferSource">https://webidl.spec.whatwg.org/#BufferSource</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-BufferSource">3. Terminology</a>
     <li><a href="#ref-for-BufferSource①">5. Interface CompressionStream</a>
     <li><a href="#ref-for-BufferSource②">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" class="dfn-panel" data-for="d0f238a61de9310f1738a214749fab18" id="infopanel-for-d0f238a61de9310f1738a214749fab18">
-   <span id="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" style="display:none">Info about the 'DOMString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-idl-DOMString" class="dfn-panel" data-for="term-for-idl-DOMString" id="infopanel-for-term-for-idl-DOMString" role="menu">
+   <span id="infopaneltitle-for-term-for-idl-DOMString" style="display:none">Info about the 'DOMString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-DOMString">5. Interface CompressionStream</a>
-    <li><a href="#ref-for-idl-DOMString①">6. Interface DecompressionStream</a>
+    <li><a href="#ref-for-idl-DOMString">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" class="dfn-panel" data-for="3f9c3eac015894a734faa8068fd8c2a1" id="infopanel-for-3f9c3eac015894a734faa8068fd8c2a1">
-   <span id="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" style="display:none">Info about the 'TypeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-exceptiondef-typeerror" class="dfn-panel" data-for="term-for-exceptiondef-typeerror" id="infopanel-for-term-for-exceptiondef-typeerror" role="menu">
+   <span id="infopaneltitle-for-term-for-exceptiondef-typeerror" style="display:none">Info about the 'TypeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-exceptiondef-typeerror">5. Interface CompressionStream</a> <a href="#ref-for-exceptiondef-typeerror①">(2)</a>
     <li><a href="#ref-for-exceptiondef-typeerror②">6. Interface DecompressionStream</a> <a href="#ref-for-exceptiondef-typeerror③">(2)</a> <a href="#ref-for-exceptiondef-typeerror④">(3)</a> <a href="#ref-for-exceptiondef-typeerror⑤">(4)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-ccda42c95c9e3f041c554266b17ce350" class="dfn-panel" data-for="ccda42c95c9e3f041c554266b17ce350" id="infopanel-for-ccda42c95c9e3f041c554266b17ce350">
-   <span id="infopaneltitle-for-ccda42c95c9e3f041c554266b17ce350" style="display:none">Info about the 'Uint8Array' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-Uint8Array">https://webidl.spec.whatwg.org/#idl-Uint8Array</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-idl-Uint8Array" class="dfn-panel" data-for="term-for-idl-Uint8Array" id="infopanel-for-term-for-idl-Uint8Array" role="menu">
+   <span id="infopaneltitle-for-term-for-idl-Uint8Array" style="display:none">Info about the 'Uint8Array' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-Uint8Array">https://webidl.spec.whatwg.org/#idl-Uint8Array</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-Uint8Array">5. Interface CompressionStream</a> <a href="#ref-for-idl-Uint8Array①">(2)</a> <a href="#ref-for-idl-Uint8Array②">(3)</a> <a href="#ref-for-idl-Uint8Array③">(4)</a>
     <li><a href="#ref-for-idl-Uint8Array④">6. Interface DecompressionStream</a> <a href="#ref-for-idl-Uint8Array⑤">(2)</a> <a href="#ref-for-idl-Uint8Array⑥">(3)</a> <a href="#ref-for-idl-Uint8Array⑦">(4)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-953fabe02580bd1bf2075c6b86152166" class="dfn-panel" data-for="953fabe02580bd1bf2075c6b86152166" id="infopanel-for-953fabe02580bd1bf2075c6b86152166">
-   <span id="infopaneltitle-for-953fabe02580bd1bf2075c6b86152166" style="display:none">Info about the 'new' external reference.</span><a href="https://webidl.spec.whatwg.org/#new">https://webidl.spec.whatwg.org/#new</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-new" class="dfn-panel" data-for="term-for-new" id="infopanel-for-term-for-new" role="menu">
+   <span id="infopaneltitle-for-term-for-new" style="display:none">Info about the 'new' external reference.</span><a href="https://webidl.spec.whatwg.org/#new">https://webidl.spec.whatwg.org/#new</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-new">5. Interface CompressionStream</a>
     <li><a href="#ref-for-new①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" class="dfn-panel" data-for="be0933df03cd63338f98de217c4158c7" id="infopanel-for-be0933df03cd63338f98de217c4158c7">
-   <span id="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" style="display:none">Info about the 'this' external reference.</span><a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-this" class="dfn-panel" data-for="term-for-this" id="infopanel-for-term-for-this" role="menu">
+   <span id="infopaneltitle-for-term-for-this" style="display:none">Info about the 'this' external reference.</span><a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-this">5. Interface CompressionStream</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a>
     <li><a href="#ref-for-this⑤">6. Interface DecompressionStream</a> <a href="#ref-for-this⑥">(2)</a> <a href="#ref-for-this⑦">(3)</a> <a href="#ref-for-this⑧">(4)</a> <a href="#ref-for-this⑨">(5)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-e83c66cb38107c7fbcbc7b74c2dd9ace" class="dfn-panel" data-for="e83c66cb38107c7fbcbc7b74c2dd9ace" id="infopanel-for-e83c66cb38107c7fbcbc7b74c2dd9ace">
-   <span id="infopaneltitle-for-e83c66cb38107c7fbcbc7b74c2dd9ace" style="display:none">Info about the 'GenericTransformStream' external reference.</span><a href="https://streams.spec.whatwg.org/#generictransformstream">https://streams.spec.whatwg.org/#generictransformstream</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-generictransformstream" class="dfn-panel" data-for="term-for-generictransformstream" id="infopanel-for-term-for-generictransformstream" role="menu">
+   <span id="infopaneltitle-for-term-for-generictransformstream" style="display:none">Info about the 'GenericTransformStream' external reference.</span><a href="https://streams.spec.whatwg.org/#generictransformstream">https://streams.spec.whatwg.org/#generictransformstream</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-generictransformstream">5. Interface CompressionStream</a>
     <li><a href="#ref-for-generictransformstream①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-66e5f618a6e13b8af5a3bb1a7bcb3923" class="dfn-panel" data-for="66e5f618a6e13b8af5a3bb1a7bcb3923" id="infopanel-for-66e5f618a6e13b8af5a3bb1a7bcb3923">
-   <span id="infopaneltitle-for-66e5f618a6e13b8af5a3bb1a7bcb3923" style="display:none">Info about the 'ReadableStream' external reference.</span><a href="https://streams.spec.whatwg.org/#readablestream">https://streams.spec.whatwg.org/#readablestream</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-readablestream" class="dfn-panel" data-for="term-for-readablestream" id="infopanel-for-term-for-readablestream" role="menu">
+   <span id="infopaneltitle-for-term-for-readablestream" style="display:none">Info about the 'ReadableStream' external reference.</span><a href="https://streams.spec.whatwg.org/#readablestream">https://streams.spec.whatwg.org/#readablestream</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-readablestream">3. Terminology</a>
     <li><a href="#ref-for-readablestream①">5. Interface CompressionStream</a>
     <li><a href="#ref-for-readablestream②">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-b74000861e16cac48f4f5e5fd3672a51" class="dfn-panel" data-for="b74000861e16cac48f4f5e5fd3672a51" id="infopanel-for-b74000861e16cac48f4f5e5fd3672a51">
-   <span id="infopaneltitle-for-b74000861e16cac48f4f5e5fd3672a51" style="display:none">Info about the 'TransformStream' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream">https://streams.spec.whatwg.org/#transformstream</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-transformstream" class="dfn-panel" data-for="term-for-transformstream" id="infopanel-for-term-for-transformstream" role="menu">
+   <span id="infopaneltitle-for-term-for-transformstream" style="display:none">Info about the 'TransformStream' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream">https://streams.spec.whatwg.org/#transformstream</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transformstream">5. Interface CompressionStream</a>
     <li><a href="#ref-for-transformstream①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-5f4df04b43560570b213124df57e5ff0" class="dfn-panel" data-for="5f4df04b43560570b213124df57e5ff0" id="infopanel-for-5f4df04b43560570b213124df57e5ff0">
-   <span id="infopaneltitle-for-5f4df04b43560570b213124df57e5ff0" style="display:none">Info about the 'WritableStream' external reference.</span><a href="https://streams.spec.whatwg.org/#writablestream">https://streams.spec.whatwg.org/#writablestream</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-writablestream" class="dfn-panel" data-for="term-for-writablestream" id="infopanel-for-term-for-writablestream" role="menu">
+   <span id="infopaneltitle-for-term-for-writablestream" style="display:none">Info about the 'WritableStream' external reference.</span><a href="https://streams.spec.whatwg.org/#writablestream">https://streams.spec.whatwg.org/#writablestream</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-writablestream">3. Terminology</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-ecb608888149a96ebaa45c521a43a8fe" class="dfn-panel" data-for="ecb608888149a96ebaa45c521a43a8fe" id="infopanel-for-ecb608888149a96ebaa45c521a43a8fe">
-   <span id="infopaneltitle-for-ecb608888149a96ebaa45c521a43a8fe" style="display:none">Info about the 'enqueue' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-enqueue">https://streams.spec.whatwg.org/#transformstream-enqueue</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-transformstream-enqueue" class="dfn-panel" data-for="term-for-transformstream-enqueue" id="infopanel-for-term-for-transformstream-enqueue" role="menu">
+   <span id="infopaneltitle-for-term-for-transformstream-enqueue" style="display:none">Info about the 'enqueue' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-enqueue">https://streams.spec.whatwg.org/#transformstream-enqueue</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transformstream-enqueue">5. Interface CompressionStream</a> <a href="#ref-for-transformstream-enqueue①">(2)</a>
     <li><a href="#ref-for-transformstream-enqueue②">6. Interface DecompressionStream</a> <a href="#ref-for-transformstream-enqueue③">(2)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-fa30d167d341178f5a6396ed90f76c7a" class="dfn-panel" data-for="fa30d167d341178f5a6396ed90f76c7a" id="infopanel-for-fa30d167d341178f5a6396ed90f76c7a">
-   <span id="infopaneltitle-for-fa30d167d341178f5a6396ed90f76c7a" style="display:none">Info about the 'flushalgorithm' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-transformstream-set-up-flushalgorithm" class="dfn-panel" data-for="term-for-transformstream-set-up-flushalgorithm" id="infopanel-for-term-for-transformstream-set-up-flushalgorithm" role="menu">
+   <span id="infopaneltitle-for-term-for-transformstream-set-up-flushalgorithm" style="display:none">Info about the 'flushalgorithm' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-flushalgorithm</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transformstream-set-up-flushalgorithm">5. Interface CompressionStream</a>
     <li><a href="#ref-for-transformstream-set-up-flushalgorithm①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-1ca04f1cd9fc6ea95bc4895393cf2184" class="dfn-panel" data-for="1ca04f1cd9fc6ea95bc4895393cf2184" id="infopanel-for-1ca04f1cd9fc6ea95bc4895393cf2184">
-   <span id="infopaneltitle-for-1ca04f1cd9fc6ea95bc4895393cf2184" style="display:none">Info about the 'set up' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-set-up">https://streams.spec.whatwg.org/#transformstream-set-up</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-transformstream-set-up" class="dfn-panel" data-for="term-for-transformstream-set-up" id="infopanel-for-term-for-transformstream-set-up" role="menu">
+   <span id="infopaneltitle-for-term-for-transformstream-set-up" style="display:none">Info about the 'set up' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-set-up">https://streams.spec.whatwg.org/#transformstream-set-up</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transformstream-set-up">5. Interface CompressionStream</a>
     <li><a href="#ref-for-transformstream-set-up①">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-f86852e69dab02ab35d420965f7474b8" class="dfn-panel" data-for="f86852e69dab02ab35d420965f7474b8" id="infopanel-for-f86852e69dab02ab35d420965f7474b8">
-   <span id="infopaneltitle-for-f86852e69dab02ab35d420965f7474b8" style="display:none">Info about the 'transform' external reference.</span><a href="https://streams.spec.whatwg.org/#generictransformstream-transform">https://streams.spec.whatwg.org/#generictransformstream-transform</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-generictransformstream-transform" class="dfn-panel" data-for="term-for-generictransformstream-transform" id="infopanel-for-term-for-generictransformstream-transform" role="menu">
+   <span id="infopaneltitle-for-term-for-generictransformstream-transform" style="display:none">Info about the 'transform' external reference.</span><a href="https://streams.spec.whatwg.org/#generictransformstream-transform">https://streams.spec.whatwg.org/#generictransformstream-transform</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-generictransformstream-transform">5. Interface CompressionStream</a> <a href="#ref-for-generictransformstream-transform①">(2)</a> <a href="#ref-for-generictransformstream-transform②">(3)</a> <a href="#ref-for-generictransformstream-transform③">(4)</a>
     <li><a href="#ref-for-generictransformstream-transform④">6. Interface DecompressionStream</a> <a href="#ref-for-generictransformstream-transform⑤">(2)</a> <a href="#ref-for-generictransformstream-transform⑥">(3)</a> <a href="#ref-for-generictransformstream-transform⑦">(4)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-2b3150e1a2b1a16e5dbc951fc9eee57d" class="dfn-panel" data-for="2b3150e1a2b1a16e5dbc951fc9eee57d" id="infopanel-for-2b3150e1a2b1a16e5dbc951fc9eee57d">
-   <span id="infopaneltitle-for-2b3150e1a2b1a16e5dbc951fc9eee57d" style="display:none">Info about the 'transformalgorithm' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-term-for-transformstream-set-up-transformalgorithm" class="dfn-panel" data-for="term-for-transformstream-set-up-transformalgorithm" id="infopanel-for-term-for-transformstream-set-up-transformalgorithm" role="menu">
+   <span id="infopaneltitle-for-term-for-transformstream-set-up-transformalgorithm" style="display:none">Info about the 'transformalgorithm' external reference.</span><a href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transformstream-set-up-transformalgorithm">5. Interface CompressionStream</a>
     <li><a href="#ref-for-transformstream-set-up-transformalgorithm①">6. Interface DecompressionStream</a>
@@ -1237,25 +1325,25 @@ specification uses that specification and terminology.</p>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="1fcbdca3bebbc8c92cea6e7184b4ea45">BufferSource</span>
-     <li><span class="dfn-paneled" id="d0f238a61de9310f1738a214749fab18">DOMString</span>
-     <li><span class="dfn-paneled" id="3f9c3eac015894a734faa8068fd8c2a1">TypeError</span>
-     <li><span class="dfn-paneled" id="ccda42c95c9e3f041c554266b17ce350">Uint8Array</span>
-     <li><span class="dfn-paneled" id="953fabe02580bd1bf2075c6b86152166">new</span>
-     <li><span class="dfn-paneled" id="be0933df03cd63338f98de217c4158c7">this</span>
+     <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-Uint8Array">Uint8Array</span>
+     <li><span class="dfn-paneled" id="term-for-new">new</span>
+     <li><span class="dfn-paneled" id="term-for-this">this</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WHATWG-STREAMS]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="e83c66cb38107c7fbcbc7b74c2dd9ace">GenericTransformStream</span>
-     <li><span class="dfn-paneled" id="66e5f618a6e13b8af5a3bb1a7bcb3923">ReadableStream</span>
-     <li><span class="dfn-paneled" id="b74000861e16cac48f4f5e5fd3672a51">TransformStream</span>
-     <li><span class="dfn-paneled" id="5f4df04b43560570b213124df57e5ff0">WritableStream</span>
-     <li><span class="dfn-paneled" id="ecb608888149a96ebaa45c521a43a8fe">enqueue</span>
-     <li><span class="dfn-paneled" id="fa30d167d341178f5a6396ed90f76c7a">flushalgorithm</span>
-     <li><span class="dfn-paneled" id="1ca04f1cd9fc6ea95bc4895393cf2184">set up</span>
-     <li><span class="dfn-paneled" id="f86852e69dab02ab35d420965f7474b8">transform</span>
-     <li><span class="dfn-paneled" id="2b3150e1a2b1a16e5dbc951fc9eee57d">transformalgorithm</span>
+     <li><span class="dfn-paneled" id="term-for-generictransformstream">GenericTransformStream</span>
+     <li><span class="dfn-paneled" id="term-for-readablestream">ReadableStream</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream">TransformStream</span>
+     <li><span class="dfn-paneled" id="term-for-writablestream">WritableStream</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-enqueue">enqueue</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-set-up-flushalgorithm">flushalgorithm</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-set-up">set up</span>
+     <li><span class="dfn-paneled" id="term-for-generictransformstream-transform">transform</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-set-up-transformalgorithm">transformalgorithm</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1280,9 +1368,15 @@ specification uses that specification and terminology.</p>
    <dd>R. Fielding, Ed.; J. Reschke, Ed.. <a href="https://httpwg.org/specs/rfc7230.html"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. June 2014. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc7230.html">https://httpwg.org/specs/rfc7230.html</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def">[Exposed=*]
+<pre class="idl highlight def"><c- b>enum</c-> <a href="#enumdef-compressionformat"><code><c- g>CompressionFormat</c-></code></a> {
+  <a href="#dom-compressionformat-deflate"><code><c- s>"deflate"</c-></code></a>,
+  <a href="#dom-compressionformat-deflate-raw"><code><c- s>"deflate-raw"</c-></code></a>,
+  <a href="#dom-compressionformat-gzip"><code><c- s>"gzip"</c-></code></a>,
+};
+
+[Exposed=*]
 <c- b>interface</c-> <a href="#compressionstream"><code><c- g>CompressionStream</c-></code></a> {
-  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code></a>);
+  <a class="idl-code" data-link-type="constructor" href="#dom-compressionstream-compressionstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#enumdef-compressionformat"><c- n>CompressionFormat</c-></a> <a href="#dom-compressionstream-compressionstream-format-format"><code><c- g>format</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#compressionstream"><c- n>CompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
@@ -1293,7 +1387,7 @@ specification uses that specification and terminology.</p>
 <a data-link-type="idl-name" href="#decompressionstream"><c- n>DecompressionStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
 </pre>
-  <aside aria-labelledby="infopaneltitle-for-compression-context" class="dfn-panel" data-for="compression-context" id="infopanel-for-compression-context">
+  <aside aria-labelledby="infopaneltitle-for-compression-context" class="dfn-panel" data-for="compression-context" id="infopanel-for-compression-context" role="dialog">
    <span id="infopaneltitle-for-compression-context" style="display:none">Info about the 'compression context' definition.</span><b><a href="#compression-context">#compression-context</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-compression-context">3. Terminology</a> <a href="#ref-for-compression-context①">(2)</a>
@@ -1301,195 +1395,104 @@ specification uses that specification and terminology.</p>
     <li><a href="#ref-for-compression-context③">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-compressionstream" class="dfn-panel" data-for="compressionstream" id="infopanel-for-compressionstream">
+  <aside aria-labelledby="infopaneltitle-for-enumdef-compressionformat" class="dfn-panel" data-for="enumdef-compressionformat" id="infopanel-for-enumdef-compressionformat" role="dialog">
+   <span id="infopaneltitle-for-enumdef-compressionformat" style="display:none">Info about the 'CompressionFormat' definition.</span><b><a href="#enumdef-compressionformat">#enumdef-compressionformat</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-compressionformat">5. Interface CompressionStream</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionformat-deflate" class="dfn-panel" data-for="dom-compressionformat-deflate" id="infopanel-for-dom-compressionformat-deflate" role="dialog">
+   <span id="infopaneltitle-for-dom-compressionformat-deflate" style="display:none">Info about the '"deflate"' definition.</span><b><a href="#dom-compressionformat-deflate">#dom-compressionformat-deflate</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-compressionformat-deflate">4. Supported formats</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionformat-deflate-raw" class="dfn-panel" data-for="dom-compressionformat-deflate-raw" id="infopanel-for-dom-compressionformat-deflate-raw" role="dialog">
+   <span id="infopaneltitle-for-dom-compressionformat-deflate-raw" style="display:none">Info about the '"deflate-raw"' definition.</span><b><a href="#dom-compressionformat-deflate-raw">#dom-compressionformat-deflate-raw</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-compressionformat-deflate-raw">4. Supported formats</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionformat-gzip" class="dfn-panel" data-for="dom-compressionformat-gzip" id="infopanel-for-dom-compressionformat-gzip" role="dialog">
+   <span id="infopaneltitle-for-dom-compressionformat-gzip" style="display:none">Info about the '"gzip"' definition.</span><b><a href="#dom-compressionformat-gzip">#dom-compressionformat-gzip</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-compressionformat-gzip">4. Supported formats</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-compressionstream" class="dfn-panel" data-for="compressionstream" id="infopanel-for-compressionstream" role="dialog">
    <span id="infopaneltitle-for-compressionstream" style="display:none">Info about the 'CompressionStream' definition.</span><b><a href="#compressionstream">#compressionstream</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-compressionstream">5. Interface CompressionStream</a> <a href="#ref-for-compressionstream①">(2)</a> <a href="#ref-for-compressionstream②">(3)</a> <a href="#ref-for-compressionstream③">(4)</a> <a href="#ref-for-compressionstream④">(5)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-compressionstream-format" class="dfn-panel" data-for="compressionstream-format" id="infopanel-for-compressionstream-format">
+  <aside aria-labelledby="infopaneltitle-for-compressionstream-format" class="dfn-panel" data-for="compressionstream-format" id="infopanel-for-compressionstream-format" role="dialog">
    <span id="infopaneltitle-for-compressionstream-format" style="display:none">Info about the 'format' definition.</span><b><a href="#compressionstream-format">#compressionstream-format</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-compressionstream-format">5. Interface CompressionStream</a> <a href="#ref-for-compressionstream-format①">(2)</a> <a href="#ref-for-compressionstream-format②">(3)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-compressionstream-context" class="dfn-panel" data-for="compressionstream-context" id="infopanel-for-compressionstream-context">
+  <aside aria-labelledby="infopaneltitle-for-compressionstream-context" class="dfn-panel" data-for="compressionstream-context" id="infopanel-for-compressionstream-context" role="dialog">
    <span id="infopaneltitle-for-compressionstream-context" style="display:none">Info about the 'context' definition.</span><b><a href="#compressionstream-context">#compressionstream-context</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-compressionstream-context">5. Interface CompressionStream</a> <a href="#ref-for-compressionstream-context①">(2)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-compressionstream-compressionstream" class="dfn-panel" data-for="dom-compressionstream-compressionstream" id="infopanel-for-dom-compressionstream-compressionstream">
+  <aside aria-labelledby="infopaneltitle-for-dom-compressionstream-compressionstream" class="dfn-panel" data-for="dom-compressionstream-compressionstream" id="infopanel-for-dom-compressionstream-compressionstream" role="dialog">
    <span id="infopaneltitle-for-dom-compressionstream-compressionstream" style="display:none">Info about the 'new CompressionStream(format)' definition.</span><b><a href="#dom-compressionstream-compressionstream">#dom-compressionstream-compressionstream</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-compressionstream-compressionstream">5. Interface CompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-compress-and-enqueue-a-chunk" class="dfn-panel" data-for="compress-and-enqueue-a-chunk" id="infopanel-for-compress-and-enqueue-a-chunk">
+  <aside aria-labelledby="infopaneltitle-for-compress-and-enqueue-a-chunk" class="dfn-panel" data-for="compress-and-enqueue-a-chunk" id="infopanel-for-compress-and-enqueue-a-chunk" role="dialog">
    <span id="infopaneltitle-for-compress-and-enqueue-a-chunk" style="display:none">Info about the 'compress and enqueue a chunk' definition.</span><b><a href="#compress-and-enqueue-a-chunk">#compress-and-enqueue-a-chunk</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-compress-and-enqueue-a-chunk">5. Interface CompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-compress-flush-and-enqueue" class="dfn-panel" data-for="compress-flush-and-enqueue" id="infopanel-for-compress-flush-and-enqueue">
+  <aside aria-labelledby="infopaneltitle-for-compress-flush-and-enqueue" class="dfn-panel" data-for="compress-flush-and-enqueue" id="infopanel-for-compress-flush-and-enqueue" role="dialog">
    <span id="infopaneltitle-for-compress-flush-and-enqueue" style="display:none">Info about the 'compress flush and enqueue' definition.</span><b><a href="#compress-flush-and-enqueue">#compress-flush-and-enqueue</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-compress-flush-and-enqueue">5. Interface CompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-decompressionstream" class="dfn-panel" data-for="decompressionstream" id="infopanel-for-decompressionstream">
+  <aside aria-labelledby="infopaneltitle-for-decompressionstream" class="dfn-panel" data-for="decompressionstream" id="infopanel-for-decompressionstream" role="dialog">
    <span id="infopaneltitle-for-decompressionstream" style="display:none">Info about the 'DecompressionStream' definition.</span><b><a href="#decompressionstream">#decompressionstream</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-decompressionstream">6. Interface DecompressionStream</a> <a href="#ref-for-decompressionstream①">(2)</a> <a href="#ref-for-decompressionstream②">(3)</a> <a href="#ref-for-decompressionstream③">(4)</a> <a href="#ref-for-decompressionstream④">(5)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-decompressionstream-format" class="dfn-panel" data-for="decompressionstream-format" id="infopanel-for-decompressionstream-format">
+  <aside aria-labelledby="infopaneltitle-for-decompressionstream-format" class="dfn-panel" data-for="decompressionstream-format" id="infopanel-for-decompressionstream-format" role="dialog">
    <span id="infopaneltitle-for-decompressionstream-format" style="display:none">Info about the 'format' definition.</span><b><a href="#decompressionstream-format">#decompressionstream-format</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-decompressionstream-format">6. Interface DecompressionStream</a> <a href="#ref-for-decompressionstream-format①">(2)</a> <a href="#ref-for-decompressionstream-format②">(3)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-decompressionstream-context" class="dfn-panel" data-for="decompressionstream-context" id="infopanel-for-decompressionstream-context">
+  <aside aria-labelledby="infopaneltitle-for-decompressionstream-context" class="dfn-panel" data-for="decompressionstream-context" id="infopanel-for-decompressionstream-context" role="dialog">
    <span id="infopaneltitle-for-decompressionstream-context" style="display:none">Info about the 'context' definition.</span><b><a href="#decompressionstream-context">#decompressionstream-context</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-decompressionstream-context">6. Interface DecompressionStream</a> <a href="#ref-for-decompressionstream-context①">(2)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-decompressionstream-decompressionstream" class="dfn-panel" data-for="dom-decompressionstream-decompressionstream" id="infopanel-for-dom-decompressionstream-decompressionstream">
+  <aside aria-labelledby="infopaneltitle-for-dom-decompressionstream-decompressionstream" class="dfn-panel" data-for="dom-decompressionstream-decompressionstream" id="infopanel-for-dom-decompressionstream-decompressionstream" role="dialog">
    <span id="infopaneltitle-for-dom-decompressionstream-decompressionstream" style="display:none">Info about the 'new DecompressionStream(format)' definition.</span><b><a href="#dom-decompressionstream-decompressionstream">#dom-decompressionstream-decompressionstream</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-decompressionstream-decompressionstream">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-decompress-and-enqueue-a-chunk" class="dfn-panel" data-for="decompress-and-enqueue-a-chunk" id="infopanel-for-decompress-and-enqueue-a-chunk">
+  <aside aria-labelledby="infopaneltitle-for-decompress-and-enqueue-a-chunk" class="dfn-panel" data-for="decompress-and-enqueue-a-chunk" id="infopanel-for-decompress-and-enqueue-a-chunk" role="dialog">
    <span id="infopaneltitle-for-decompress-and-enqueue-a-chunk" style="display:none">Info about the 'decompress and enqueue a chunk' definition.</span><b><a href="#decompress-and-enqueue-a-chunk">#decompress-and-enqueue-a-chunk</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-decompress-and-enqueue-a-chunk">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-decompress-flush-and-enqueue" class="dfn-panel" data-for="decompress-flush-and-enqueue" id="infopanel-for-decompress-flush-and-enqueue">
+  <aside aria-labelledby="infopaneltitle-for-decompress-flush-and-enqueue" class="dfn-panel" data-for="decompress-flush-and-enqueue" id="infopanel-for-decompress-flush-and-enqueue" role="dialog">
    <span id="infopaneltitle-for-decompress-flush-and-enqueue" style="display:none">Info about the 'decompress flush and enqueue' definition.</span><b><a href="#decompress-flush-and-enqueue">#decompress-flush-and-enqueue</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-decompress-flush-and-enqueue">6. Interface DecompressionStream</a>
    </ul>
   </aside>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-compressionstream-compressionstream">
-   <summary><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream/CompressionStream" title="The CompressionStream() constructor creates a new CompressionStream object which compresses a stream of data.">CompressionStream/CompressionStream</a></p>
-    <p class="less-than-two-engines-text">In only one current engine.</p>
-    <div class="support">
-     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
-     <hr>
-     <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>17.0.0+</span></span>
-    </div>
-   </div>
-  </details>
-  <details class="mdn-anno unpositioned" data-anno-for="compression-stream">
-   <summary><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream" title="The CompressionStream interface of the Compression Streams API is an API for compressing a stream of data.">CompressionStream</a></p>
-    <p class="less-than-two-engines-text">In only one current engine.</p>
-    <div class="support">
-     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
-     <hr>
-     <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>18.0.0+</span></span>
-    </div>
-   </div>
-  </details>
-  <details class="mdn-anno unpositioned" data-anno-for="dom-decompressionstream-decompressionstream">
-   <summary><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream/DecompressionStream" title="The DecompressionStream() constructor creates a new DecompressionStream object which decompresses a stream of data.">DecompressionStream/DecompressionStream</a></p>
-    <p class="less-than-two-engines-text">In only one current engine.</p>
-    <div class="support">
-     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
-     <hr>
-     <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>17.0.0+</span></span>
-    </div>
-   </div>
-  </details>
-  <details class="mdn-anno unpositioned" data-anno-for="decompression-stream">
-   <summary><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></summary>
-   <div class="feature">
-    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/DecompressionStream" title="The DecompressionStream interface of the Compression Streams API is an API for decompressing a stream of data.">DecompressionStream</a></p>
-    <p class="less-than-two-engines-text">In only one current engine.</p>
-    <div class="support">
-     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>80+</span></span>
-     <hr>
-     <span class="opera no"><span>Opera</span><span>?</span></span><span class="edge_blink yes"><span>Edge</span><span>80+</span></span>
-     <hr>
-     <span class="edge no"><span>Edge (Legacy)</span><span>?</span></span><span class="ie no"><span>IE</span><span>None</span></span>
-     <hr>
-     <span class="firefox_android no"><span>Firefox for Android</span><span>?</span></span><span class="safari_ios no"><span>iOS Safari</span><span>?</span></span><span class="chrome_android no"><span>Chrome for Android</span><span>?</span></span><span class="webview_android no"><span>Android WebView</span><span>?</span></span><span class="samsunginternet_android no"><span>Samsung Internet</span><span>?</span></span><span class="opera_android no"><span>Opera Mobile</span><span>?</span></span>
-     <hr>
-     <span class="nodejs yes"><span>Node.js</span><span>18.0.0+</span></span>
-    </div>
-   </div>
-  </details>
-<script>/* position-annos */
-"use strict";
-{
-
-function repositionAnnoPanels(){
-    const panels = [...document.querySelectorAll("[data-anno-for]")];
-    const main = document.querySelector("main");
-    let mainRect;
-    if(main) mainRect = main.getBoundingClientRect();
-    for(const panel of panels) {
-        const dfn = document.getElementById(panel.getAttribute("data-anno-for"));
-        if(!dfn) {
-            console.log("Can't find the annotation panel target:", panel);
-            continue;
-        }
-        const rect = dfn.getBoundingClientRect();
-        const top = window.scrollY + rect.top
-        panel.style.top = top + "px";
-        panel.top = top;
-        panel.height = rect.height;
-        panel.classList.remove("unpositioned");
-        const panelRect = panel.getBoundingClientRect()
-        if(main) {
-            panel.classList.toggle("overlapping-main", panelRect.left < mainRect.right)
-        }
-    }
-    let vSoFar = 0;
-    for(const panel of panels.sort(cmpTops)) {
-        console.log(panel.top, vSoFar);
-        if(panel.top < vSoFar) {
-            panel.top = vSoFar;
-            panel.style.top = vSoFar + "px";
-        }
-        vSoFar = panel.top + panel.height + 15;
-    }
-}
-
-function cmpTops(a,b) {
-    return a.top - b.top;
-}
-
-window.addEventListener("load", repositionAnnoPanels);
-window.addEventListener("resize", repositionAnnoPanels);
-}</script>
 <script>/* script-dfn-panel */
+
 "use strict";
 {
     function queryAll(sel) {
@@ -1563,6 +1566,7 @@ window.addEventListener("resize", repositionAnnoPanels);
             panelWrapper.style.height = "0px";
             dfn.insertAdjacentElement("afterend", panelWrapper);
             dfn.setAttribute('role', 'button');
+            dfn.setAttribute('aria-haspopup', 'menu');
             dfn.setAttribute('aria-expanded', 'false')
             dfn.tabIndex = 0;
             dfn.classList.add('has-dfn-panel');
@@ -1599,3 +1603,9 @@ window.addEventListener("resize", repositionAnnoPanels);
     }
 }
 </script>
+<script>/* script-mdn-anno */
+document.body.addEventListener("click", (e) => {
+    if(e.target.closest(".mdn-anno-btn")) {
+        e.target.closest(".mdn-anno").classList.toggle("wrapped");
+    }
+});</script>

@@ -146,7 +146,7 @@ The <dfn>compress flush and enqueue</dfn> algorithm, which handles the end of da
 <pre class="idl">
 [Exposed=*]
 interface DecompressionStream {
-  constructor(DOMString format);
+  constructor(CompressionFormat format);
 };
 DecompressionStream includes GenericTransformStream;
 </pre>

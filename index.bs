@@ -1,16 +1,8 @@
 <pre class="metadata">
-Title: Compression Streams
+Group: WHATWG
+H1: Compression
 Shortname: compression
-Level: none
-Status: CG-DRAFT
-Group: wicg
-ED: https://wicg.github.io/compression/
-Editor: Canon Mukai, Google
-Editor: Adam Rice, Google
-Abstract:
-  This document defines a set of JavaScript APIs to compress and decompress
-  streams of binary data.
-Repository: wicg/compression
+Abstract: This document defines a set of JavaScript APIs to compress and decompress streams of binary data.
 Indent: 2
 Markup Shorthands: markdown yes
 Boilerplate: omit conformance
@@ -230,5 +222,9 @@ function decompressBlob(blob) {
 }
 </pre>
 
-# Acknowledgments #  {#acknowledgments}
-The editors wish to thank Domenic Denicola and Yutaka Hirano, for their support.
+<h2 class="no-num" id="acknowledgments">Acknowledgments</h2>
+Thanks to Canon Mukai, Domenic Denicola, and Yutaka Hirano, for their support.
+
+This standard is written by Adam Rice (<a href="https://google.com">Google</a>, <a href="mailto:ricea@chromium.org">ricea@chromium.org</a>).
+
+<p boilerplate=ipr>This Living Standard was originally developed in the W3C WICG, where it was available under the [W3C Software and Document License](https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document).

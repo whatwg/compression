@@ -6,7 +6,6 @@ Text Macro: TWITTER compressionstandard
 Abstract: This document defines a set of JavaScript APIs to compress and decompress streams of binary data.
 Indent: 2
 Markup Shorthands: markdown yes
-Boilerplate: omit conformance
 </pre>
 <pre class="link-defaults">
 spec:streams; type:interface; text:ReadableStream

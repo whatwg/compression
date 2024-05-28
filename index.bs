@@ -2,6 +2,7 @@
 Group: WHATWG
 H1: Compression
 Shortname: compression
+Text Macro: TWITTER compressionstandard
 Abstract: This document defines a set of JavaScript APIs to compress and decompress streams of binary data.
 Indent: 2
 Markup Shorthands: markdown yes

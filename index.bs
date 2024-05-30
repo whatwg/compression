@@ -147,48 +147,54 @@ However, web developers have to pay attention to the situation when attackers ca
 
 ## Gzip-compress a stream ##  {#example-gzip-compress-stream}
 
-<pre class="example" highlight="js">
+<div class="example" id="example-gzip-compress-stream-code">
+<pre highlight="js">
 const compressedReadableStream
     = inputReadableStream.pipeThrough(new CompressionStream('gzip'));
 </pre>
+</div>
 
 ## Deflate-compress an ArrayBuffer to a Uint8Array ##  {#example-deflate-compress}
 
-<pre class="example" highlight="js">
+<div class="example" id="example-deflate-compress-code">
+<pre highlight="js">
 async function compressArrayBuffer(input) {
   const cs = new CompressionStream('deflate');
+
   const writer = cs.writable.getWriter();
   writer.write(input);
   writer.close();
+
   const output = [];
-  const reader = cs.readable.getReader();
   let totalSize = 0;
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done)
-      break;
+  for (const chunk of cs.readable) {
     output.push(value);
     totalSize += value.byteLength;
   }
+
   const concatenated = new Uint8Array(totalSize);
   let offset = 0;
   for (const array of output) {
     concatenated.set(array, offset);
     offset += array.byteLength;
   }
+
   return concatenated;
 }
 </pre>
+</div>
 
 ## Gzip-decompress a Blob to Blob ##  {#example-gzip-decompress}
 
-<pre class="example" highlight="js">
+<div class="example" id="example-gzip-decompress-code">
+<pre highlight="js">
 function decompressBlob(blob) {
   const ds = new DecompressionStream('gzip');
   const decompressionStream = blob.stream().pipeThrough(ds);
   return new Response(decompressionStream).blob();
 }
 </pre>
+</div>
 
 <h2 class="no-num" id="acknowledgments">Acknowledgments</h2>
 Thanks to Canon Mukai, Domenic Denicola, and Yutaka Hirano, for their support.

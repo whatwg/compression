@@ -169,7 +169,7 @@ The <dfn>decompress flush and enqueue</dfn> algorithm, which handles the end of 
     1. For each {{Uint8Array}} *array*, [=TransformStream/enqueue=] *array* in *ds*'s [=GenericTransformStream/transform=].
 
 
-# Privacy and Security Considerations #  {#privacy-security}
+# Privacy and security considerations #  {#privacy-security}
 
 The API doesn't add any new privileges to the web platform.
 

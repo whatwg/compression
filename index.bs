@@ -7,18 +7,6 @@ Abstract: This document defines a set of JavaScript APIs to compress and decompr
 Indent: 2
 Markup Shorthands: markdown yes
 </pre>
-<pre class="link-defaults">
-spec:streams; type:interface; text:ReadableStream
-</pre>
-<pre class="anchors">
-urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMASCRIPT-6.0
-  type: dfn
-    text: fulfilled; url: sec-promise-objects
-    text: rejected; url: sec-promise-objects
-    text: pending; url: sec-promise-objects
-    text: resolved; url: sec-promise-objects
-    text: settled; url: sec-promise-objects
-</pre>
 
 # Introduction #    {#introduction}
 
@@ -26,33 +14,13 @@ urlPrefix: http://www.ecma-international.org/ecma-262/6.0/index.html; spec: ECMA
 
 The APIs specified in this specification are used to compress and decompress streams of data. They support "deflate", "deflate-raw" and "gzip" as compression algorithms. They are widely used by web developers.
 
-# Conformance #  {#conformance}
+# Infrastructure #  {#infrastructure}
 
-As well as sections marked as non-normative, all authoring guidelines,
-diagrams, examples, and notes in this specification are non-normative.
-Everything else in this specification is normative.
-
-The key words *MUST* and *SHOULD* are to be interpreted as described in
-[[!RFC2119]].
-
-This specification defines conformance criteria that apply to a single product:
-the user agent that implements the interfaces that it contains.
-
-Conformance requirements phrased as algorithms or specific steps may be
-implemented in any manner, so long as the end result is equivalent. (In
-particular, the algorithms defined in this specification are intended to be
-easy to follow, and not intended to be performant.)
-
-Implementations that use ECMAScript to implement the APIs defined in this
-specification MUST implement them in a manner consistent with the ECMAScript
-Bindings defined in the Web IDL specification [[!WebIDL]], as this
-specification uses that specification and terminology.
-
-# Terminology #  {#terminology}
+This specification depends on <cite>Infra</cite>. [[!INFRA]]
 
 A chunk is a piece of data. In the case of CompressionStream and DecompressionStream, the output chunk type is Uint8Array. They accept any {{BufferSource}} type as input.
 
-A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in [[!WHATWG-STREAMS]].
+A stream represents an ordered sequence of chunks. The terms {{ReadableStream}} and {{WritableStream}} are defined in <cite>Streams</cite>. [[!STREAMS]]
 
 A <dfn>compression context</dfn> is the internal state maintained by a compression or decompression algorithm. The contents of a <a>compression context</a> depend on the format, algorithm and implementation in use. From the point of view of this specification, it is an opaque object. A <a>compression context</a> is initially in a start state such that it anticipates the first byte of input.
 

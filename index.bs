@@ -94,16 +94,16 @@ The <dfn>compress and enqueue a chunk</dfn> algorithm, given a {{CompressionStre
     1. If |chunk| is not a {{BufferSource}} type, then throw a {{TypeError}}.
     1. Let |buffer| be the result of compressing |chunk| with |cs|'s <a for=CompressionStream>format</a> and <a for=CompressionStream>context</a>.
     1. If |buffer| is empty, return.
-    1. Split |buffer| into one or more non-empty pieces and convert them into {{Uint8Array}}s.
-    1. For each {{Uint8Array}} |array|, [=TransformStream/enqueue=] |array| in |cs|'s [=GenericTransformStream/transform=].
+    1. Let |arrays| be the result of splitting |buffer| into one or more non-empty pieces and converting them into {{Uint8Array}}s.
+    1. [=list/For each=] {{Uint8Array}} |array| of |arrays|, [=TransformStream/enqueue=] |array| in |cs|'s [=GenericTransformStream/transform=].
 </div>
 
 <div algorithm>
 The <dfn>compress flush and enqueue</dfn> algorithm, which handles the end of data from the input {{ReadableStream}} object, given a {{CompressionStream}} object |cs|, runs these steps:
     1. Let |buffer| be the result of compressing an empty input with |cs|'s <a for=CompressionStream>format</a> and <a for=CompressionStream>context</a>, with the finish flag.
     1. If |buffer| is empty, return.
-    1. Split |buffer| into one or more non-empty pieces and convert them into {{Uint8Array}}s.
-    1. For each {{Uint8Array}} |array|, [=TransformStream/enqueue=] |array| in |cs|'s [=GenericTransformStream/transform=].
+    1. Let |arrays| be the result of splitting |buffer| into one or more non-empty pieces and converting them into {{Uint8Array}}s.
+    1. [=list/For each=] {{Uint8Array}} |array| of |arrays|, [=TransformStream/enqueue=] |array| in |cs|'s [=GenericTransformStream/transform=].
 </div>
 
 
@@ -134,8 +134,8 @@ The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a {{Decompression
     1. If |chunk| is not a {{BufferSource}} type, then throw a {{TypeError}}.
     1. Let |buffer| be the result of decompressing |chunk| with |ds|'s <a for=DecompressionStream>format</a> and <a for=DecompressionStream>context</a>. If this results in an error, then throw a {{TypeError}}.
     1. If |buffer| is empty, return.
-    1. Split |buffer| into one or more non-empty pieces and convert them into {{Uint8Array}}s.
-    1. For each {{Uint8Array}} |array|, [=TransformStream/enqueue=] |array| in |ds|'s [=GenericTransformStream/transform=].
+    1. Let |arrays| be the result of splitting |buffer| into one or more non-empty pieces and converting them into {{Uint8Array}}s.
+    1. [=list/For each=] {{Uint8Array}} |array| of |arrays|, [=TransformStream/enqueue=] |array| in |ds|'s [=GenericTransformStream/transform=].
 </div>
 
 <div algorithm>
@@ -143,8 +143,8 @@ The <dfn>decompress flush and enqueue</dfn> algorithm, which handles the end of 
     1. Let |buffer| be the result of decompressing an empty input with |ds|'s <a for=DecompressionStream>format</a> and <a for=DecompressionStream>context</a>, with the finish flag.
     1. If the end of the compressed input has not been reached, then throw a {{TypeError}}.
     1. If |buffer| is empty, return.
-    1. Split |buffer| into one or more non-empty pieces and convert them into {{Uint8Array}}s.
-    1. For each {{Uint8Array}} |array|, [=TransformStream/enqueue=] |array| in |ds|'s [=GenericTransformStream/transform=].
+    1. Let |arrays| be the result of splitting |buffer| into one or more non-empty pieces and converting them into {{Uint8Array}}s.
+    1. [=list/For each=] {{Uint8Array}} |array| of |arrays|, [=TransformStream/enqueue=] |array| in |ds|'s [=GenericTransformStream/transform=].
 </div>
 
 

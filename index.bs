@@ -136,6 +136,7 @@ The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a {{Decompression
     1. If |buffer| is empty, return.
     1. Split |buffer| into one or more non-empty pieces and convert them into {{Uint8Array}}s.
     1. For each {{Uint8Array}} |array|, [=TransformStream/enqueue=] |array| in |ds|'s [=GenericTransformStream/transform=].
+</div>
 
 <div algorithm>
 The <dfn>decompress flush and enqueue</dfn> algorithm, which handles the end of data from the input {{ReadableStream}} object, given a {{DecompressionStream}} object |ds|, runs these steps:

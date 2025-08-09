@@ -6,6 +6,8 @@ Text Macro: TWITTER compressionapi
 Text Macro: LATESTRD 2025-04
 Abstract: This document defines a set of JavaScript APIs to compress and decompress streams of binary data.
 Translation: zh-Hans https://htmlspecs.com/compression/
+Translation: ja https://jp.htmlspecs.com/compression/
+Translation: ko https://ko.htmlspecs.com/compression/
 Indent: 2
 Markup Shorthands: markdown yes
 </pre>

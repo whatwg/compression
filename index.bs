@@ -139,7 +139,7 @@ The <dfn>decompress and enqueue a chunk</dfn> algorithm, given a {{Decompression
     1. If |buffer| is empty, return.
     1. Let |arrays| be the result of splitting |buffer| into one or more non-empty pieces and converting them into {{Uint8Array}}s.
     1. [=list/For each=] {{Uint8Array}} |array| of |arrays|, [=TransformStream/enqueue=] |array| in |ds|'s [=GenericTransformStream/transform=].
-    1. If the end of the compressed input has been reached, and [=DecompressionStream/context=] has not fully consumed |chunk|, then throw a {{TypeError}}.
+    1. If the end of the compressed input has been reached, and |ds|'s [=DecompressionStream/context=] has not fully consumed |chunk|, then throw a {{TypeError}}.
 </div>
 
 <div algorithm>

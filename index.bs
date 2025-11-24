@@ -64,10 +64,17 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
    * A `gzip` stream may only contain one "member".
    * It is an error if there is additional input data after the end of the "member".
 
+: {{CompressionFormat/brotli}}
+:: "Brotli Compressed Data Format" [[!RFC7932]]
+
+   * Implementation must be "compliant" as described in [[!RFC7932]] section 1.4.
+   * Non-[[!RFC1951]]-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.
+
 # Interface `CompressionStream` #  {#compression-stream}
 
 <pre class="idl">
 enum CompressionFormat {
+  "brotli",
   "deflate",
   "deflate-raw",
   "gzip",

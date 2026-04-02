@@ -30,36 +30,42 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 
 # Supported formats # {#supported-formats}
 
+: {{CompressionFormat/brotli}}
+:: "Brotli Compressed Data Format" [[!RFC7932]]
+
+   * Implementation must be "compliant" as described in [[!RFC7932]] section 1.4.
+   * Non-[[!RFC7932]]-conforming blocks must not be created by {{CompressionStream}}, and are errors for {{DecompressionStream}}.
+
 : {{CompressionFormat/deflate}}
 :: "ZLIB Compressed Data Format" [[!RFC1950]]
 
    Note: This format is referred to as "deflate" for consistency with HTTP Content-Encodings. See [[RFC7230 obsolete]] section 4.2.2.
 
    * Implementations must be "compliant" as described in [[!RFC1950]] section 2.3.
-   * Field values described as invalid in [[!RFC1950]] must not be created by CompressionStream, and are errors for DecompressionStream.
+   * Field values described as invalid in [[!RFC1950]] must not be created by {{CompressionStream}}, and are errors for {{DecompressionStream}}.
    * The only valid value of the `CM` (Compression method) part of the `CMF` field is 8.
    * The `FDICT` flag is not supported by these APIs, and will error the stream if set.
-   * The `FLEVEL` flag is ignored by DecompressionStream.
-   * It is an error for DecompressionStream if the `ADLER32` checksum is not correct.
+   * The `FLEVEL` flag is ignored by {{DecompressionStream}}.
+   * It is an error for {{DecompressionStream}} if the `ADLER32` checksum is not correct.
    * It is an error if there is additional input data after the `ADLER32` checksum.
 
 : {{CompressionFormat/deflate-raw}}
 :: "The DEFLATE algorithm" [[!RFC1951]]
 
    * Implementations must be "compliant" as described in [[!RFC1951]] section 1.4.
-   * Non-[[!RFC1951]]-conforming blocks must not be created by CompressionStream, and are errors for DecompressionStream.
+   * Non-[[!RFC1951]]-conforming blocks must not be created by {{CompressionStream}}, and are errors for {{DecompressionStream}}.
    * It is an error if there is additional input data after the final block indicated by the `BFINAL` flag.
 
 : {{CompressionFormat/gzip}}
 :: "GZIP file format" [[!RFC1952]]
 
    * Implementations must be "compliant" as described in [[!RFC1952]] section 2.3.1.2.
-   * Field values described as invalid in [[!RFC1952]] must not be created by CompressionStream, and are errors for DecompressionStream.
+   * Field values described as invalid in [[!RFC1952]] must not be created by {{CompressionStream}}, and are errors for {{DecompressionStream}}.
    * The only valid value of the `CM` (Compression Method) field is 8.
-   * The `FTEXT` flag must be ignored by DecompressionStream.
+   * The `FTEXT` flag must be ignored by {{DecompressionStream}}.
    * If the `FHCRC` field is present, it is an error for it to be incorrect.
-   * The contents of any `FEXTRA`, `FNAME` and `FCOMMENT` fields must be ignored by DecompressionStream, except to verify that they are terminated correctly.
-   * The contents of the `MTIME`, `XFL` and `OS` fields must be ignored by DecompressionStream.
+   * The contents of any `FEXTRA`, `FNAME` and `FCOMMENT` fields must be ignored by {{DecompressionStream}}, except to verify that they are terminated correctly.
+   * The contents of the `MTIME`, `XFL` and `OS` fields must be ignored by {{DecompressionStream}}.
    * It is an error if `CRC32` or `ISIZE` do not match the decompressed data.
    * A `gzip` stream may only contain one "member".
    * It is an error if there is additional input data after the end of the "member".
@@ -68,6 +74,7 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 
 <pre class="idl">
 enum CompressionFormat {
+  "brotli",
   "deflate",
   "deflate-raw",
   "gzip",

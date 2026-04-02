@@ -30,6 +30,12 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
 
 # Supported formats # {#supported-formats}
 
+: {{CompressionFormat/brotli}}
+:: "Brotli Compressed Data Format" [[!RFC7932]]
+
+   * Implementation must be "compliant" as described in [[!RFC7932]] section 1.4.
+   * Non-[[!RFC7932]]-conforming blocks must not be created by {{CompressionStream}}, and are errors for {{DecompressionStream}}.
+
 : {{CompressionFormat/deflate}}
 :: "ZLIB Compressed Data Format" [[!RFC1950]]
 
@@ -63,12 +69,6 @@ A <dfn>compression context</dfn> is the internal state maintained by a compressi
    * It is an error if `CRC32` or `ISIZE` do not match the decompressed data.
    * A `gzip` stream may only contain one "member".
    * It is an error if there is additional input data after the end of the "member".
-
-: {{CompressionFormat/brotli}}
-:: "Brotli Compressed Data Format" [[!RFC7932]]
-
-   * Implementation must be "compliant" as described in [[!RFC7932]] section 1.4.
-   * Non-[[!RFC7932]]-conforming blocks must not be created by {{CompressionStream}}, and are errors for {{DecompressionStream}}.
 
 # Interface `CompressionStream` #  {#compression-stream}
 

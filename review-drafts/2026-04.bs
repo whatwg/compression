@@ -1,5 +1,7 @@
 <pre class="metadata">
 Group: WHATWG
+Status: RD
+Date: 2026-04-20
 H1: Compression
 Shortname: compression
 Text Macro: TWITTER compressionapi
